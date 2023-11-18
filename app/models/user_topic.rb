@@ -14,7 +14,7 @@
 #  index_user_topics_on_topic_id  (topic_id) UNIQUE
 #  index_user_topics_on_user_id   (user_id) UNIQUE
 #
-class UserTopics < ActiveRecord::Base
+class UserTopic < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :topic
