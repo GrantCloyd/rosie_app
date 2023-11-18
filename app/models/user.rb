@@ -12,14 +12,18 @@
 #
 class User < ActiveRecord::Base
 
+
+  validates :email, uniqueness: true
+  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP }
+
   has_secure_password
+  
+  has_one :user_preferences
 
   has_many :user_reactions
   has_many :user_topics
-  has_one :user_preferences
-
-  validates :email, uniqueness: true
-
+  has_many :invitations
+ 
   enum role: {
     general: 0, 
     admin: 1,

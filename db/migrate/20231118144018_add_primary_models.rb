@@ -54,10 +54,20 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     end
 
     create_table :user_reactions do |t|
-      t.belongs_to :user,  foreign_key: true, index: {unique: true}
+      t.belongs_to :user, foreign_key: true, index: {unique: true}
       t.integer :reaction_status, null: false
       t.references :reactionable, polymorphic: true
       
+      t.timestamps
+    end
+
+    create_table :invitations do |t| 
+      t.belongs_to :topic, foreign_key: true, index: {unique: true}
+      t.belongs_to :user, foreign_key: true, index: {unique: true}
+      t.text :note
+      t.string :target_email, null: false
+      t.integer :status, default: 0
+
       t.timestamps
     end
   end

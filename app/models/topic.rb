@@ -24,6 +24,7 @@
 class Topic < ActiveRecord::Base
   
   has_many :posts
+  has_many :invitations
   has_many :moderators, through: :user_topics
   has_many :subscribers, through: :user_topics
 end

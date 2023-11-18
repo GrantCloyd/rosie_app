@@ -22,6 +22,7 @@
 class Post < ActiveRecord::Base
   
   has_one :topic
+  
   has_many :comments, as: :commentable
   has_many :reactions, as: :reactionable 
 end

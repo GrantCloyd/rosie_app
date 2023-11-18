@@ -25,6 +25,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_comments_on_user_id", unique: true
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "user_id"
+    t.text "note"
+    t.string "target_email", null: false
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_invitations_on_topic_id", unique: true
+    t.index ["user_id"], name: "index_invitations_on_user_id", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -88,6 +100,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "invitations", "topics"
+  add_foreign_key "invitations", "users"
   add_foreign_key "posts", "topics", column: "topics_id"
   add_foreign_key "topics", "user_topics", column: "moderator_id"
   add_foreign_key "topics", "user_topics", column: "subscriber_id"
