@@ -1,0 +1,23 @@
+<div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content"> 
+    <%= form_for topic do |f| %>
+      <p class="max-w-l">
+        <%= f.label :title %> <br> <%= f.text_field :title %>
+      </p>
+
+      <p class="max-w-l mt-4">
+        <%= f.label :description %> 
+        <br>
+        <%= f.text_area :description %>
+      </p>
+
+      <p  class="max-w-l mt-4">
+        <%= f.label :status%>
+        <br>
+        <%= f.select :status, Topic.creation_display_statuses %>
+      </p>
+
+      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+        <%= f.submit  %>
+      </button>
+    <% end %>
+  </div>

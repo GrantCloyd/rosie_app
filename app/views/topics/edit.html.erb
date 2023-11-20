@@ -1,0 +1,13 @@
+<div class="container-md">
+  <h1 class="text-3xl font-bold text-slate-200 underline"> Topic Details </h1>
+
+  <%= render "topics-buttons", state: :show, cached: true %>
+  
+  <%= render "form" , topic: @topic %>
+
+
+<button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+  <%= link_to "Cancel Edit", topic_path(@topic.id) %>
+</button>
+
+</div>

@@ -1,7 +1,9 @@
 <div class="container-md">
   <h1 class="text-3xl font-bold text-slate-200 underline"> Topic Details </h1>
 
-  <%= render "topics-buttons", state: :show, cached: true %>
+  <%= render "topics-buttons", state: :show, topic: @topic, cached: true %>
+
+  <%= render "flash" %>
 
   <div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl"> 
      <p class="my-5 p-2"> <span class="font-bold"> <%= @topic.title %> </span> </p>
@@ -10,5 +12,9 @@
 
      <p class="my-5 p-2"> Status: <%= @topic.status.titleize %> </p> 
   </div>
+
+<button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+  <%= link_to "Edit Topic", edit_topic_path(@topic.id) %>
+</button>
 
 </div>

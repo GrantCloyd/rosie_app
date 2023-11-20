@@ -1,7 +1,9 @@
 <div class="container-md">
-<h1 class="text-3xl font-bold text-slate-200 underline"> Topics </h1>
-
+  <h1 class="text-3xl font-bold text-slate-200 underline"> Topics </h1>
+ 
   <%= render "topics-buttons", state: :index, cached: true %>
+
+  <%= render "flash" %>
 
   <div class="bg-slate-200 mt-5">
     <table class="border-collapse table-auto w-full text-sm">
@@ -20,9 +22,15 @@
             <td class="border-b border-slate-100 p-4 text-slate-500"> <%= topic.description %> </td>
             <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= topic.status.titleize %> </td>
             <td class="border-b border-slate-100 p-4 pr-12 text-slate-500">
-               <%= link_to 'View', topic_path(topic.id) %>
-               |
-               Edit
+              <button class="bg-slate-300 border-slate-500 p-1 hover:text-emerald-600">
+               <%= link_to "View", topic_path(topic.id) %>
+               </button>
+               <button class="bg-slate-300 p-1 hover:text-emerald-600">
+               <%= link_to "Edit", edit_topic_path(topic.id) %>
+               </button>
+               <button class="bg-slate-300 p-1 hover:text-emerald-600">
+               <%= link_to "Delete", topic_path(topic.id), data: { turbo_method: :delete } %>
+               </button>
                </td>
           </tr>
         <% end%>
