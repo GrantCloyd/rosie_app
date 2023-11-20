@@ -53,11 +53,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.text "description", null: false
     t.integer "status", default: 0
     t.bigint "moderator_id"
-    t.bigint "subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["moderator_id"], name: "index_topics_on_moderator_id"
-    t.index ["subscriber_id"], name: "index_topics_on_subscriber_id"
   end
 
   create_table "user_preferences", force: :cascade do |t|
@@ -104,7 +102,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   add_foreign_key "invitations", "users"
   add_foreign_key "posts", "topics", column: "topics_id"
   add_foreign_key "topics", "user_topics", column: "moderator_id"
-  add_foreign_key "topics", "user_topics", column: "subscriber_id"
   add_foreign_key "user_preferences", "users"
   add_foreign_key "user_reactions", "users"
 end

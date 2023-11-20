@@ -21,6 +21,7 @@ class UserTopic < ActiveRecord::Base
 
   enum role: {
     subscriber: 0,
-    moderator: 1 
+    moderator: 1, 
+    creator: 2 
   }
 end

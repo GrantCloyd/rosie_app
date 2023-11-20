@@ -14,6 +14,12 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
+# tailwind css
+gem "tailwindcss-rails", "~> 2.0"
+
+# pry gem
+gem 'pry', '~> 0.14.2'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
@@ -53,7 +59,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # annotate gems
+  # annotate gem for clearer classes
   gem 'annotate'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]

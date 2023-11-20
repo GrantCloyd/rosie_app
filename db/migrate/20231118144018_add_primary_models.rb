@@ -29,8 +29,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.string :title, null: false
       t.text :description, null: false
       t.integer :status, default: 0
-      t.belongs_to :moderator, foreign_key: {to_table: :user_topics}
-      t.belongs_to :subscriber, foreign_key: {to_table: :user_topics}
       
       t.timestamps
     end
