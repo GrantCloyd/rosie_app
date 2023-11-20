@@ -1,7 +1,7 @@
 <div class="container-md">
   <h1 class="text-3xl font-bold text-slate-200 underline"> Topic Details </h1>
 
-  <%= render "topics-buttons", cached: true %>
+  <%= render "topics-buttons", state: :show, cached: true %>
 
   <div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl"> 
      <p class="my-5 p-2"> <span class="font-bold"> <%= @topic.title %> </span> </p>
