@@ -1,0 +1,30 @@
+<div class="container-md">
+<h1 class="text-3xl font-bold text-slate-200 underline"> Topics </h1>
+
+  <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+    <%= link_to "Create New Topic", new_topic_path %>
+  </button>
+
+  <div class="bg-slate-200 mt-5">
+    <table class="border-collapse table-auto w-full text-sm">
+      <thead class="pt-5">
+        <tr> 
+          <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left"> Title </th>
+          <th class="border-b font-medium p-4 pt-0 pb-3 text-slate-400 text-left"> Description </th>
+          <th class="border-b font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 text-left"> Status </th>
+          <th class="border-b font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 text-left"> Actions </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <% @topics.each do |topic| %>
+          <tr>
+            <td class="border-b border-slate-100 p-4 pl-8 text-slate-500"> <%= topic.title %> </td>
+            <td class="border-b border-slate-100 p-4 text-slate-500"> <%= topic.description %> </td>
+            <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= topic.status.titleize %> </td>
+            <td class="border-b border-slate-100 p-4 pr-10 text-slate-500"> View | Edit </td>
+          </tr>
+        <% end%>
+      </tbody>
+    </table>
+  </div>
+</div>
