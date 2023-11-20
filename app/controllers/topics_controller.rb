@@ -5,7 +5,6 @@ class TopicsController < ApplicationController
   end
 
   def create
-    binding.pry
     Topic.create!(topics_params)
     
     redirect_to request.referer, notice: "Successfuly created"
