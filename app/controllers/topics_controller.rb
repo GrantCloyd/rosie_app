@@ -8,6 +8,10 @@ class TopicsController < ApplicationController
     @topic = Topic.new
   end
 
+  def show
+    @topic = Topic.find(params[:id])
+  end
+
   def create
     Topic.create!(topics_params)
     
