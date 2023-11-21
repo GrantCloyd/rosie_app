@@ -34,4 +34,8 @@ class Post < ActiveRecord::Base
     published: 1, 
     hidden: 2
   }
+
+  def display_published_on
+    published_on&.strftime("%D")
+  end
 end

@@ -20,7 +20,7 @@
             <td class="border-b border-slate-100 p-4 pl-8 text-slate-500"> <%= post.title %> </td>
             <td class="border-b border-slate-100 p-4 text-slate-500"> <%= post.description %> </td>
             <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= post.status.titleize %> </td>
-            <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= post.published_on %> </td>
+            <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= post.display_published_on %> </td>
             <td class="border-b border-slate-100 p-4 pr-12 text-slate-500">
               <button class="bg-slate-300 border-slate-500 p-1 hover:text-emerald-600">
                  <%= link_to "View", topic_post_path(@topic.id, post.id) %>
