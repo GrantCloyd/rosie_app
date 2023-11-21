@@ -15,26 +15,26 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "content", null: false
-    t.string "commentable_type"
-    t.bigint "commentable_id"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
-    t.index ["user_id"], name: "index_comments_on_user_id", unique: true
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.bigint "topic_id"
-    t.bigint "user_id"
+    t.bigint "topic_id", null: false
+    t.bigint "user_id", null: false
     t.text "note"
     t.string "target_email", null: false
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_invitations_on_topic_id", unique: true
-    t.index ["user_id"], name: "index_invitations_on_user_id", unique: true
+    t.index ["topic_id"], name: "index_invitations_on_topic_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -42,10 +42,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.text "description", null: false
     t.text "content", null: false
     t.integer "status", default: 0
-    t.bigint "topics_id"
+    t.bigint "topic_id", null: false
+    t.date "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topics_id"], name: "index_posts_on_topics_id", unique: true
+    t.index ["topic_id"], name: "index_posts_on_topic_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -57,7 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   end
 
   create_table "user_preferences", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.boolean "moderator_email_notifications", default: true
     t.boolean "subscriber_email_notifications", default: true
     t.datetime "created_at", null: false
@@ -66,24 +67,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   end
 
   create_table "user_reactions", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.integer "reaction_status", null: false
-    t.string "reactionable_type"
-    t.bigint "reactionable_id"
+    t.string "reactionable_type", null: false
+    t.bigint "reactionable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_user_reactions_on_reactionable"
-    t.index ["user_id"], name: "index_user_reactions_on_user_id", unique: true
+    t.index ["user_id"], name: "index_user_reactions_on_user_id"
   end
 
   create_table "user_topics", force: :cascade do |t|
     t.integer "role", null: false
-    t.bigint "user_id"
-    t.bigint "topic_id"
+    t.bigint "user_id", null: false
+    t.bigint "topic_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_user_topics_on_topic_id", unique: true
-    t.index ["user_id"], name: "index_user_topics_on_user_id", unique: true
+    t.index ["topic_id"], name: "index_user_topics_on_topic_id"
+    t.index ["user_id"], name: "index_user_topics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -98,7 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   add_foreign_key "comments", "users"
   add_foreign_key "invitations", "topics"
   add_foreign_key "invitations", "users"
-  add_foreign_key "posts", "topics", column: "topics_id"
+  add_foreign_key "posts", "topics"
   add_foreign_key "user_preferences", "users"
   add_foreign_key "user_reactions", "users"
 end

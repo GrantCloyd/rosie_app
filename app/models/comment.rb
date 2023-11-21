@@ -3,17 +3,17 @@
 # Table name: comments
 #
 #  id               :bigint           not null, primary key
-#  commentable_type :string
+#  commentable_type :string           not null
 #  content          :text             not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  commentable_id   :bigint
-#  user_id          :bigint
+#  commentable_id   :bigint           not null
+#  user_id          :bigint           not null
 #
 # Indexes
 #
 #  index_comments_on_commentable  (commentable_type,commentable_id)
-#  index_comments_on_user_id      (user_id) UNIQUE
+#  index_comments_on_user_id      (user_id)
 #
 # Foreign Keys
 #

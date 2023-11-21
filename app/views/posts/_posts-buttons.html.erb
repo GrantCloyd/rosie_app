@@ -1,11 +1,11 @@
 <% if state != :new %>
   <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
-    <%= link_to "Create New Topic", new_topic_path %>
+    <%= link_to "Create New Post", new_topic_post_path %>
   </button>
 <% end%>
 
 <% if state != :index %>
   <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
-    <%= link_to "Topics", topics_path %>
+    <%= link_to "Posts", topic_posts_path %>
   </button>
 <% end%>

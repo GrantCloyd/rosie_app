@@ -8,13 +8,13 @@
 #  target_email :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  topic_id     :bigint
-#  user_id      :bigint
+#  topic_id     :bigint           not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
-#  index_invitations_on_topic_id  (topic_id) UNIQUE
-#  index_invitations_on_user_id   (user_id) UNIQUE
+#  index_invitations_on_topic_id  (topic_id)
+#  index_invitations_on_user_id   (user_id)
 #
 # Foreign Keys
 #

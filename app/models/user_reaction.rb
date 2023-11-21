@@ -4,16 +4,16 @@
 #
 #  id                :bigint           not null, primary key
 #  reaction_status   :integer          not null
-#  reactionable_type :string
+#  reactionable_type :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  reactionable_id   :bigint
-#  user_id           :bigint
+#  reactionable_id   :bigint           not null
+#  user_id           :bigint           not null
 #
 # Indexes
 #
 #  index_user_reactions_on_reactionable  (reactionable_type,reactionable_id)
-#  index_user_reactions_on_user_id       (user_id) UNIQUE
+#  index_user_reactions_on_user_id       (user_id)
 #
 # Foreign Keys
 #

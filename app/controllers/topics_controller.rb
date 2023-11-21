@@ -45,6 +45,8 @@ class TopicsController < ApplicationController
     redirect_to topics_path, notice: "This topic no longer exists"
   end
 
+  private
+
   def topics_params
     params.require(:topic).permit(:description, :title, :status)
   end
