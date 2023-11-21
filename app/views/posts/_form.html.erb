@@ -1,5 +1,5 @@
 <div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content">
-  <% url_path = state == :new ? topic_posts_path : topic_post_path(@post) %> 
+  <% url_path = view == :new ? topic_posts_path : topic_post_path(@post) %> 
     <%= form_for post, url: url_path do |f| %>
       <p class="max-w-l">
         <%= f.label :title %> <br> <%= f.text_field :title %>

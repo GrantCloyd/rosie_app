@@ -1,8 +1,8 @@
 <div class="container-md">
   <h1 class="text-3xl font-bold text-slate-200 underline"> Create New Post for "<%= @topic.title %>"</h1>
 
-  <%= render "posts-buttons", state: :new, cached: true %>
+  <%= render "posts-buttons", view: :new, cached: true %>
 
-  <%= render "form", post: @post, state: :new %>
+  <%= render "form", post: @post, view: :new %>
 
 </div>
