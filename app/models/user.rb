@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
   
-  has_one :user_preferences
+  has_one :user_preference, dependent: :destroy
 
   has_many :user_reactions
   has_many :user_topics

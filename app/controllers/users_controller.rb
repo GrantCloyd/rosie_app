@@ -1,18 +1,22 @@
 class UsersController < ApplicationController
 
   def new
-    @user = User.new(
+    @user ||= User.new(
       role: :general
     )
   end
 
   def create
-    User.create!(user_params)
+    @user = Users::CreatorService.new(user_params: user_params).call
 
-    redirect_to request.referer, notice: "User created, please log-in" 
-
-    rescue ActiveRecord::RecordInvalid => error
-      redirect_to request.referer, notice: "Error: #{error.message}"
+    if @user.errors.present?
+      respond_to do |format|
+        format.turbo_stream { flash.now[:alert] = "#{@user.errors.full_messages.to_sentence}"}
+        format.html { render :new } 
+      end
+    else 
+      redirect_to request.referer, notice: "Account created! Please log-in"
+    end
   end
 
   private

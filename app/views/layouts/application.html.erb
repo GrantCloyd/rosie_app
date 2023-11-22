@@ -13,7 +13,9 @@
 
   <body class="container mx-auto mt-28 px-5 bg-emerald-700">
     <main>
-      <%= render "layouts/flash" %>
+      <div id="flash">
+        <%= render "layouts/flash" %> 
+      </div>
       <%= yield %>
     </main>
   </body>
