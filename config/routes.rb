@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :topics do 
     resources :posts do 
       member do 
-        get :publish
+        get :publish, :unpublish
       end
     end
   end

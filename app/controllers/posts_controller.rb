@@ -41,9 +41,19 @@ class PostsController < ApplicationController
 
   def publish
     @post = Post.find(params[:id])
-    @post.update(status: :published, published_on: Date.current)
+    @post.update!(status: :published, published_on: Date.current)
 
-    redirect_to topic_posts_path, notice: "Post published!"
+    redirect_to topic_posts_path, notice: "'#{@post.title}' has been published!"
+
+    rescue ActiveRecord::RecordNotFound
+      redirect_to topic_posts_path, notice: "This post could not be found"
+  end
+
+  def unpublish
+    @post = Post.find(params[:id])
+    @post.update!(status: :hidden)
+
+    redirect_to topic_posts_path, notice: "'#{@post.title}' has been hidden!"
 
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: "This post could not be found"
