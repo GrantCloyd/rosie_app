@@ -12,9 +12,10 @@
 #
 class User < ActiveRecord::Base
 
-
   validates :email, uniqueness: true
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :full_name, length: { in: 3..120 }
+  validates :email, :full_name, :password_digest, presence: true
 
   has_secure_password
   

@@ -1,0 +1,23 @@
+<div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content">
+    <%= form_for user do |f| %>
+      <p class="max-w-l">
+        <%= f.label :full_name %>: <%= f.text_field :full_name %>
+      </p>
+
+      <p class="max-w-l mt-4">
+        <%= f.label :email %>: <%= f.text_field :email %>
+      </p>
+
+      <p  class="max-w-l mt-4">
+        <%= f.label :password %>: <%= f.password_field :password %>
+      </p>
+
+      <p  class="max-w-l mt-4">
+        <%= f.label :password_confirmation %>: <%= f.password_field :password_confirmation %>
+      </p>
+
+      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+        <%= f.submit "Create Account" %>
+      </button>
+    <% end %>
+  </div>

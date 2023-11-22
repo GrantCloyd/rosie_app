@@ -18,6 +18,9 @@ class Topic < ActiveRecord::Base
   has_many :moderators, through: :user_topics
   has_many :subscribers, through: :user_topics
 
+  validates :title, length: {in: 3..120}
+  validates :description, length: { in: 3..250 }
+
   enum status: {
     closed: 0, 
     open: 1,
