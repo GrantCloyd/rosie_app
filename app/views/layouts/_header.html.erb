@@ -1,0 +1,5 @@
+<% if session[:user_id].present? %>
+  <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4 absolute top-0 right-0 mr-4" >
+    <%= link_to "Log out", session_path(session[:user_id]), data: {turbo_method: :delete} %>
+  </button>
+<% end %>

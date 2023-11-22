@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = Users::CreatorService.new(user_params: user_params).call
+    @user = Users::CreatorService.new(params: user_params).call
 
     if @user.errors.present?
       respond_to do |format|

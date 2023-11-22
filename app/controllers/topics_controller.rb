@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_action :ensure_logged_in
 
   def index
-    @topics = Topic.all
+    @topics = Topic.joins(:user_topics).where(user_topics: {user: current_user})
   end
 
   def new
@@ -28,12 +28,16 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.create!(topics_params)
+    @topic = Topics::CreatorService.new(params: topics_params, user: current_user).call
     
-    redirect_to topic_path(@topic), notice: "Successfuly created!"
-
-    rescue ArgumentError => error
-      redirect_to request.referer, notice: "Not Sucessfully created. Error: #{error.message}"
+    if @topic.errors.present?
+      respond_to do |format|
+        format.turbo_stream { flash.now[:alert] = "#{@user.errors.full_messages.to_sentence}"}
+        format.html { render :new } 
+      end
+    else
+      redirect_to topic_path(@topic), notice: "Successfuly created!"
+    end
   end
 
   def destroy
