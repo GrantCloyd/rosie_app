@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  
   def new
     @user = User.new(
       role: :general
@@ -15,13 +15,13 @@ class UsersController < ApplicationController
         format.html { render :new } 
       end
     else 
-      redirect_to request.referer, notice: "Account created! Please log-in"
+      redirect_to new_session_path, notice: "Account created! Please log-in"
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:full_name, :password, :email, :role)
+    params.require(:user).permit(:full_name, :password, :password_confirmation, :email, :role)
   end
 end

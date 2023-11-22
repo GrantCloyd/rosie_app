@@ -30,11 +30,11 @@
                </button>
                <% if !post.published? %>
                 <button class="bg-slate-300 p-1 hover:text-emerald-600">
-                 <%= link_to "Publish", publish_topic_post_path(@topic.id, post.id), method: :get %>
+                 <%= link_to "Publish", publish_topic_post_path(@topic.id, post.id), data: {turbo_method: :post} %>
                </button>
               <% else %>
               <button class="bg-slate-300 p-1 hover:text-emerald-600">
-                 <%= link_to "Unpublish", unpublish_topic_post_path(@topic.id, post.id), method: :get %>
+                 <%= link_to "Unpublish", unpublish_topic_post_path(@topic.id, post.id), data: {turbo_method: :post} %>
                </button>
                <% end %>
                <%# <% <button class="bg-slate-300 p-1 hover:text-emerald-600"> %>

@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :ensure_logged_in
   before_action :set_topic
 
   def new

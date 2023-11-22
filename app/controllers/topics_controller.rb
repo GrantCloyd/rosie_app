@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  before_action :ensure_logged_in
 
   def index
     @topics = Topic.all
