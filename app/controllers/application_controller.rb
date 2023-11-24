@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
     @current_user = nil
   end
 
-  def render_turb_flash_alert(format, message )
+  def render_turbo_flash_alert(format, message )
     format.turbo_stream do 
       flash.now[:alert] = message
       render "layouts/flash"

@@ -32,7 +32,7 @@ class TopicsController < ApplicationController
     
     if topic.errors.present?
       respond_to do |format|
-        render_turb_flash_alert(format, "#{topic.errors.full_messages.to_sentence}")
+        render_turbo_flash_alert(format, "#{topic.errors.full_messages.to_sentence}")
         format.html { render :new } 
       end
     else

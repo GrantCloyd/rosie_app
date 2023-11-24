@@ -12,7 +12,7 @@ class Topics::InvitesController < Topics::BaseTopicsController
 
     if invite.errors.present?
       respond_to do |format|
-        render_turb_flash_alert(format, "#{invite.errors.full_messages.to_sentence}")
+        render_turbo_flash_alert(format, "#{invite.errors.full_messages.to_sentence}")
         format.html { render :new } 
       end 
     else
@@ -29,7 +29,7 @@ class Topics::InvitesController < Topics::BaseTopicsController
     if mass_add_service.results[:errors].any?
       respond_to do |format|
        format.html { render :new } 
-       render_turb_flash_alert(format, "#{mass_add_service.display_error_messages}")
+       render_turbo_flash_alert(format, "#{mass_add_service.display_error_messages}")
       end
     else
       redirect_to new_topic_invite_path(@topic.id), notice: "Invites sent!"
