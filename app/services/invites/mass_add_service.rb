@@ -25,8 +25,8 @@ module Invites
     end
 
     def display_error_messages
-      @results[:errors].each_with_object([]).with_index(1) do |(invalid_invite, error_array), indx|
-        error_array << "#{indx}: Invite for #{invalid_invite.target_email} could not be sent: #{invalid_invite.errors.full_messages.to_sentence}"
+      @results[:errors].each_with_object([]) do |invalid_invite, error_array|
+        error_array << "** Invite for #{invalid_invite.target_email} could not be sent: #{invalid_invite.errors.full_messages.to_sentence}"
       end.join("\n\n")
     end
   end

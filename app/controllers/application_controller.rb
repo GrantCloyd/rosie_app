@@ -24,4 +24,11 @@ class ApplicationController < ActionController::Base
     session.delete(:user_id)
     @current_user = nil
   end
+
+  def render_turb_flash_alert(format, message )
+    format.turbo_stream do 
+      flash.now[:alert] = message
+      render "layouts/flash"
+    end
+  end
 end

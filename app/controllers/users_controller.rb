@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
     if @user.errors.present?
       respond_to do |format|
-        format.turbo_stream { flash.now[:alert] = "#{@user.errors.full_messages.to_sentence}"}
+        render_turb_flash_alert(format, "#{@user.errors.full_messages.to_sentence}")
         format.html { render :new } 
       end
     else 

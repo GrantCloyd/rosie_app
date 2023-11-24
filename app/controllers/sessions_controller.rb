@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to topics_path
     else
       respond_to do |format|
-        format.turbo_stream { flash.now[:alert] = "Password or email incorrect"}
+        render_turb_flash_alert(format, "Password or email incorrect")
         format.html { render :new}
       end
     end
