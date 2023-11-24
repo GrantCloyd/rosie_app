@@ -6,7 +6,7 @@ module Invites
 
     def initialize(params:, topic:)
       @params = params
-      @target_emails = params[:target_emails].split(' ')
+      @target_emails = params[:target_emails].split
       @topic = topic
       @results = { success: [], errors: [] }
     end
