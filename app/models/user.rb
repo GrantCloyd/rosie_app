@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   has_many :user_reactions
   has_many :user_topics
-  has_many :invitations
+  has_many :invites
  
   enum role: {
     general: 0, 

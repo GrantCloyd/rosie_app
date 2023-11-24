@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "invitations", force: :cascade do |t|
+  create_table "invites", force: :cascade do |t|
     t.bigint "topic_id", null: false
     t.bigint "user_id"
     t.text "note"
@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.integer "invite_tier", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_invitations_on_topic_id"
-    t.index ["user_id"], name: "index_invitations_on_user_id"
+    t.index ["topic_id"], name: "index_invites_on_topic_id"
+    t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -98,8 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   end
 
   add_foreign_key "comments", "users"
-  add_foreign_key "invitations", "topics"
-  add_foreign_key "invitations", "users"
+  add_foreign_key "invites", "topics"
+  add_foreign_key "invites", "users"
   add_foreign_key "posts", "topics"
   add_foreign_key "user_preferences", "users"
   add_foreign_key "user_reactions", "users"

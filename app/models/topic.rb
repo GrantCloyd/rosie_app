@@ -14,7 +14,7 @@ class Topic < ActiveRecord::Base
   has_one :creator, through: :user_topics
   
   has_many :posts
-  has_many :invitations
+  has_many :invites
   has_many :user_topics
 
   validates :title, length: {in: 3..120}

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: invitations
+# Table name: invites
 #
 #  id           :bigint           not null, primary key
 #  invite_tier  :integer          default("subscriber")
@@ -14,15 +14,15 @@
 #
 # Indexes
 #
-#  index_invitations_on_topic_id  (topic_id)
-#  index_invitations_on_user_id   (user_id)
+#  index_invites_on_topic_id  (topic_id)
+#  index_invites_on_user_id   (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (topic_id => topics.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class Invitation < ActiveRecord::Base
+class Invite < ActiveRecord::Base
   
   validates :target_email, format: {with: URI::MailTo::EMAIL_REGEXP }
 

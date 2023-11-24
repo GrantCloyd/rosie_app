@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :topics do 
-    resources :invitations, only: [:new, :create], controller: 'topics/invitations'
+    resources :invites, only: [:new, :create], controller: 'topics/invites'
     resources :posts, controller: 'topics/posts' do 
       member do 
         post :publish, :unpublish

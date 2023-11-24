@@ -60,7 +60,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :invitations do |t| 
+    create_table :invites do |t| 
       t.belongs_to :topic, foreign_key: true, null: false
       t.belongs_to :user, foreign_key: true
       t.text :note
