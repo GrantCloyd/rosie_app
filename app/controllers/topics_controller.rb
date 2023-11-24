@@ -28,15 +28,15 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topics::CreatorService.new(params: topics_params, user: current_user).call
+    topic = Topics::CreatorService.new(params: topics_params, user: current_user).call
     
-    if @topic.errors.present?
+    if topic.errors.present?
       respond_to do |format|
-        format.turbo_stream { flash.now[:alert] = "#{@user.errors.full_messages.to_sentence}"}
+        format.turbo_stream { flash.now[:alert] = "#{topic.errors.full_messages.to_sentence}"}
         format.html { render :new } 
       end
     else
-      redirect_to topic_path(@topic), notice: "Successfuly created!"
+      redirect_to topic_path(topic), notice: "Successfuly created!"
     end
   end
 

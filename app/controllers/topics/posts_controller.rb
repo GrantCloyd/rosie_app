@@ -3,7 +3,6 @@ class Topics::PostsController < Topics::BaseTopicsController
   before_action :set_topic
 
   def new
-    @post = Post.new
   end
 
   def show

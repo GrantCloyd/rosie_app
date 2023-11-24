@@ -1,5 +1,5 @@
 <% flash.each do |type, message| %>
-    <p class="max-w-md my-5 bg-slate-100">
-      <%= message %>
-    </p>
+    <div class="max-w-md my-5 bg-slate-100">
+      <%= simple_format message %>
+    </div>
 <% end %>

@@ -1,31 +1,12 @@
 <div class="container-md">
   <h1 class="text-3xl font-bold text-slate-200 underline"> Invite new member for "<%= @topic.title %>"</h1>
 
-  <div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content">
-    <%= form_for @invite, url: topic_invites_path do |f| %>
-      <p class="max-w-l">
-        <%= f.label :target_email %> <br> <%= f.text_field :target_email %>
-      </p>
+  <% view_state = @mass_add_view ? :mass_add : :new %>
+  
+  <%= render "invites-buttons", view: view_state %>
+  <%= render "form", invite: @invite, mass_add_view: @mass_add_view %>
 
-      <p  class="max-w-l mt-4">
-        <%= f.label :invite_tier%>
-        <br>
-        <%= f.select :invite_tier, invite_creation_invite_tier_options %>
-      </p>
-
-      <p class="max-w-l mt-4">
-        <%= f.label :note %> (Optional)
-        <br>
-        <%= f.text_area :note %>
-      </p>
-
-      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
-        <%= f.submit "Send invite"%>
-      </button>
-
-    <% end %>
-  </div>
-      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
-        <%= link_to "Cancel invite", topic_path(@topic) %>
-      </button>
+  <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+    <%= link_to "Cancel invite", topic_path(@topic) %>
+  </button>
 </div>
