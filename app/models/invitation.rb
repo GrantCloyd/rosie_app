@@ -3,13 +3,14 @@
 # Table name: invitations
 #
 #  id           :bigint           not null, primary key
+#  invite_tier  :integer          default("subscriber")
 #  note         :text
-#  status       :integer          default(0)
+#  status       :integer          default("pending")
 #  target_email :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  topic_id     :bigint           not null
-#  user_id      :bigint           not null
+#  user_id      :bigint
 #
 # Indexes
 #
@@ -26,8 +27,7 @@ class Invitation < ActiveRecord::Base
   validates :target_email, format: {with: URI::MailTo::EMAIL_REGEXP }
 
   belongs_to :topic
-  
-  has_one :user, optional: true
+  belongs_to :user, optional: true
 
   enum status: {
     pending: 0,
@@ -35,4 +35,6 @@ class Invitation < ActiveRecord::Base
     accepted: 2, 
     rejected: 3 
   }
+
+  enum invite_tier: UserTopic.roles
 end

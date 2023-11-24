@@ -62,10 +62,11 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     create_table :invitations do |t| 
       t.belongs_to :topic, foreign_key: true, null: false
-      t.belongs_to :user, foreign_key: true, null: false
+      t.belongs_to :user, foreign_key: true
       t.text :note
       t.string :target_email, null: false
       t.integer :status, default: 0
+      t.integer :invite_tier, default: 0
 
       t.timestamps
     end

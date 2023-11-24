@@ -14,7 +14,16 @@
   <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
     <%= link_to "Edit Topic", edit_topic_path(@topic.id) %>
   </button>
+  
   <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
     <%= link_to "New Post", new_topic_post_path(@topic.id) %>
+  </button>
+
+   <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+    <%= link_to "View Posts", topic_posts_path(@topic.id) %>
+  </button>
+
+  <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+    <%= link_to "Invite to this topic", new_topic_invitation_path(@topic.id) %>
   </button>
 </div>

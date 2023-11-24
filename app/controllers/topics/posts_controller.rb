@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+class Topics::PostsController < Topics::BaseTopicsController
   before_action :ensure_logged_in
   before_action :set_topic
 
@@ -64,9 +64,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :description, :content)
-  end
-
-  def set_topic
-    @topic = Topic.find(params[:topic_id])
   end
 end
