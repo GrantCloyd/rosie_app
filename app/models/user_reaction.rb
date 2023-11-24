@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_reactions
@@ -20,14 +22,13 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserReaction < ActiveRecord::Base
-  
-  has_one :user 
+  has_one :user
   has_one :reactionable
 
   enum reaction_status: {
-    like: 0, 
-    love: 1, 
-    care: 2, 
+    like: 0,
+    love: 1,
+    care: 2,
     thank: 3
   }
 end

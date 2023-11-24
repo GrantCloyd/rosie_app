@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_topics
@@ -15,13 +17,12 @@
 #  index_user_topics_on_user_id   (user_id)
 #
 class UserTopic < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :topic
 
   enum role: {
     subscriber: 0,
-    moderator: 1, 
-    creator: 2 
+    moderator: 1,
+    creator: 2
   }
 end

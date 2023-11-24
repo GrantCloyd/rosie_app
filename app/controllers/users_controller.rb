@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  
   def new
     @user = User.new(
       role: :general
@@ -11,11 +12,11 @@ class UsersController < ApplicationController
 
     if @user.errors.present?
       respond_to do |format|
-        render_turbo_flash_alert(format, "#{@user.errors.full_messages.to_sentence}")
-        format.html { render :new } 
+        render_turbo_flash_alert(format, @user.errors.full_messages.to_sentence.to_s)
+        format.html { render :new }
       end
-    else 
-      redirect_to new_session_path, notice: "Account created! Please log-in"
+    else
+      redirect_to new_session_path, notice: 'Account created! Please log-in'
     end
   end
 

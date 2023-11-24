@@ -1,16 +1,17 @@
-module Topics
-  class CreatorService 
+# frozen_string_literal: true
 
+module Topics
+  class CreatorService
     def initialize(params:, user:)
       @topic = Topic.new(params)
       @user = user
     end
 
     def call
-      ActiveRecord::Base.transaction do 
+      ActiveRecord::Base.transaction do
         if @topic.valid?
-         create_user_topic!
-         @topic.save!
+          create_user_topic!
+          @topic.save!
         end
 
         @topic
@@ -22,7 +23,7 @@ module Topics
     def create_user_topic!
       user_topic = UserTopic.new(
         user: @user,
-        topic: @topic, 
+        topic: @topic,
         role: :creator
       )
       user_topic.save!

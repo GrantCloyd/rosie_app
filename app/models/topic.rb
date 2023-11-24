@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: topics
@@ -10,18 +12,17 @@
 #  updated_at  :datetime         not null
 #
 class Topic < ActiveRecord::Base
-  
   has_one :creator, through: :user_topics
-  
+
   has_many :posts
   has_many :invites
   has_many :user_topics
 
-  validates :title, length: {in: 3..120}
+  validates :title, length: { in: 3..120 }
   validates :description, length: { in: 3..250 }
 
   enum status: {
-    closed: 0, 
+    closed: 0,
     open: 1,
     deactivated: 2
   }

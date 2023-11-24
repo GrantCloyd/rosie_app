@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: invites
@@ -23,8 +25,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Invite < ActiveRecord::Base
-  
-  validates :target_email, format: {with: URI::MailTo::EMAIL_REGEXP }
+  validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   belongs_to :topic
   belongs_to :user, optional: true
@@ -32,8 +33,8 @@ class Invite < ActiveRecord::Base
   enum status: {
     pending: 0,
     invited: 1,
-    accepted: 2, 
-    rejected: 3 
+    accepted: 2,
+    rejected: 3
   }
 
   enum invite_tier: UserTopic.roles

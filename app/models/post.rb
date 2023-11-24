@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -21,21 +23,20 @@
 #  fk_rails_...  (topic_id => topics.id)
 #
 class Post < ActiveRecord::Base
-
   validates :content, :title, :description, :topic_id, presence: true
-  
+
   has_one :topic
-  
+
   has_many :comments, as: :commentable
-  has_many :reactions, as: :reactionable 
+  has_many :reactions, as: :reactionable
 
   enum status: {
-    pending: 0, 
-    published: 1, 
+    pending: 0,
+    published: 1,
     hidden: 2
   }
 
   def display_published_on
-    published_on&.strftime("%D")
+    published_on&.strftime('%D')
   end
 end

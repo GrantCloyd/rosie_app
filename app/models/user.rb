@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -11,24 +13,22 @@
 #  updated_at      :datetime         not null
 #
 class User < ActiveRecord::Base
-
   validates :email, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :full_name, length: { in: 3..120 }
   validates :email, :full_name, :password_digest, presence: true
 
   has_secure_password
-  
+
   has_one :user_preference, dependent: :destroy
 
   has_many :user_reactions
   has_many :user_topics
   has_many :invites
- 
+
   enum role: {
-    general: 0, 
+    general: 0,
     admin: 1,
     super_admin: 2
   }
-
 end

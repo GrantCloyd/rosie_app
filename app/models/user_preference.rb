@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_preferences
@@ -18,6 +20,5 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserPreference < ActiveRecord::Base
-
   belongs_to :user
 end

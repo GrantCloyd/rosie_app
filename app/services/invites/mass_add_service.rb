@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Invites
   class MassAddService
     attr_reader :results
-  
+
     def initialize(params:, topic:)
       @params = params
-      @target_emails = params[:target_emails].split(" ")
+      @target_emails = params[:target_emails].split(' ')
       @topic = topic
       @results = { success: [], errors: [] }
     end
@@ -12,10 +14,10 @@ module Invites
     def call
       @target_emails.each do |email|
         invite = Invites::CreatorService.new(
-          params: @params.except(:target_emails).merge({target_email: email}),
+          params: @params.except(:target_emails).merge({ target_email: email }),
           topic: @topic
         ).call
-      
+
         if invite.errors.present?
           @results[:errors] << invite
         else

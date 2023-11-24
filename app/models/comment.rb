@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: comments
@@ -22,6 +24,6 @@
 class Comment < ActiveRecord::Base
   has_one :user
   has_one :commented_on, as: :commentable
-  
+
   has_many :comments, as: :commentable
 end
