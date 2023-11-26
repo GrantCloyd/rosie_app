@@ -1,5 +1,5 @@
 <div class="container-md">
-  <h1 class="text-3xl font-bold text-slate-200 underline"> Sign in </h1>
+  <h1 class='<%="#{primary_header}"%>'> Sign in </h1>
 
    <%= form_with url: sessions_path, data: { turbo_method: :post} do |f| %>
       <p class="max-w-l mt-4">
@@ -14,12 +14,12 @@
         <%= f.password_field :password %>
       </p>
 
-      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4 ml-2" >
+      <button class='<%="#{secondary_button} ml-2"%>' >
         <%= f.submit "Sign in" %>
       </button>
 
-      <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4 ml-14" >
+      <button class='<%="#{secondary_button} ml-14"%>'>
         <%= link_to "Sign up", new_user_path %>
       </button>
-      <% end %>
+    <% end %>
 </div>

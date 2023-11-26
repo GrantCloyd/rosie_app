@@ -9,6 +9,10 @@ module Topics
 
     def new; end
 
+    def index
+      @invites = @topic.invites
+    end
+
     def create
       invite = Invites::CreatorService.new(params: invite_params, topic: @topic).call
 

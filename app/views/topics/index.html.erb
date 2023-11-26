@@ -1,5 +1,5 @@
 <div class="container-md">
-  <h1 class="text-3xl font-bold text-slate-200 underline"> Topics </h1>
+  <h1 class='<%="#{primary_header}"%>'> Topics </h1>
  
   <%= render "topics-buttons", view: :index, cached: true %>
 
@@ -7,26 +7,26 @@
     <table class="border-collapse table-auto w-full text-sm">
       <thead class="pt-5">
         <tr> 
-          <th class="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left"> Title </th>
-          <th class="border-b font-medium p-4 pt-0 pb-3 text-slate-400 text-left"> Description </th>
-          <th class="border-b font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 text-left"> Status </th>
-          <th class="border-b font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 text-left"> Actions </th>
+          <th class='<%="#{primary_th} pl-8"%>'> Title </th>
+          <th class='<%="#{primary_th}"%>'> Description </th>
+          <th class='<%="#{primary_th} pr-8"%>'> Status </th>
+          <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
       <tbody class="bg-white">
         <% @topics.each do |topic| %>
           <tr>
-            <td class="border-b border-slate-100 p-4 pl-8 text-slate-500"> <%= topic.title %> </td>
-            <td class="border-b border-slate-100 p-4 text-slate-500"> <%= topic.description %> </td>
-            <td class="border-b border-slate-100 p-4 pr-8 text-slate-500"> <%= topic.status.titleize %> </td>
-            <td class="border-b border-slate-100 p-4 pr-12 text-slate-500">
-              <button class="bg-slate-300 border-slate-500 p-1 hover:text-emerald-600">
+            <td class='<%= "#{primary_td} pl-8"%>'> <%= topic.title %> </td>
+            <td class='<%= "#{primary_td}"%>'> <%= topic.description %> </td>
+            <td class='<%= "#{primary_td} pr-8"%>'> <%= topic.status.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-12"%>'>
+              <button class='<%="#{action_button}"%>'>
                 <%= link_to "View", topic_path(topic.id) %>
               </button>
-              <button class="bg-slate-300 p-1 hover:text-emerald-600">
+              <button class='<%="#{action_button}"%>'>
                 <%= link_to "Edit", edit_topic_path(topic.id) %>
               </button>
-              <button class="bg-slate-300 p-1 hover:text-emerald-600">
+              <button class='<%="#{action_button}"%>'>
                 <%= link_to "Delete", topic_path(topic.id), data: { turbo_method: :delete } %>
               </button>
             </td>

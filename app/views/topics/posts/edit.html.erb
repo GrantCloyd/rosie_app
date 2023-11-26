@@ -1,11 +1,11 @@
 <div class="container-md">
-  <h1 class="text-3xl font-bold text-slate-200 underline"> Post Details </h1>
+  <h1 class='<%="#{primary_header}"%>'> Post Details </h1>
 
   <%= render "posts-buttons", view: :edit, cached: true %>
   
   <%= render "form" , post: @post, view: :edit %>
 
-  <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+  <button class='<%="#{primary_button}"%>'>
     <%= link_to "Cancel Edit", topic_post_path(@topic.id, @post.id) %>
   </button>
 </div>

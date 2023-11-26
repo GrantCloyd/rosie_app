@@ -1,6 +1,6 @@
 <% url_path = view == :new ? topic_posts_path : topic_post_path(@post) %> 
 
-<div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content">
+<div class='<%="#{primary_form}"%>'>
   <%= form_with url: url_path do |f| %>
     <p class="max-w-l">
       <%= f.label :title %> <br> <%= f.text_field :title %>
@@ -18,7 +18,7 @@
       <%= f.text_area :content %>
     </p>
 
-    <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+    <button class='<%="#{secondary_button}"%>'>
       <%= f.submit %>
     </button>
   <% end %>

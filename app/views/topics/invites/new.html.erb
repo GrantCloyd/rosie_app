@@ -1,12 +1,12 @@
 <div class="container-md">
-  <h1 class="text-3xl font-bold text-slate-200 underline"> Invite new member for "<%= @topic.title %>"</h1>
+  <h1 class='<%="#{primary_header}"%>'> Invite new member for "<%= @topic.title %>"</h1>
 
   <% view_state = @mass_add_view ? :mass_add : :new %>
   
   <%= render "invites-buttons", view: view_state %>
   <%= render "form", invite: @invite, mass_add_view: @mass_add_view %>
 
-  <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+  <button class='<%="#{secondary_button}"%>' >
     <%= link_to "Cancel invite", topic_path(@topic) %>
   </button>
 </div>

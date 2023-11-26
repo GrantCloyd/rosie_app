@@ -4,7 +4,7 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - 'db/**/*.rb'
+    - 'db/**/*'
     - config/**/*
     - bin/**/*
     - lib/**/*

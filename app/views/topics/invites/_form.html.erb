@@ -1,6 +1,6 @@
 <% url_path = mass_add_view ?  mass_add_topic_invites_path : topic_invites_path %> 
 
-<div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl flex justify-content">
+<div class='<%="#{primary_form}"%>'>
   <%= form_with url: url_path do |f| %>
 
     <p  class="max-w-l mt-4">
@@ -25,7 +25,7 @@
       </p>
     <% end%>
 
-    <button class="bg-sky-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded mt-4" >
+    <button class='<%="#{secondary_button}"%>'>
       <%= f.submit "Send invite"%>
     </button>
   <% end %>

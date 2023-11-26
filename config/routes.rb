@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :topics do
-    resources :invites, only: %i[new create], controller: 'topics/invites' do
+    resources :invites, only: %i[new create index], controller: 'topics/invites' do
       collection do
         post :mass_add
       end

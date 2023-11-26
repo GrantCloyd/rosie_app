@@ -1,9 +1,9 @@
 <div class="container-md">
-  <h1 class="text-3xl font-bold text-slate-200 underline"> Post Details </h1>
+  <h1 class='<%="#{primary_header}"%>'> Post Details </h1>
 
   <%= render "posts-buttons", view: :show, cached: true %>
 
-  <div class="mt-10 p-10 shadow-md bg-slate-100 max-w-xl"> 
+  <div class='<%="#{primary_form}"%>'> 
      <p class="my-5 p-2"> <span class="font-bold"> <%= @post.title %> </span> </p>
 
      <p  class="p-2"> Description: <%= @post.description %> </p> 
@@ -17,10 +17,10 @@
      <p class="p-2"> Content: <%= @post.content %> </p>
   </div>
 
-  <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+  <button class='<%="#{primary_button}"%>'>
     <%= link_to "Edit Post", edit_topic_post_path(@topic.id) %>
   </button>
-  <button class="bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4">
+  <button class='<%="#{primary_button}"%>'>
     <%= link_to "New Post", new_topic_post_path(@topic.id) %>
   </button>
 </div>
