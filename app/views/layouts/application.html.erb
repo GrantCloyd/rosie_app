@@ -9,15 +9,18 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="/application-cbd3cd4.js" defer></script>
   </head>
 
   <body class="container flex justify-center mx-auto mt-28 px-5 bg-emerald-700">
     <main>
       <div id="flash">
-        <%= render "layouts/header" %>
+        <%= render "layouts/header", cached: true %>
         <%= render "layouts/flash" %> 
       </div>
-      <%= yield %>
+      <div id="main_view">
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

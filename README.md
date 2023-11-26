@@ -1,7 +1,5 @@
 # README
 
-Things you may want to cover:
-
 * Ruby/Rails versions
   - Ruby - 3.2.2
   - Rails - 7.1.2
