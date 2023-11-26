@@ -1,6 +1,8 @@
-<div class="container-md">
-  <h1 class='<%="#{primary_header}"%>'> Create Account </h1>
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
+    <h1 class='<%="#{primary_header}"%>'> Create Account </h1>
 
-  <%= render "form", user: @user %>
+    <%= render "form", user: @user %>
 
-</div>
+  </div>
+<% end %>

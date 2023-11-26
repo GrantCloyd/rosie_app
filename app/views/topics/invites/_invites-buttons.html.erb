@@ -1,15 +1,15 @@
 <button class='<%="#{primary_button}"%>'>
-  <%= link_to "'#{@topic.title}' Info", topic_path(@topic) %>
+  <%= link_to "'#{@topic.title}' Info", topic_path(@topic), data: {turbo_action: :advance} %>
 </button>
 
 <% if view == :mass_add %>
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Toggle Single Invite", new_topic_invite_path(@topic.id) %>
+    <%= link_to "Toggle Single Invite", new_topic_invite_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 <% end%>
 
 <% if view == :new %>
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Toggle Mass Invite", new_topic_invite_path(@topic.id, params: {mass_add_view: true}) %>
+    <%= link_to "Toggle Mass Invite", new_topic_invite_path(@topic.id, params: {mass_add_view: true}), data: {turbo_action: :advance} %>
   </button>
 <% end%>

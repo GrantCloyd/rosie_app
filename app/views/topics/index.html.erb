@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "main_view" do  %>
 <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Topics </h1>
  
@@ -21,13 +22,13 @@
             <td class='<%= "#{primary_td} pr-8"%>'> <%= topic.status.titleize %> </td>
             <td class='<%= "#{primary_td} pr-12"%>'>
               <button class='<%="#{action_button}"%>'>
-                <%= link_to "View", topic_path(topic.id) %>
+                <%= link_to "View", topic_path(topic.id), data: {turbo_action: :advance} %>
               </button>
               <button class='<%="#{action_button}"%>'>
-                <%= link_to "Edit", edit_topic_path(topic.id) %>
+                <%= link_to "Edit", edit_topic_path(topic.id), data: {turbo_action: :advance} %>
               </button>
               <button class='<%="#{action_button}"%>'>
-                <%= link_to "Delete", topic_path(topic.id), data: { turbo_method: :delete } %>
+                <%= link_to "Delete", topic_path(topic.id), data: {turbo_method: :delete } %>
               </button>
             </td>
           </tr>
@@ -36,3 +37,4 @@
     </table>
   </div>
 </div>
+<% end %>

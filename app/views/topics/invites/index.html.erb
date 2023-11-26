@@ -1,4 +1,5 @@
-<div class="container-md">
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Invites </h1>
 
   <%= render 'invites-buttons', cached: true, view: :index %>
@@ -25,4 +26,5 @@
       </tbody>
     </table>
   </div>
-</div>
+  </div>
+<% end %>  

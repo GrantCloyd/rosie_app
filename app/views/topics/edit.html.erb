@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "main_view" do  %>
 <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Topic Details </h1>
 
@@ -6,6 +7,7 @@
   <%= render "form" , topic: @topic %>
 
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Cancel Edit", topic_path(@topic.id) %>
+    <%= link_to "Cancel Edit", topic_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 </div>
+<% end %>

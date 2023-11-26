@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "main_view" do  %>
 <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Topic Details </h1>
 
@@ -12,22 +13,23 @@
   </div>
 
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Edit Topic", edit_topic_path(@topic.id) %>
+    <%= link_to "Edit Topic", edit_topic_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
   
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "New Post", new_topic_post_path(@topic.id) %>
+    <%= link_to "New Post", new_topic_post_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 
    <button class='<%="#{primary_button}"%>'>
-    <%= link_to "View Posts", topic_posts_path(@topic.id) %>
+    <%= link_to "View Posts", topic_posts_path(@topic.id), data: {turbo_action: :advance, turbo_vist_control: :reload} %>
   </button>
 
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "View invites", topic_invites_path(@topic.id) %>
+    <%= link_to "View invites", topic_invites_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Invite to this topic", new_topic_invite_path(@topic.id) %>
+    <%= link_to "Invite to this topic", new_topic_invite_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 </div>
+<% end%>

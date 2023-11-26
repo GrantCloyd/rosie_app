@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "main_view" do  %>
 <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Create New Topic </h1>
 
@@ -6,3 +7,4 @@
   <%= render "form", topic: @topic %>
 
 </div>
+<% end %>
