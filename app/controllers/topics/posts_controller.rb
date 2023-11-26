@@ -42,8 +42,11 @@ module Topics
       @post = Post.find(params[:id])
       @post.update!(status: :published, published_on: Date.current)
 
-      # TODO: add turboframe action
-      redirect_to topic_posts_path, notice: "'#{@post.title}' has been published!"
+      # TODO: - update individual item when published
+      respond_to do |format|
+        render_turbo_flash_alert(format, "'#{@post.title}' has been published!")
+        format.html { render :index }
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
@@ -52,8 +55,11 @@ module Topics
       @post = Post.find(params[:id])
       @post.update!(status: :hidden)
 
-      # TODO: add turboframe action
-      redirect_to topic_posts_path, notice: "'#{@post.title}' has been hidden!"
+      # TODO: - update individual item when unpublished
+      respond_to do |format|
+        render_turbo_flash_alert(format, "'#{@post.title}' has been hidden!")
+        format.html { render :index }
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
