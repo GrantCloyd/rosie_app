@@ -1,24 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 Things you may want to cover:
 
-* Ruby version
+* Ruby/Rails versions
+  - Ruby - 3.2.2
+  - Rails - 7.1.2
 
 * System dependencies
-
-* Configuration
+  - Postgresql@16
+  - tailwind-css 
 
 * Database creation
+  - Install and start postgresql service
+  - `rails db:migrate && rails db:seed`
 
-* Database initialization
+* Start App
+  - install Ruby 3.2.2
+  - run bundle
+  - build css - `rails tailwindcss:build`
+  - create db/seed if you haven't already
+  - `rails server`
+  - open app on localhost:3000
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * ...
