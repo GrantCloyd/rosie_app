@@ -13,9 +13,7 @@ module Topics
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
-    def index
-      @posts = @topic.posts
-    end
+    def index; end
 
     def edit
       @post = Post.find(params[:id])
@@ -38,13 +36,22 @@ module Topics
       redirect_to topic_posts_path, notice: 'New post created. Remember to publish!'
     end
 
+    def destroy
+      @post = Post.find(params[:id])
+      @post.destroy
+
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/destroy' }
+        format.html { render 'topics/posts/index', notice: 'Deleted' }
+      end
+    end
+
     def publish
       @post = Post.find(params[:id])
       @post.update!(status: :published, published_on: Date.current)
 
-      # TODO: - update individual item when published
       respond_to do |format|
-        render_turbo_flash_alert(format, "'#{@post.title}' has been published!")
+        format.turbo_stream { render 'topics/posts/streams/publish' }
         format.html { render :index }
       end
     rescue ActiveRecord::RecordNotFound
@@ -55,9 +62,8 @@ module Topics
       @post = Post.find(params[:id])
       @post.update!(status: :hidden)
 
-      # TODO: - update individual item when unpublished
       respond_to do |format|
-        render_turbo_flash_alert(format, "'#{@post.title}' has been hidden!")
+        format.turbo_stream { render 'topics/posts/streams/unpublish' }
         format.html { render :index }
       end
     rescue ActiveRecord::RecordNotFound

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  after_action -> { flash.clear }
+
   def log_in(user)
     session[:user_id] = user.id
   end

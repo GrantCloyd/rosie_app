@@ -1,0 +1,18 @@
+<div class="bg-slate-200 mt-5" id="posts-container">
+  <table class="border-collapse table-auto w-full text-sm">
+    <thead class="pt-5">
+      <tr> 
+        <th class='<%="#{primary_th} pl-8"%>'> Title </th>
+        <th class='<%="#{primary_th}"%>'> Description </th>
+        <th class='<%="#{primary_th} pr-8"%>'> Status </th>
+        <th class='<%="#{primary_th} pr-8"%>'> Published On </th>
+        <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <% posts.each do |post| %>
+        <%= render 'topics/posts/partials/post', topic: topic, post: post %>
+      <% end%>
+    </tbody>
+  </table>
+</div>

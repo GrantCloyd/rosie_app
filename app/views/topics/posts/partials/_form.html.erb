@@ -1,7 +1,7 @@
 <% url_path = view == :new ? topic_posts_path : topic_post_path(@post) %> 
 
 <div class='<%="#{primary_form}"%>'>
-  <%= form_with url: url_path do |f| %>
+  <%= form_with model: post, url: url_path do |f| %>
     <p class="max-w-l">
       <%= f.label :title %> <br> <%= f.text_field :title %>
     </p>
@@ -19,7 +19,7 @@
     </p>
 
     <button class='<%="#{secondary_button}"%>'>
-      <%= f.submit %>
+      <%= f.submit data: {turbo_action: :advance }%>
     </button>
   <% end %>
 </div>

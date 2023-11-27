@@ -13,10 +13,8 @@
 
   <body class="container flex justify-center mx-auto mt-28 px-5 bg-emerald-700">
     <main>
-      <div id="flash">
-        <%= render "layouts/header", cached: true %>
-        <%= render "layouts/flash" %> 
-      </div>
+      <%= render "layouts/header", cached: true %>
+      <%= render "layouts/flash", flash: flash %> 
       <div id="main_view">
         <%= yield %>
       </div>

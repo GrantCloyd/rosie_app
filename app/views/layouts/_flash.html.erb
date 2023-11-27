@@ -1,5 +1,7 @@
-<% flash.each do |type, message| %>
-    <div class="max-w-md my-5 bg-slate-100">
+<div class="max-w-md my-5 bg-slate-100" id="flash">
+  <% flash.each do |type, message| %>
+    <div>
       <%= simple_format message %>
     </div>
-<% end %>
+  <% end %>
+</div>

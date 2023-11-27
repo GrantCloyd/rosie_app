@@ -2,9 +2,9 @@
   <div class="container-md">
   <h1 class='<%="#{primary_header}"%>'> Create New Post for "<%= @topic.title %>"</h1>
 
-  <%= render "posts-buttons", view: :new, cached: true %>
+  <%= render "topics/posts/partials/posts-buttons", view: :new, cached: true %>
 
-  <%= render "form", post: @post, view: :new %>
+  <%= render "topics/posts/partials/form", post: Post.new, view: :new %>
 
   </div>
 <% end %>

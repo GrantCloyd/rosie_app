@@ -2,9 +2,9 @@
   <div class="container-md">
     <h1 class='<%="#{primary_header}"%>'> Post Details </h1>
 
-    <%= render "posts-buttons", view: :edit, cached: true %>
+    <%= render "topics/posts/partials/posts-buttons", view: :edit, cached: true %>
     
-    <%= render "form" , post: @post, view: :edit %>
+    <%= render "topics/posts/partials/form" , post: @post, view: :edit %>
 
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Cancel Edit", topic_post_path(@topic.id, @post.id), data: {turbo_action: :advance} %>
