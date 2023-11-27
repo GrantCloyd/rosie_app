@@ -60,6 +60,8 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/destroy' }
         format.html { render 'topics/posts/index', notice: 'Deleted' }
       end
+    rescue ActiveRecord::RecordNotFound
+      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def publish
