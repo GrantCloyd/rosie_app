@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "main_view" do %>
+  <%= render template: 'topics/posts/show', locals: {topic: @topic, post: @post} %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "#{@post.title} has been updated!" %>
+<% end %>

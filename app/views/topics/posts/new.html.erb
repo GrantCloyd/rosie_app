@@ -4,7 +4,7 @@
 
   <%= render "topics/posts/partials/posts-buttons", view: :new, cached: true %>
 
-  <%= render "topics/posts/partials/form", post: Post.new, view: :new %>
+  <%= render "topics/posts/partials/form", topic: @topic, post: Post.new, view: :new %>
 
   </div>
 <% end %>

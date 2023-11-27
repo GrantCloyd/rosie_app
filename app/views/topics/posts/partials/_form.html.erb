@@ -1,4 +1,4 @@
-<% url_path = view == :new ? topic_posts_path : topic_post_path(@post) %> 
+<% url_path = view == :new ? topic_posts_path : topic_post_path(topic, post) %> 
 
 <div class='<%="#{primary_form}"%>'>
   <%= form_with model: post, url: url_path do |f| %>

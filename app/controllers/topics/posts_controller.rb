@@ -35,7 +35,10 @@ module Topics
       @post = Post.find(params[:id])
       @post.update!(post_params)
 
-      redirect_to topic_post_path(@post), notice: 'Successfully updated!'
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/update' }
+        format.html { render :show }
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end

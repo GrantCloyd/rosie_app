@@ -4,7 +4,7 @@
 
     <%= render "topics/posts/partials/posts-buttons", view: :edit, cached: true %>
     
-    <%= render "topics/posts/partials/form" , post: @post, view: :edit %>
+    <%= render "topics/posts/partials/form" , topic:@topic, post: @post, view: :edit %>
 
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Cancel Edit", topic_post_path(@topic.id, @post.id), data: {turbo_action: :advance} %>
