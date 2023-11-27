@@ -14,8 +14,6 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/show' }
         format.html { render :show }
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def index; end
@@ -27,8 +25,6 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/edit' }
         format.html { render :edit }
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def update
@@ -39,8 +35,6 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/update' }
         format.html { render :show }
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def create
@@ -60,8 +54,6 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/destroy' }
         format.html { render 'topics/posts/index', notice: 'Deleted' }
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def publish
@@ -72,8 +64,6 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/publish' }
         format.html { render :index }
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
     def unpublish
@@ -84,7 +74,9 @@ module Topics
         format.turbo_stream { render 'topics/posts/streams/unpublish' }
         format.html { render :index }
       end
-    rescue ActiveRecord::RecordNotFound
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |_exception|
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
 
