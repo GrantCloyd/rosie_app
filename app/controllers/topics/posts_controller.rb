@@ -9,6 +9,11 @@ module Topics
 
     def show
       @post = Post.find(params[:id])
+
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/show' }
+        format.html { render :show }
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
@@ -17,6 +22,11 @@ module Topics
 
     def edit
       @post = Post.find(params[:id])
+
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/edit' }
+        format.html { render :edit }
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to topic_posts_path, notice: 'This post could not be found'
     end
@@ -33,7 +43,10 @@ module Topics
     def create
       @topic.posts.create!(post_params)
 
-      redirect_to topic_posts_path, notice: 'New post created. Remember to publish!'
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/create' }
+        format.html { render :index }
+      end
     end
 
     def destroy

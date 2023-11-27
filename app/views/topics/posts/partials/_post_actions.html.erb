@@ -17,5 +17,5 @@
 <% end %>
 
 <button class='<%="#{action_button}"%>'>
-    <%= link_to "Destroy", topic_post_path(topic.id, post.id), data: {turbo_method: :delete} %>
+    <%= link_to "Delete", topic_post_path(topic.id, post.id), data: {turbo_method: :delete} %>
 </button>

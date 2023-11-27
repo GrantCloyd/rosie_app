@@ -1,1 +1,5 @@
 <%= turbo_stream.remove "post-#{@post.id}" %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "#{@post.title} has been deleted" %>
+<% end %>

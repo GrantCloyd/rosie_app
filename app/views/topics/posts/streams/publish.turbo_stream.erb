@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "post-#{@post.id}" do %>
-  <%= render partial: 'post', locals: {topic: @topic, post: @post} %>
+  <%= render partial: 'topics/posts/partials/post', locals: {topic: @topic, post: @post} %>
 <% end %>
 
 <%= turbo_stream.update "flash" do %>

@@ -4,6 +4,6 @@
  
     <%= render "topics/posts/partials/posts-buttons", view: :index, cached: true %>
 
-    <%= render "topics/posts/partials/posts", topic: @topic, posts: @topic.posts %>
+    <%= render "topics/posts/partials/posts", topic: @topic, posts: @topic.posts.in_order %>
   </div>
 <% end %>

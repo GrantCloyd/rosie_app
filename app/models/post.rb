@@ -36,7 +36,7 @@ class Post < ActiveRecord::Base
     hidden: 2
   }
 
-  def display_published_on
-    published_on&.strftime('%D')
-  end
+  scope :in_order, lambda {
+    order(:published_on, :created_at)
+  }
 end
