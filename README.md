@@ -9,16 +9,19 @@
   - tailwind-css 
 
 * Database creation
-  - Install and start postgresql service
+  - Install postgresql service (ie `brew install postgresql@16` and make sure to add path to zshrc or bash config file per prompt)
+  - start postgresql service (ie `brew service start postgresql@16` or similar linux service command)
   - `rails db:create && rails db:migrate && rails db:seed`
 
 * Start App
-  - install Ruby 3.2.2
-  - run bundle
+  - install Ruby 3.2.2 (can use rbenv or asdf for version management)
+  - install rails (`sudo gem install rails`)
+  - run `bundle` in root directory
   - build css - `rails tailwindcss:build`
   - create db/seed if you haven't already
   - `rails server`
   - open app on localhost:3000
+  - profit
 
 
 * ...
