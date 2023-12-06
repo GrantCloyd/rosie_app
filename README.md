@@ -10,7 +10,7 @@
 
 * Database creation
   - Install and start postgresql service
-  - `rails db:migrate && rails db:seed`
+  - `rails db:create && rails db:migrate && rails db:seed`
 
 * Start App
   - install Ruby 3.2.2
