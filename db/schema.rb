@@ -25,16 +25,33 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "group_topics", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_topics_on_group_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "invites", force: :cascade do |t|
-    t.bigint "topic_id", null: false
+    t.bigint "group_id", null: false
     t.bigint "user_id"
     t.text "note"
     t.string "target_email", null: false
     t.integer "status", default: 0
-    t.integer "invite_tier", default: 0
+    t.integer "role_tier", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_invites_on_topic_id"
+    t.index ["group_id"], name: "index_invites_on_group_id"
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
@@ -54,8 +71,32 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.string "title", null: false
     t.text "description", null: false
     t.integer "status", default: 0
+    t.bigint "topic_group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["topic_group_id"], name: "index_topics_on_topic_group_id"
+  end
+
+  create_table "user_group_topics", force: :cascade do |t|
+    t.bigint "group_topic_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "permission_level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_topic_id"], name: "index_user_group_topics_on_group_topic_id"
+    t.index ["user_id", "group_topic_id"], name: "index_user_group_topics_on_user_id_and_group_topic_id", unique: true
+    t.index ["user_id"], name: "index_user_group_topics_on_user_id"
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.integer "role", null: false
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_user_groups_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_user_groups_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
   create_table "user_preferences", force: :cascade do |t|
@@ -78,16 +119,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_user_reactions_on_user_id"
   end
 
-  create_table "user_topics", force: :cascade do |t|
-    t.integer "role", null: false
-    t.bigint "user_id", null: false
-    t.bigint "topic_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_user_topics_on_topic_id"
-    t.index ["user_id"], name: "index_user_topics_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "full_name", null: false
     t.string "email", null: false
@@ -98,7 +129,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   end
 
   add_foreign_key "comments", "users"
-  add_foreign_key "invites", "topics"
+  add_foreign_key "invites", "groups"
   add_foreign_key "invites", "users"
   add_foreign_key "posts", "topics"
   add_foreign_key "user_preferences", "users"
