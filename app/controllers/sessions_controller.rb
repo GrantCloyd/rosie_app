@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: sessions_params[:email].downcase)
     if user&.authenticate(sessions_params[:password])
       log_in user
-      redirect_to topics_path
+      redirect_to groups_path
     else
       respond_to do |format|
         render_turbo_flash_alert(format, 'Password or email incorrect')

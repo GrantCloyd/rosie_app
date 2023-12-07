@@ -1,0 +1,17 @@
+<div class='<%="#{primary_form}"%>'> 
+    <%= form_for group do |f| %>
+      <p class="max-w-l">
+        <%= f.label :title %> <br> <%= f.text_field :title %>
+      </p>
+
+      <p  class="max-w-l mt-4">
+        <%= f.label :status%>
+        <br>
+        <%= f.select :status, topic_creation_display_statuses %>
+      </p>
+
+      <button class='<%="#{secondary_button}"%>' >
+        <%= f.submit  %>
+      </button>
+    <% end %>
+  </div>

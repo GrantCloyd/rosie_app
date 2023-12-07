@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
+    <h1 class='<%="#{primary_header}"%>'> Groups </h1>
+
+    <%= render "groups-buttons", view: :index, cached: true %>
+
+    <%= render "groups/partials/groups", groups: @groups %>
+  </div>
+<% end %>

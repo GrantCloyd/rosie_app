@@ -16,7 +16,8 @@ class UsersController < ApplicationController
         format.html { render :new }
       end
     else
-      redirect_to new_session_path, notice: 'Account created! Please log-in'
+      # TODO - refactor to have notice appear
+      redirect_to new_session_path, notice: "Account created. Please Log-in"
     end
   end
 

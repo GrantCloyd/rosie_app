@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   before_action :ensure_logged_in
 
   def index
-    @topics = Topic.joins(:user_topics).where(user_topics: { user: current_user })
+    @topics = Topic.all
   end
 
   def new

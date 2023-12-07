@@ -1,0 +1,17 @@
+ <div class="bg-slate-200 mt-5">
+    <table class="border-collapse table-auto w-full text-sm">
+      <thead class="pt-5">
+        <tr> 
+          <th class='<%="#{primary_th} pl-8"%>'> Title </th>
+          <th class='<%="#{primary_th}"%>'> Description </th>
+          <th class='<%="#{primary_th} pr-8"%>'> Status </th>
+          <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <% groups.each do |group| %>
+           <%= render 'groups/partials/group', group: group %>
+        <% end%>
+      </tbody>
+    </table>
+  </div>

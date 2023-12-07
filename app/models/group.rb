@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: groups
@@ -9,4 +11,11 @@
 #  updated_at :datetime         not null
 #
 class Group < ActiveRecord::Base
+    has_many :user_groups
+
+    enum status: {
+        closed: 0,
+        open: 1,
+        deactivated: 2
+      }
 end
