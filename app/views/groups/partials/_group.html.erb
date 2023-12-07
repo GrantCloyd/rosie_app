@@ -1,6 +1,7 @@
 <tr id='<%= "group-#{group.id}"%>'>
     <td class='<%= "#{primary_td} pl-8"%>'> <%= group.title %> </td>
     <td class='<%= "#{primary_td} pr-8"%>'> <%= group.status.titleize %> </td>
+      <td class='<%= "#{primary_td} pr-8"%>'> <%= group.created_at&.strftime("%D") %> </td>
     <td class='<%= "#{primary_td} pr-12"%>'>
         <button class='<%="#{action_button}"%>'>
         <%= link_to "View", group_path(group.id), data: {turbo_action: :advance} %>

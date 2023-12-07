@@ -18,4 +18,8 @@ class Group < ActiveRecord::Base
         open: 1,
         deactivated: 2
       }
+
+      scope :in_order, lambda {
+        order(created_at: :DESC)
+      }
 end

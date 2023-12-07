@@ -2,24 +2,32 @@
 
 class GroupsController < ApplicationController
   def index
-    @groups = current_user.groups
+    @groups = current_user.groups.in_order
   end
 
-  def new
-    @group = Group.new
-  end
+  def new; end
 
   def show
     @group = Group.find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream { render 'groups/streams/show' }
+      format.html { render :show }
+    end
   end
 
   def edit
     @group = Group.find(params[:id])
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/streams/edit' }
+        format.html { render :edit }
+      end
   end
 
   def update
     @group = Group.find(params[:id])
-    @group.update!(groups_params)
+    @group.update!(group_params)
 
     redirect_to group_path(@group), notice: 'group updated!'
   rescue ActiveRecord::RecordNotFound
@@ -35,7 +43,7 @@ class GroupsController < ApplicationController
         format.html { render :new }
       end
     else
-        redirect_to groups_path
+      redirect_to groups_path
     end
   end
 
@@ -44,9 +52,13 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { render 'groups/streams/destroy'}
       format.html { render 'groups/index', notice: 'Deleted' }
     end
+  end
+  
+  rescue_from ActiveRecord::RecordNotFound do |_exception|
+    redirect_to groups_path, notice: 'This group could not be found'
   end
 
   private

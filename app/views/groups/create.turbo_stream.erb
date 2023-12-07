@@ -1,7 +1,0 @@
-<%= turbo_stream.replace "main_view" do %>
-  <%= render template: 'groups/index' %>
-<% end %>
-
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "#{@group.title} has been created" %>
-<% end %>
