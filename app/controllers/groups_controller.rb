@@ -8,7 +8,8 @@ class GroupsController < ApplicationController
   def new; end
 
   def show
-    @group = Group.find(params[:id])
+    @group = Group.includes(:sections).find(params[:id])
+    @sections = @group.sections
 
     respond_to do |format|
       format.turbo_stream { render 'groups/streams/show' }

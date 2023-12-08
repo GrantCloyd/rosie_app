@@ -20,4 +20,11 @@
 class UserSection < ApplicationRecord
   belongs_to :section
   belongs_to :user
+
+  enum permission_level: {
+    reader: 0,
+    contributor: 1,
+    moderator: 2,
+    creator: 3
+  }
 end
