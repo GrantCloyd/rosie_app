@@ -19,10 +19,10 @@ class GroupsController < ApplicationController
   def edit
     @group = Group.find(params[:id])
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/streams/edit' }
-        format.html { render :edit }
-      end
+    respond_to do |format|
+      format.turbo_stream { render 'groups/streams/edit' }
+      format.html { render :edit }
+    end
   end
 
   def update
@@ -52,11 +52,11 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.turbo_stream { render 'groups/streams/destroy'}
+      format.turbo_stream { render 'groups/streams/destroy' }
       format.html { render 'groups/index', notice: 'Deleted' }
     end
   end
-  
+
   rescue_from ActiveRecord::RecordNotFound do |_exception|
     redirect_to groups_path, notice: 'This group could not be found'
   end

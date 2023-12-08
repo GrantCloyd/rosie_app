@@ -25,16 +25,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "group_topics", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.string "title", null: false
-    t.text "description", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_group_topics_on_group_id"
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string "title", null: false
     t.integer "status", default: 0, null: false
@@ -67,6 +57,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["topic_id"], name: "index_posts_on_topic_id"
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_sections_on_group_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -75,17 +75,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["topic_group_id"], name: "index_topics_on_topic_group_id"
-  end
-
-  create_table "user_group_topics", force: :cascade do |t|
-    t.bigint "group_topic_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "permission_level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_topic_id"], name: "index_user_group_topics_on_group_topic_id"
-    t.index ["user_id", "group_topic_id"], name: "index_user_group_topics_on_user_id_and_group_topic_id", unique: true
-    t.index ["user_id"], name: "index_user_group_topics_on_user_id"
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -117,6 +106,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_user_reactions_on_reactionable"
     t.index ["user_id"], name: "index_user_reactions_on_user_id"
+  end
+
+  create_table "user_sections", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "permission_level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_user_sections_on_section_id"
+    t.index ["user_id", "section_id"], name: "index_user_sections_on_user_id_and_section_id", unique: true
+    t.index ["user_id"], name: "index_user_sections_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

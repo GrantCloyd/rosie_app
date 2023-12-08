@@ -34,7 +34,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :group_topics do |t|
+    create_table :sections do |t|
       t.belongs_to :group, null: false
       t.string :title, null: false
       t.text :description, null: false
@@ -43,8 +43,8 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :user_group_topics do |t|
-      t.belongs_to :group_topic, null: false
+    create_table :user_sections do |t|
+      t.belongs_to :section, null: false
       t.belongs_to :user, null: false
       t.integer :permission_level
 
@@ -99,6 +99,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     end
 
     add_index :user_groups, [:user_id, :group_id], unique: true
-    add_index :user_group_topics, [:user_id, :group_topic_id], unique: true
+    add_index :user_sections, [:user_id, :section_id], unique: true
   end
 end

@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :groups
+  resources :groups do 
+    resources :sections, controller: 'groups/sections'
+  end
 
   resources :sessions, only: %i[create destroy new]
   

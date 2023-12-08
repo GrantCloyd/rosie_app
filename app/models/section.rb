@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: group_topics
+# Table name: sections
 #
 #  id          :bigint           not null, primary key
 #  description :text             not null
@@ -14,7 +14,9 @@
 #
 # Indexes
 #
-#  index_group_topics_on_group_id  (group_id)
+#  index_sections_on_group_id  (group_id)
 #
-class GroupTopic < ActiveRecord::Base
+class Section < ActiveRecord::Base
+  belongs_to :group
+  has_many :topics
 end
