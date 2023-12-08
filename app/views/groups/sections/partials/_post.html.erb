@@ -1,0 +1,10 @@
+<tr id='<%= "post-#{post.id}"%>'>
+  <td class='<%= "#{primary_td} pl-8"%>'> <%= post.created_at.strftime("%D") %> </td>
+  <td class='<%= "#{primary_td}"%>'> <%= post.title %> </td>
+  <td class='<%= "#{primary_td}"%>'> <%= post.description %> </td>
+  <td class='<%= "#{primary_td} pr-8"%>'> <%= post.status.titleize %> </td>
+  <td class='<%= "#{primary_td} pr-8"%>'> <%= post.published_on&.strftime("%D") %> </td>
+  <td class='<%= "#{primary_td} pr-12"%>'>
+   <%= render 'topics/posts/partials/post_actions', topic: topic, post: post %>
+  </td>
+</tr>

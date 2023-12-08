@@ -6,7 +6,7 @@
 #
 #  id          :bigint           not null, primary key
 #  description :text             not null
-#  status      :integer          default(0), not null
+#  status      :integer          default("unpublished"), not null
 #  title       :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -19,4 +19,10 @@
 class Section < ActiveRecord::Base
   belongs_to :group
   has_many :topics
+
+  enum status: {
+    unpublished: 0,
+    published: 1,
+    hidden: 2
+  }
 end

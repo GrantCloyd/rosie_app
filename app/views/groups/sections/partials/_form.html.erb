@@ -1,0 +1,25 @@
+<% url_path = view == :new ? group_sections_path : group_section_path(group, section) %> 
+
+<div class='<%="#{primary_form}"%>'>
+  <%= form_with model: section, url: url_path do |f| %>
+    <p class="max-w-l">
+      <%= f.label :title %> <br> <%= f.text_field :title %>
+    </p>
+
+    <p class="max-w-l mt-4">
+      <%= f.label :description %> 
+      <br>
+      <%= f.text_area :description %>
+    </p>
+
+    <p  class="max-w-xl mt-4">
+      <%= f.label :status %>
+      <br>
+      <%= f.select :status, Section.statuses %>
+    </p>
+
+    <button class='<%="#{secondary_button}"%>'>
+      <%= f.submit data: {turbo_action: :advance }%>
+    </button>
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
+  <h1 class='<%="#{primary_header}"%>'> Create New Section for "<%= @group.title %>"</h1>
+
+  <%= render "groups/sections/partials/sections-buttons", view: :new, cached: true %>
+
+  <%= render "groups/sections/partials/form", group: @group, section: Section.new, view: :new %>
+
+  </div>
+<% end %>

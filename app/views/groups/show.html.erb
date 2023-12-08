@@ -5,18 +5,31 @@
     <%= render "groups/partials/groups-buttons", view: :show, cached: true %>
     
     <div class='<%="#{primary_form}"%>'> 
-      <p class="my-5 p-2"> <span class="font-bold"> <%= @group.title %> </span> </p>
+      <p class="mt-3 p-2"> <span class="font-bold underline"> <%= @group.title %> </span> </p>
 
       <p  class="p-2"> Status: <%= @group.status.titleize %> </p> 
 
       <p class="p-2"> Last Update: <%= @group.updated_at.strftime("%D") %> </p>
+
+    <div> 
+        <h3 class='text-xl font-bold underline mt-5 p-2'> Sections </h3>
+        
+        <div id="sections-container">
+          <% @sections.each do |section|%>
+          <% end %>
+        </div> 
+      </div>
     </div>
+
 
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Edit group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
     </button>
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "New group", new_group_path, data: {turbo_action: :advance} %>
+    </button>
+    <button class='<%="#{primary_button}"%>'>
+      <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
     </button>
   </div>
 <% end %>
