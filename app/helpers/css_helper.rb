@@ -26,6 +26,6 @@ module CssHelper
   end
 
   def primary_form
-    'mt-10 p-10 shadow-md bg-slate-100 max-w-xl'
+    'mt-10 p-10 shadow-md bg-slate-100 max-w-xl rounded-md'
   end
 end

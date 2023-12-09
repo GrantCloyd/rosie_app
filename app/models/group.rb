@@ -11,13 +11,13 @@
 #  updated_at :datetime         not null
 #
 class Group < ActiveRecord::Base
-  has_many :user_groups
-  has_many :sections
+  has_many :user_groups, dependent: :destroy
+  has_many :sections, dependent: :destroy
 
   enum status: {
     closed: 0,
     open: 1,
-    deactivated: 2
+    archived: 2
   }
 
   scope :in_order, lambda {
