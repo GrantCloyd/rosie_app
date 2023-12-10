@@ -2,7 +2,7 @@
 
 class TopicsController < ApplicationController
   before_action :ensure_logged_in
-  before_action :set_section, only: [:new, :create]
+  before_action :set_section, only: %i[new create]
 
   def index
     @topics = Topic.all
@@ -55,11 +55,11 @@ class TopicsController < ApplicationController
   private
 
   def set_section
-    @section ||= Section.find_by(id: section_id) || @topic.section
+    @set_section ||= Section.find_by(id: section_id) || @topic.section
   end
 
   def section_id
-    params.dig(:section_id) || params.dig(:topic, :section_id)
+    params[:section_id] || params.dig(:topic, :section_id)
   end
 
   def topics_params

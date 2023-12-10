@@ -47,7 +47,7 @@ module Groups
         format.html { render 'groups/sections/show' }
       end
     end
-   
+
     private
 
     def set_group
