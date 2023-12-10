@@ -4,15 +4,16 @@
 
   <%= render "topics-buttons", view: :show, topic: @topic, cached: true %>
 
-  <div class='<%="#{primary_form} mt-2"%>'> 
-    <p> 
-      <%= link_to "-> Group: #{@topic.group.title}", group_path(@topic.group.id) %>
+
+  <div class='<%="#{primary_form} mt-2 max-w-lg flex justify-items"%>'> 
+    <p class='<%="#{action_button}"%> max-w-sm'> 
+      <%= link_to "-> Group: #{@topic.group.title}", group_path(@topic.group.id), data: {turbo_action:  :advance} %>
       
       </p> 
-      <p class='<%="#{action_button}"%> ml-10'>
+      <p class='<%="#{action_button}"%> max-w-sm'>
         <%= link_to "-> Section: #{@topic.section.title}", group_section_path(@topic.group.id, @topic.section.id), data: {turbo_action:  :advance} %>
       </p>
-      <p class="ml-20">
+      <p class='<%="#{action_button}"%> max-w-sm'>
       -> Topic: <%= @topic.title%> 
       </p>
     </div>
