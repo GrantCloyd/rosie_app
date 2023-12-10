@@ -17,6 +17,11 @@
 #  index_user_sections_on_user_id                 (user_id)
 #  index_user_sections_on_user_id_and_section_id  (user_id,section_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (section_id => sections.id)
+#  fk_rails_...  (user_id => users.id)
+#
 require 'test_helper'
 
 class UserSectionTest < ActiveSupport::TestCase

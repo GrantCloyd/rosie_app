@@ -16,7 +16,7 @@
         <%= f.select :status, topic_creation_display_statuses %>
       </p>
 
-      <%= f.hidden_field :section_id, value: @section.id %>
+      <%= f.hidden_field :section_id, value: section.id %>
 
       <button class='<%="#{secondary_button}"%>' >
         <%= f.submit  %>

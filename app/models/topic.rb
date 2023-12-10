@@ -6,7 +6,7 @@
 #
 #  id          :bigint           not null, primary key
 #  description :text             not null
-#  status      :integer          default("closed")
+#  status      :integer          default(0)
 #  title       :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -25,6 +25,7 @@
 #
 class Topic < ActiveRecord::Base
   belongs_to :section
+  has_one :group, through: :section
 
   has_many :posts
   has_many :invites

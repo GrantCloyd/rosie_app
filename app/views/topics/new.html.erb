@@ -4,7 +4,7 @@
 
   <%= render "topics-buttons", view: :new, cached: true %>
 
-  <%= render "form", topic: @topic %>
+  <%= render "form", topic: @section.topics.new , section: @section  %>
 
 </div>
 <% end %>

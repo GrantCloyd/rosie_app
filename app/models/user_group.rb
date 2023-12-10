@@ -17,6 +17,11 @@
 #  index_user_groups_on_user_id               (user_id)
 #  index_user_groups_on_user_id_and_group_id  (user_id,group_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (group_id => groups.id)
+#  fk_rails_...  (user_id => users.id)
+#
 class UserGroup < ActiveRecord::Base
   belongs_to :user
   belongs_to :group

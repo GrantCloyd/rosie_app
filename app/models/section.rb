@@ -16,6 +16,10 @@
 #
 #  index_sections_on_group_id  (group_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (group_id => groups.id)
+#
 class Section < ActiveRecord::Base
   belongs_to :group
   has_many :topics

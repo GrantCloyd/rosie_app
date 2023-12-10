@@ -4,8 +4,4 @@
   </button>
 <% end%>
 
-<% if view != :index %>
-  <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Topics", group_section_path(@topic.section.group_id, @topic.section.id), data: {turbo_action: :advance} %>
-  </button>
-<% end%>
+

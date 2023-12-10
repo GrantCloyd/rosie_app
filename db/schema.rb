@@ -137,8 +137,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   add_foreign_key "invites", "users"
   add_foreign_key "posts", "topics"
   add_foreign_key "posts", "users"
+  add_foreign_key "sections", "groups"
   add_foreign_key "topics", "sections"
   add_foreign_key "topics", "users"
+  add_foreign_key "user_groups", "groups"
+  add_foreign_key "user_groups", "users"
   add_foreign_key "user_preferences", "users"
   add_foreign_key "user_reactions", "users"
+  add_foreign_key "user_sections", "sections"
+  add_foreign_key "user_sections", "users"
 end

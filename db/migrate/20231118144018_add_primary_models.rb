@@ -28,14 +28,14 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     create_table :user_groups do |t|
       t.integer :role, null: false
-      t.belongs_to :user, null: false
-      t.belongs_to :group, null: false
+      t.belongs_to :user, foreign_key: true,  null: false
+      t.belongs_to :group, foreign_key: true, null: false
 
       t.timestamps
     end
 
     create_table :sections do |t|
-      t.belongs_to :group, null: false
+      t.belongs_to :group, foreign_key: true, null: false
       t.string :title, null: false
       t.text :description, null: false
       t.integer :status, null: false, default: 0
@@ -44,8 +44,8 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     end
 
     create_table :user_sections do |t|
-      t.belongs_to :section, null: false
-      t.belongs_to :user, null: false
+      t.belongs_to :section, foreign_key: true,  null: false
+      t.belongs_to :user, foreign_key: true,  null: false
       t.integer :permission_level
 
       t.timestamps

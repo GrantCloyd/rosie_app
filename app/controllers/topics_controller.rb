@@ -8,9 +8,7 @@ class TopicsController < ApplicationController
     @topics = Topic.all
   end
 
-  def new
-    @topic = Topic.new
-  end
+  def new; end
 
   def show
     @topic = Topic.includes(:section).find(params[:id])
@@ -55,7 +53,7 @@ class TopicsController < ApplicationController
   private
 
   def set_section
-    @set_section ||= Section.find_by(id: section_id) || @topic.section
+    @section ||= Section.find_by(id: section_id) || @topic.section
   end
 
   def section_id
