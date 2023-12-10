@@ -1,23 +1,23 @@
-<div class='<%="#{primary_form}"%>'>
-    <%= form_for user do |f| %>
-      <p class="max-w-l">
+<div class='<%="#{primary_form} p-10"%>'>
+    <%= form_for user, html: {class: "flex-col"} do |f| %>
+      <p class="max-w-l mx-5">
         <%= f.label :full_name %>: <%= f.text_field :full_name %>
       </p>
 
-      <p class="max-w-l mt-4">
+      <p class="max-w-l mt-4 mx-5">
         <%= f.label :email %>: <%= f.text_field :email %>
       </p>
 
-      <p  class="max-w-l mt-4">
+      <p  class="max-w-l mt-4 mx-5">
         <%= f.label :password %>: <%= f.password_field :password %>
       </p>
 
-      <p  class="max-w-l mt-4">
+      <p  class="max-w-l mt-4 mx-5">
         <%= f.label :password_confirmation %>: <%= f.password_field :password_confirmation %>
       </p>
 
       <button class='<%="#{secondary_button}"%>' >
-        <%= f.submit "Create Account" %>
+        <%= f.submit "Create Account" data: {turbo_action: :advance}%>
       </button>
     <% end %>
   </div>

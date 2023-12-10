@@ -73,10 +73,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.string "title", null: false
     t.text "description", null: false
     t.integer "status", default: 0
-    t.bigint "topic_group_id", null: false
+    t.bigint "section_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_group_id"], name: "index_topics_on_topic_group_id"
+    t.index ["section_id"], name: "index_topics_on_section_id"
   end
 
   create_table "user_groups", force: :cascade do |t|

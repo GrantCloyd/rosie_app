@@ -55,7 +55,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.string :title, null: false
       t.text :description, null: false
       t.integer :status, default: 0
-      t.belongs_to :topic_group, null: false
+      t.belongs_to :section, null: false
 
       t.timestamps
     end

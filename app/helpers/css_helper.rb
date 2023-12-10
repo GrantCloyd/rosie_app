@@ -10,7 +10,7 @@ module CssHelper
   end
 
   def primary_button
-    'bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded my-4'
+    'bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded mt-2'
   end
 
   def secondary_button
@@ -18,7 +18,7 @@ module CssHelper
   end
 
   def primary_header
-    'text-3xl font-bold text-slate-200 underline'
+    'text-3xl font-bold text-slate-200 underline flex justify-center'
   end
 
   def action_button
@@ -26,6 +26,6 @@ module CssHelper
   end
 
   def primary_form
-    'mt-10 p-10 shadow-md bg-slate-100 max-w-xl rounded-md'
+    'shadow-md bg-slate-100 rounded-md'
   end
 end

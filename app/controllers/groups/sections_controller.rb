@@ -19,6 +19,15 @@ module Groups
       end
     end
 
+    def show
+      @section = Section.includes(:topics).find(params[:id])
+      @topics = @section.topics
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |_exception|
+      redirect_to group_sections_path, notice: 'This section could not be found'
+    end
+   
     private
 
     def set_group

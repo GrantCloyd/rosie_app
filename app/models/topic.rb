@@ -4,17 +4,17 @@
 #
 # Table name: topics
 #
-#  id             :bigint           not null, primary key
-#  description    :text             not null
-#  status         :integer          default("closed")
-#  title          :string           not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  topic_group_id :bigint           not null
+#  id          :bigint           not null, primary key
+#  description :text             not null
+#  status      :integer          default("closed")
+#  title       :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  section_id  :bigint           not null
 #
 # Indexes
 #
-#  index_topics_on_topic_group_id  (topic_group_id)
+#  index_topics_on_section_id  (section_id)
 #
 class Topic < ActiveRecord::Base
   has_one :creator, through: :user_topics
