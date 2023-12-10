@@ -11,17 +11,23 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  section_id  :bigint           not null
+#  user_id     :bigint           not null
 #
 # Indexes
 #
 #  index_topics_on_section_id  (section_id)
+#  index_topics_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (section_id => sections.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Topic < ActiveRecord::Base
-  has_one :creator, through: :user_topics
-
+  belongs_to :section
+  
   has_many :posts
   has_many :invites
-  has_many :user_topics
 
   validates :title, length: { in: 3..120 }
   validates :description, length: { in: 3..250 }

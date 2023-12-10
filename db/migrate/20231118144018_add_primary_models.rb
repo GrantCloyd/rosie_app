@@ -55,7 +55,8 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.string :title, null: false
       t.text :description, null: false
       t.integer :status, default: 0
-      t.belongs_to :section, null: false
+      t.belongs_to :section, foreign_key: true, null: false
+      t.belongs_to :user, foreign_key: true, null: false
 
       t.timestamps
     end
@@ -66,7 +67,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.text :content, null: false
       t.integer :status, default: 0
       t.belongs_to :topic, foreign_key: true, null: false
-      t.belongs_to :user_section, foreign_key: true, null: false
+      t.belongs_to :user, foreign_key: true, null: false
       t.date :published_on
 
       t.timestamps

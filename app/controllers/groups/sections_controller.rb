@@ -27,6 +27,26 @@ module Groups
     rescue_from ActiveRecord::RecordNotFound do |_exception|
       redirect_to group_sections_path, notice: 'This section could not be found'
     end
+
+    def edit
+      @section = Section.find(params[:id])
+
+      respond_to do |format|
+        format.turbo_stream { render 'topics/posts/streams/edit' }
+        format.html { render :edit }
+      end
+    end
+
+    def update
+      @section = Section.find(params[:id])
+      @section.update!(section_params)
+      @topics = @section.topics
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/update' }
+        format.html { render 'groups/sections/show' }
+      end
+    end
    
     private
 

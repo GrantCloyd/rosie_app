@@ -1,6 +1,6 @@
 <% url_path = view == :new ? topic_posts_path : topic_post_path(topic, post) %> 
 
-<div class='<%="#{primary_form}"%>'>
+<div class='<%="#{primary_form} p-10 m-10"%>'>
   <%= form_with model: post, url: url_path do |f| %>
     <p class="max-w-l">
       <%= f.label :title %> <br> <%= f.text_field :title %>

@@ -3,8 +3,7 @@
 module Topics
   class CreatorService
     def initialize(params:, user:)
-      @topic = Topic.new(params)
-      @user = user
+      @topic = Topic.new(params.merge(user_id: user.id))
     end
 
     def call
@@ -17,14 +16,5 @@ module Topics
         @topic
       end
     end
-
-    # def create_user_topic!
-    #   user_topic = UserTopic.new(
-    #     user: @user,
-    #     topic: @topic,
-    #     role: :creator
-    #   )
-    #   user_topic.save!
-    # end
   end
 end

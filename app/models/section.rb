@@ -19,6 +19,7 @@
 class Section < ActiveRecord::Base
   belongs_to :group
   has_many :topics
+  has_many :user_sections
 
   enum status: {
     unpublished: 0,

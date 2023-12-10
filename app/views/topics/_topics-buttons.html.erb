@@ -1,11 +1,11 @@
 <% if view != :new %>
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Create New Topic", new_topic_path, data: {turbo_action: :advance} %>
+    <%= link_to "Create New Topic", new_topic_path(section_id: @section.id), data: {turbo_action: :advance} %>
   </button>
 <% end%>
 
 <% if view != :index %>
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Topics", topics_path, data: {turbo_action: :advance} %>
+    <%= link_to "Topics", group_section_path(@topic.section.group_id, @topic.section.id), data: {turbo_action: :advance} %>
   </button>
 <% end%>

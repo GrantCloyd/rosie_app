@@ -2,6 +2,7 @@
 
 class TopicsController < ApplicationController
   before_action :ensure_logged_in
+  before_action :set_section, only: [:new, :create]
 
   def index
     @topics = Topic.all
@@ -12,7 +13,8 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:id])
+    @topic = Topic.includes(:section).find(params[:id])
+    @section = @topic.section
   end
 
   def edit
@@ -52,7 +54,15 @@ class TopicsController < ApplicationController
 
   private
 
+  def set_section
+    @section ||= Section.find_by(id: section_id) || @topic.section
+  end
+
+  def section_id
+    params.dig(:section_id) || params.dig(:topic, :section_id)
+  end
+
   def topics_params
-    params.require(:topic).permit(:description, :title, :status)
+    params.require(:topic).permit(:description, :title, :status, :section_id)
   end
 end

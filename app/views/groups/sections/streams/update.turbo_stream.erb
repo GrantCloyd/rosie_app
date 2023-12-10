@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "main_view" do %>
+  <%= render template: 'groups/sections/show' %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "#{@section.title} has been updated!" %>
+<% end %>

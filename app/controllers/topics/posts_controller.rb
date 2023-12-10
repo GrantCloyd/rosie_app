@@ -38,7 +38,7 @@ module Topics
     end
 
     def create
-      @topic.posts.create!(post_params)
+      @topic.posts.create!(post_params.merge(user_id: current_user.id))
 
       respond_to do |format|
         format.turbo_stream { render 'topics/posts/streams/create' }

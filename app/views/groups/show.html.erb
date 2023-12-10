@@ -4,12 +4,12 @@
 
     <%= render "groups/partials/groups-buttons", view: :show, cached: true %>
     
-    <div class='<%="#{primary_form} my-2 p-1 flex items-center width-auto font-bold px-2"%>'> 
-      <p class="mt-1 p-1"> <%= @group.title %> </p>
-      <span class="mt-1, p-1"> | </span>
-      <p  class="mt-1 p-1"> Status: <%= @group.status.titleize %> </p> 
-      <span class="mt-1, p-1"> | </span>
-      <p class="mt-1 p-1"> Last Update: <%= @group.updated_at.strftime("%D") %> </p>
+    <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
+      <p class="mt-0 p-1"> <%= @group.title %> </p>
+      <p class="mt-4, p-1"> | </p>
+      <p  class="mt-0 p-1"> Status: <%= @group.status.titleize %> </p> 
+      <p class="mt-4, p-1"> | </p>
+      <p class="mt-0 p-1"> Last Update: <%= @group.updated_at.strftime("%D") %> </p>
     </div>
 
     <div> 

@@ -4,12 +4,12 @@
 
   <%= render "topics-buttons", view: :show, topic: @topic, cached: true %>
 
-  <div class='<%="#{primary_form}"%>'> 
-     <p class="my-5 p-2"> <span class="font-bold"> <%= @topic.title %> </span> </p>
-
-     <p  class= p-2> Description: <%= @topic.description %> </p> 
-
-     <p class="my-5 p-2"> Status: <%= @topic.status.titleize %> </p> 
+  <div class='<%="#{primary_form} my-2 p-1 flex justify-center width-auto font-bold px-2"%>'> 
+    <p class="mt-0 p-1"> <span class="font-bold"> <%= @topic.title %> </span> </p>
+    <span class="mt-1, p-1"> | </span>
+    <p  class="mt-0 p-1"> Description: <%= @topic.description %> </p> 
+    <span class="mt-1, p-1"> | </span>
+     <p class="mt-0 p-1"> Status: <%= @topic.status.titleize %> </p> 
   </div>
 
   <button class='<%="#{primary_button}"%>'>
