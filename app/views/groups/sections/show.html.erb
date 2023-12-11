@@ -3,6 +3,7 @@
     <h1 class='<%="#{primary_header}"%>'> Section Details </h1>
 
     <%= render "groups/sections/partials/sections-buttons", view: :show, cached: true %>
+
     
     <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
       <p class="mt-0 p-1"> Group: <%= @section.title %> </p>
@@ -15,6 +16,7 @@
         <% end %>
         </p> 
     </div>
+    <%= navigation_breadcrumbs(@section) %>
 
   <div class="container-md">
   <h1 class='<%="#{primary_header} mt-2"%>'> Topics </h1>

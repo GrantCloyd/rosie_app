@@ -4,6 +4,8 @@
  
     <%= render "topics/posts/partials/posts-buttons", view: :index, cached: true %>
 
+    <%= navigation_breadcrumbs(@topic.section, @topic)%>
+
     <%= render "topics/posts/partials/posts", topic: @topic, posts: @topic.posts.in_order %>
   </div>
 <% end %>
