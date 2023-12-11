@@ -1,18 +1,18 @@
 <%= turbo_frame_tag "main_view" do  %>
 <div class="container-md">
-  <h1 class='<%="#{primary_header}"%>'> Topic Details </h1>
+  <h1 class='<%="#{primary_header}"%>'> '<%= @topic.title %>' Details </h1>
 
   <%= render "topics-buttons", view: :show, topic: @topic, cached: true %>
 
-  <%= navigation_breadcrumbs(@topic.section, @topic) %> 
+  <%= navigation_breadcrumbs(@topic.group, @topic.section, @topic) %> 
 
   <div class='<%="#{primary_form} my-2 p-1 flex justify-center width-auto font-bold px-2"%>'> 
-    <p class="mt-0 p-1"> <span class="font-bold"> <%= @topic.title %> </span> </p>
-    <span class="mt-1, p-1"> | </span>
     <p  class="mt-0 p-1"> Description: <%= @topic.description %> </p> 
     <span class="mt-1, p-1"> | </span>
      <p class="mt-0 p-1"> Status: <%= @topic.status.titleize %> </p> 
   </div>
+
+  <%= render "topics/posts/partials/posts", topic: @topic, posts: @topic.posts.in_order %>
 
   <button class='<%="#{primary_button}"%>'>
     <%= link_to "Edit Topic", edit_topic_path(@topic.id), data: {turbo_action: :advance} %>
@@ -20,18 +20,6 @@
   
   <button class='<%="#{primary_button}"%>'>
     <%= link_to "New Post", new_topic_post_path(@topic.id), data: {turbo_action: :advance} %>
-  </button>
-
-   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "View Posts", topic_posts_path(@topic.id), data: {turbo_action: :advance, turbo_vist_control: :reload} %>
-  </button>
-
-  <button class='<%="#{primary_button}"%>'>
-    <%= link_to "View invites", topic_invites_path(@topic.id), data: {turbo_action: :advance} %>
-  </button>
-
-  <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Invite to this topic", new_topic_invite_path(@topic.id), data: {turbo_action: :advance} %>
   </button>
 </div>
 <% end%>

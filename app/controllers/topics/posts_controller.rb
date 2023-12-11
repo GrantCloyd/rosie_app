@@ -40,10 +40,7 @@ module Topics
     def create
       @topic.posts.create!(post_params.merge(user_id: current_user.id))
 
-      respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/create' }
-        format.html { render :index }
-      end
+      redirect_to topic_path(@topic)
     end
 
     def destroy

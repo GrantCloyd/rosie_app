@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
         format.html { render :new }
       end
     else
-      redirect_to topic_path(topic), notice: 'Successfuly created!'
+      redirect_to group_section_path(current_group, @section), notice: 'Successfuly created!'
     end
   end
 

@@ -2,15 +2,23 @@
 
 module ApplicationHelper
 
-  def navigation_breadcrumbs(section, topic=nil, post=nil)
+  def navigation_breadcrumbs(group, section=nil, topic=nil, post=nil)
     content_tag(:div, class: "mt-2 flex justify-items" ) do
-      create_section_tag(section) + create_topic_tag(topic) + create_post_tag(post)
+      create_group_tag(group) + create_section_tag(section) + create_topic_tag(topic) + create_post_tag(post)
     end
   end
 
   private
 
+  def create_group_tag(group)
+    content_tag(:p, class: "#{action_button} max-w-sm rounded-l-g") do
+      link_to("--> Group: #{group.title}", group_path(group.id), data: {turbo_action: :advance})
+    end
+  end
+
   def create_section_tag(section)
+    return nil unless section.present?
+
     content_tag(:p, class: "#{action_button} max-w-sm rounded-l-g") do
       link_to("--> Section: #{section.title}", group_section_path(section.group.id, section.id), data: {turbo_action: :advance})
     end

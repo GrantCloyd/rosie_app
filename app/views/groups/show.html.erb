@@ -1,19 +1,19 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> Group Details </h1>
+    <h1 class='<%="#{primary_header}"%>'> '<%= @group.title %>' Details </h1>
 
     <%= render "groups/partials/groups-buttons", view: :show, cached: true %>
     
     <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
-      <p class="mt-0 p-1"> <%= @group.title %> </p>
-      <p class="mt-4, p-1"> | </p>
       <p  class="mt-0 p-1"> Status: <%= @group.status.titleize %> </p> 
       <p class="mt-4, p-1"> | </p>
       <p class="mt-0 p-1"> Last Update: <%= @group.updated_at.strftime("%D") %> </p>
     </div>
 
+    <%= navigation_breadcrumbs(@group) %>
+
     <div> 
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2'> Sections </h3>
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Sections </h3>
         <div id="sections-container">
           <%= render 'groups/partials/sections', group: @group, sections: @sections %>
         </div> 
@@ -23,9 +23,6 @@
   <div>
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
-    </button>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "New Group", new_group_path, data: {turbo_action: :advance} %>
     </button>
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>

@@ -4,7 +4,7 @@
 
     <%= render "topics/posts/partials/posts-buttons", view: :show, cached: true %>
 
-    <%= navigation_breadcrumbs(@topic.section, @topic, @post)%>
+    <%= navigation_breadcrumbs(@post.group, @topic.section, @topic, @post)%>
     
     <div class='<%="#{primary_form}"%>'> 
       <p class="my-5 p-2"> <span class="font-bold"> <%= @post.title %> </span> </p>

@@ -29,6 +29,8 @@ class Post < ActiveRecord::Base
   validates :content, :title, :description, :topic_id, presence: true
 
   belongs_to :topic
+  has_one :section, through: :topic
+  has_one :group, through: :section
 
   has_one :user_section
   has_one :user, through: :user_section

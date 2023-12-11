@@ -19,7 +19,7 @@
       <%= f.hidden_field :section_id, value: section.id %>
 
       <button class='<%="#{secondary_button}"%>' >
-        <%= f.submit  %>
+        <%= f.submit  data: {turbo_action: :advance}%>
       </button>
     <% end %>
   </div>
