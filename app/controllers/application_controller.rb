@@ -28,6 +28,21 @@ class ApplicationController < ActionController::Base
     @current_user = nil
   end
 
+  def select_group(group)
+    session[:group_id] = group.id
+  end
+
+  def current_group
+    return unless session[:group_id]
+
+    @current_group ||= Group.find_by(id: session[:group_id])
+  end
+
+  def exit_group
+    session.delete(:group_id)
+    @current_group = nil
+  end
+
   def render_turbo_flash_alert(format, message)
     format.turbo_stream do
       flash.now[:alert] = message

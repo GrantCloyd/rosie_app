@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "flash" do %>
 <div class="max-w-md my-5 bg-slate-100" id="flash">
   <% flash.each do |type, message| %>
     <div>
@@ -5,3 +6,4 @@
     </div>
   <% end %>
 </div>
+<% end %>

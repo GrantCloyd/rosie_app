@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "main_view" do %>
+  <%= render template: 'groups/index' %>
+<% end %>
+
+<%= turbo_stream.append "header-buttons" do %>
+  <%= render 'layouts/header', session: session %>
+<% end %>

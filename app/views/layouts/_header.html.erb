@@ -1,5 +1,14 @@
-<% if session[:user_id].present? %>
-  <button class='<%="#{secondary_button} 4 absolute top-0 right-0 mr-4"%>' >
-    <%= link_to "Log out", session_path(session[:user_id]), data: {turbo_method: :delete} %>
-  </button>
-<% end %>
+<div class="flex absolute top-0 right-0 mr-4" >
+
+  <% if session[:group_id].present? %>
+    <button class='<%="#{secondary_button}"%>' >
+      <%= link_to "Change Group", groups_path, data: {turbo_action: "_top" } %>
+    </button>
+  <% end %>
+  
+  <% if session[:user_id].present? %>
+    <button class='<%="#{secondary_button} mr-2"%>' >
+      <%= link_to "Log out", session_path(session[:user_id]), data: {turbo_method: :delete } %>
+    </button>
+  <% end %>
+</div>

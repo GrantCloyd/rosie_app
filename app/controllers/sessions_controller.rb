@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    redirect_to groups_path if current_user.present?
+  end
 
   def create
     user = User.find_by(email: sessions_params[:email].downcase)
@@ -17,6 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    exit_group
     log_out
     redirect_to root_url, notice: "You've logged out"
   end

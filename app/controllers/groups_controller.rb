@@ -2,7 +2,14 @@
 
 class GroupsController < ApplicationController
   def index
+    exit_group
+
     @groups = current_user.groups.in_order
+
+    respond_to do |format|
+      format.turbo_stream { render 'groups/streams/index' }
+      format.html { render :index }
+    end
   end
 
   def new; end
@@ -10,6 +17,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.includes(:sections).find(params[:id])
     @sections = @group.sections
+    select_group(@group)
 
     respond_to do |format|
       format.turbo_stream { render 'groups/streams/show' }
