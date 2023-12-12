@@ -4,62 +4,20 @@
 
     <%= render "groups/sections/partials/sections-buttons", view: :show, cached: true %>
     
-    <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
-      <p  class="mt-0 p-1"> Description: <%= @section.description %> </p> 
-      <p class="mt-4, p-1"> | </p>
-      <p class="mt-0 p-1"> Status: <%= @section.status.titleize %> 
-        <% if @section.published? %>
-          on <%= @section.published_on.strftime("%D") %>
-        <% end %>
-        </p> 
+    <%= navigation_breadcrumbs(@group, @section) %>
+
+    <div> 
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
+        <div id="posts-container">
+          <%= render 'groups/sections/posts/partials/posts', group: @group, section: @section, posts: @posts %>
+        </div> 
     </div>
 
-    <%= navigation_breadcrumbs(@section.group , @section) %>
-
-  <div class="container-md">
-  <h1 class='<%="#{primary_header} mt-2"%>'> Topics </h1>
-
-  <div class="bg-slate-200 mt-5">
-    <table class="border-collapse table-auto w-full text-sm">
-      <thead class="pt-5">
-        <tr> 
-          <th class='<%="#{primary_th} pl-8"%>'> Title </th>
-          <th class='<%="#{primary_th}"%>'> Description </th>
-          <th class='<%="#{primary_th} pr-8"%>'> Status </th>
-          <th class='<%="#{primary_th} pr-8"%>'> Created </th>
-          <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
-        </tr>
-      </thead>
-      <tbody class="bg-white">
-        <% @topics.each do |topic| %>
-          <tr>
-            <td class='<%= "#{primary_td} pl-8"%>'> <%= topic.title %> </td>
-            <td class='<%= "#{primary_td}"%>'> <%= topic.description %> </td>
-            <td class='<%= "#{primary_td} pr-8"%>'> <%= topic.status.titleize %> </td>
-            <th class='<%="#{primary_th} pr-8"%>'> <%= topic.created_at.strftime("%D") %> </th>
-            <td class='<%= "#{primary_td} pr-12"%>'>
-              <button class='<%="#{action_button}"%>'>
-                <%= link_to "View", topic_path(topic.id), data: {turbo_action: :advance} %>
-              </button>
-              <button class='<%="#{action_button}"%>'>
-                <%= link_to "Edit", edit_topic_path(topic.id), data: {turbo_action: :advance} %>
-              </button>
-              <button class='<%="#{action_button}"%>'>
-                <%= link_to "Delete", topic_path(topic.id), data: {turbo_method: :delete } %>
-              </button>
-            </td>
-          </tr>
-        <% end%>
-      </tbody>
-    </table>
-  </div>
-</div>
-
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Edit Section", edit_group_section_path(@group.id, @section.id), data: {turbo_action: :advance} %>
+      <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
     </button>
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "New Topic", new_topic_path(section_id: @section.id), data: { turbo_action: :advance} %>
+      <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
     </button>
   </div>
 <% end %>

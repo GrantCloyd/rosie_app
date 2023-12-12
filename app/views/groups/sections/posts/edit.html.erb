@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
+    <h1 class='<%="#{primary_header}"%>'> Post Details </h1>
+
+    <%= render "groups/sections/posts/partials/posts-buttons", view: :edit, cached: true %>
+    
+    <%= render "groups/sections/posts/partials/form", group:@group, section: @section, post: @post, view: :edit %>
+
+    <button class='<%="#{primary_button}"%>'>
+      <%= link_to "Cancel Edit", group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
+    </button>
+  </div>
+  <% end %>

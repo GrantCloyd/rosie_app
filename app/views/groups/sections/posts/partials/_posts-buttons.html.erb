@@ -1,0 +1,10 @@
+<button class='<%="#{primary_button}"%>'>
+  <%= link_to "'#{@section.title}' Info", group_section_path(@group, @section), data: {turbo_action: :advance} %>
+</button>
+
+<% if view != :new %>
+  <button class='<%="#{primary_button}"%>'>
+    <%= link_to "Create New Post", new_group_section_post_path(@group, @section), data: {turbo_action: :advance} %>
+  </button>
+<% end%>
+

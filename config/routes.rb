@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :groups do 
-    resources :sections, controller: 'groups/sections'
+    resources :sections, controller: 'groups/sections' do
+      resources :posts, controller: 'groups/sections/posts' do
+        member do
+          post :publish, :unpublish
+        end
+      end
+    end
     resources :invites, only: %i[new create index], controller: 'groups/invites' do
       collection do
         post :mass_add
@@ -13,15 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: %i[create destroy new]
-  
-  resources :topics do
-    resources :posts, controller: 'topics/posts' do
-      member do
-        post :publish, :unpublish
-      end
-    end
-  end
-
   resources :users, only: %i[new create]
 
 

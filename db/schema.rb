@@ -50,13 +50,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.text "description", null: false
     t.text "content", null: false
     t.integer "status", default: 0
-    t.bigint "topic_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "section_id", null: false
+    t.bigint "user_section_id", null: false
     t.date "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_posts_on_topic_id"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["section_id"], name: "index_posts_on_section_id"
+    t.index ["user_section_id"], name: "index_posts_on_user_section_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -67,18 +67,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"
-  end
-
-  create_table "topics", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description", null: false
-    t.integer "status", default: 0
-    t.bigint "section_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["section_id"], name: "index_topics_on_section_id"
-    t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -135,11 +123,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   add_foreign_key "comments", "users"
   add_foreign_key "invites", "groups"
   add_foreign_key "invites", "users"
-  add_foreign_key "posts", "topics"
-  add_foreign_key "posts", "users"
+  add_foreign_key "posts", "sections"
+  add_foreign_key "posts", "user_sections"
   add_foreign_key "sections", "groups"
-  add_foreign_key "topics", "sections"
-  add_foreign_key "topics", "users"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
   add_foreign_key "user_preferences", "users"

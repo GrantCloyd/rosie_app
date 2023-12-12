@@ -19,40 +19,7 @@ users_seeds = [
   }
 ]
 
-topics_seeds = [
-  { data: {
-      description: 'seed test',
-      status: :closed,
-      title: 'seed base'
-    },
-    posts_data: [{
-      title: 'first',
-      content: 'seed post info here',
-      description: 'seeded yo',
-      status: :pending
-    },
-                 {
-                   title: 'second',
-                   content: 'pub seed post',
-                   description: 'pub seeded yo',
-                   status: :published,
-                   published_on: Date.current
-                 }] }
-]
+
 
 users = users_seeds.map { |user_seed| User.first_or_create(user_seed) }
 
-topics = topics_seeds.map do |topic_seed|
-  topic = Topic.first_or_create(topic_seed[:data])
-
-  topic_seed[:posts_data].each do |post_seed|
-    topic.posts.create(post_seed)
-  end
-  topic
-end
-
-topics.each do |topic|
-  users.each do |user|
-    UserTopic.first_or_create({ topic:, user:, role: :moderator })
-  end
-end

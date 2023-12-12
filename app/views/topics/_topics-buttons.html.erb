@@ -1,7 +1,0 @@
-<% if view != :new %>
-  <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Create New Topic", new_topic_path(section_id: @section.id), data: {turbo_action: :advance} %>
-  </button>
-<% end%>
-
-

@@ -12,7 +12,7 @@
     </thead>
     <tbody class="bg-white">
       <% posts.each do |post| %>
-        <%= render 'topics/posts/partials/post', topic: topic, post: post %>
+        <%= render 'groups/sections/posts/partials/post', group: group, section: section, post: post %>
       <% end%>
     </tbody>
   </table>

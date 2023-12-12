@@ -6,7 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  note         :text
-#  role_tier    :integer          default(0)
+#  role_tier    :integer          default("subscriber")
 #  status       :integer          default("pending")
 #  target_email :string           not null
 #  created_at   :datetime         not null

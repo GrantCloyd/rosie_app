@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-module Topics
-  class PostsController < Topics::BaseTopicsController
-    before_action :ensure_logged_in
-    before_action :set_topic
+module Groups
+  module Sections
+  class PostsController < Groups::Sections::BaseSectionsController
 
     def new; end
 
@@ -11,7 +10,7 @@ module Topics
       @post = Post.find(params[:id])
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/show' }
+        format.turbo_stream { render 'groups/sections/posts/streams/show' }
         format.html { render :show }
       end
     end
@@ -22,7 +21,7 @@ module Topics
       @post = Post.find(params[:id])
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/edit' }
+        format.turbo_stream { render 'groups/sections/posts/streams/edit' }
         format.html { render :edit }
       end
     end
@@ -32,15 +31,15 @@ module Topics
       @post.update!(post_params)
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/update' }
+        format.turbo_stream { render 'groups/sections/posts/streams/update' }
         format.html { render :show }
       end
     end
 
     def create
-      @topic.posts.create!(post_params.merge(user_id: current_user.id))
+      @section.posts.create!(post_params.merge(user_section_id: @user_section.id))
 
-      redirect_to topic_path(@topic)
+      redirect_to group_section_path(@group, @section)
     end
 
     def destroy
@@ -48,8 +47,8 @@ module Topics
       @post.destroy
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/destroy' }
-        format.html { render 'topics/posts/index', notice: 'Deleted' }
+        format.turbo_stream { render 'groups/sections/posts/streams/destroy' }
+        format.html { render 'groups/sections/posts/index', notice: 'Deleted' }
       end
     end
 
@@ -58,7 +57,7 @@ module Topics
       @post.update!(status: :published, published_on: Date.current)
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/publish' }
+        format.turbo_stream { render 'groups/sections/posts/streams/publish' }
         format.html { render :index }
       end
     end
@@ -68,13 +67,13 @@ module Topics
       @post.update!(status: :hidden)
 
       respond_to do |format|
-        format.turbo_stream { render 'topics/posts/streams/unpublish' }
+        format.turbo_stream { render 'groups/sections/posts/streams/unpublish' }
         format.html { render :index }
       end
     end
 
     rescue_from ActiveRecord::RecordNotFound do |_exception|
-      redirect_to topic_posts_path, notice: 'This post could not be found'
+      redirect_to group_sections_path(@group, @section), notice: 'This post could not be found'
     end
 
     private
@@ -83,4 +82,5 @@ module Topics
       params.require(:post).permit(:title, :description, :content)
     end
   end
+end
 end

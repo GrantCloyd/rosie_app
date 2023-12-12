@@ -2,9 +2,9 @@
   <div class="container-md">
     <h1 class='<%="#{primary_header}"%>'> Post Details </h1>
 
-    <%= render "topics/posts/partials/posts-buttons", view: :show, cached: true %>
+    <%= render "groups/sections/posts/partials/posts-buttons", view: :show, cached: true %>
 
-    <%= navigation_breadcrumbs(@post.group, @topic.section, @topic, @post)%>
+    <%= navigation_breadcrumbs(@group, @section, @post) %>
     
     <div class='<%="#{primary_form}"%>'> 
       <p class="my-5 p-2"> <span class="font-bold"> <%= @post.title %> </span> </p>
@@ -21,10 +21,10 @@
     </div>
 
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Edit Post", edit_topic_post_path(@topic.id, @post.id), data: {turbo_action: :advance} %>
+      <%= link_to "Edit Post", edit_group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
     </button>
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "New Post", new_topic_post_path(@topic.id), data: {turbo_action: :advance} %>
+      <%= link_to "New Post", new_group_section_post_path(@group, @section), data: {turbo_action: :advance} %>
     </button>
   </div>
 <% end %>
