@@ -2,7 +2,6 @@
 
 module Groups
   class SectionsController < Groups::BaseGroupsController
-
     def new; end
 
     def create

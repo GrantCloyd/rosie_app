@@ -4,7 +4,7 @@ module Invites
   class MassAddService
     attr_reader :results
 
-    def initialize(params:, topic:)
+    def initialize(params:, group:)
       @params = params
       @target_emails = params[:target_emails].split
       @group = group

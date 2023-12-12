@@ -18,3 +18,6 @@ Metrics/MethodLength:
 
 Layout/LineLength:
   Max: 150
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false

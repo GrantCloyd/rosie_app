@@ -58,7 +58,7 @@ module Groups
     def ensure_invitor_authorized
       return if @user_group.moderator? || @user_group.creator?
 
-      redirect_to request.referer, notice: "Unauthorized"
+      redirect_to request.referer, notice: 'Unauthorized'
     end
   end
 end

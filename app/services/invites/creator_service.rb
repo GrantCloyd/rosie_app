@@ -10,7 +10,7 @@ module Invites
 
     def call
       invite = build_invite
-      binding.pry
+
       invite.save! if invite.valid?
 
       invite

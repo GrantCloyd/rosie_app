@@ -14,7 +14,6 @@ module Groups
     end
 
     def set_user_group
-    # binding.pry
       @user_group ||= UserGroup.find_by(user: current_user, group: current_group)
     end
 
