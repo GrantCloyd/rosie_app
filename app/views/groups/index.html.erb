@@ -2,7 +2,7 @@
   <div class="container-md">
     <h1 class='<%="#{primary_header}"%>'> Groups </h1>
 
-    <%= render "groups/partials/groups-buttons", view: :index, cached: true %>
+    <%= render "groups/partials/groups-buttons", view: :index, cached: true,  group: nil %>
 
     <%= render "groups/partials/groups", groups: @groups %>
   </div>

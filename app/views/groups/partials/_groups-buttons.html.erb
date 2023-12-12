@@ -1,11 +1,5 @@
-<% if view != :new %>
+<% if view == :index %>
   <button class='<%="#{primary_button}"%>'>
     <%= link_to "Create New Group", new_group_path, data: {turbo_action: :advance} %>
-  </button>
-<% end%>
-
-<% if view != :index %>
-  <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Groups", groups_path,  data: { turbo_frame: "_top" } %>
   </button>
 <% end%>

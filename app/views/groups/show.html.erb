@@ -2,7 +2,7 @@
   <div class="container-md">
     <h1 class='<%="#{primary_header}"%>'> '<%= @group.title %>' Details </h1>
 
-    <%= render "groups/partials/groups-buttons", view: :show, cached: true %>
+    <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
     
     <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
       <p  class="mt-0 p-1"> Status: <%= @group.status.titleize %> </p> 
