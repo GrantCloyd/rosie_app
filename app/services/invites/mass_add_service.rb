@@ -7,7 +7,7 @@ module Invites
     def initialize(params:, topic:)
       @params = params
       @target_emails = params[:target_emails].split
-      @topic = topic
+      @group = group
       @results = { success: [], errors: [] }
     end
 
@@ -15,7 +15,7 @@ module Invites
       @target_emails.each do |email|
         invite = Invites::CreatorService.new(
           params: @params.except(:target_emails).merge({ target_email: email }),
-          topic: @topic
+          group: @group
         ).call
 
         if invite.errors.present?

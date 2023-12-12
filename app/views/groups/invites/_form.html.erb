@@ -1,12 +1,12 @@
-<% url_path = mass_add_view ?  mass_add_topic_invites_path : topic_invites_path %> 
+<% url_path = mass_add_view ?  mass_add_group_invites_path : group_invites_path %> 
 
-<div class='<%="#{primary_form}"%>'>
+<div class='<%="#{primary_form} m-10 p-10"%>'>
   <%= form_with url: url_path do |f| %>
 
     <p  class="max-w-l mt-4">
-      <%= f.label :invite_tier%>
+      <%= f.label :role_tier%>
       <br>
-      <%= f.select :invite_tier, invite_creation_invite_tier_options %>
+      <%= f.select :role_tier, invite_creation_invite_tier_options %>
     </p>
 
     <p class="max-w-l mt-4">
@@ -26,7 +26,7 @@
     <% end%>
 
     <button class='<%="#{secondary_button}"%>'>
-      <%= f.submit "Send invite"%>
+      <%= f.submit "Send  Invite",   data: {turbo_action: :advance}%>
     </button>
   <% end %>
 </div>

@@ -5,16 +5,16 @@ Rails.application.routes.draw do
 
   resources :groups do 
     resources :sections, controller: 'groups/sections'
+    resources :invites, only: %i[new create index], controller: 'groups/invites' do
+      collection do
+        post :mass_add
+      end
+    end
   end
 
   resources :sessions, only: %i[create destroy new]
   
   resources :topics do
-    resources :invites, only: %i[new create index], controller: 'topics/invites' do
-      collection do
-        post :mass_add
-      end
-    end
     resources :posts, controller: 'topics/posts' do
       member do
         post :publish, :unpublish

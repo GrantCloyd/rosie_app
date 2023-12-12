@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Groups
-  class SectionsController < ApplicationController
-    before_action :set_group
+  class SectionsController < Groups::BaseGroupsController
 
     def new; end
 
@@ -49,10 +48,6 @@ module Groups
     end
 
     private
-
-    def set_group
-      @group = Group.find(params[:group_id])
-    end
 
     def section_params
       params.require(:section).permit(:title, :description, :status).merge(params.permit(:group_id))

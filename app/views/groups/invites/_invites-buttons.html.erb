@@ -1,0 +1,15 @@
+<button class='<%="#{primary_button}"%>'>
+  <%= link_to "'#{@group.title}' Info", group_path(@group), data: {turbo_action: :advance} %>
+</button>
+
+<% if view == :mass_add %>
+  <button class='<%="#{primary_button}"%>'>
+    <%= link_to "Toggle Single Invite", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
+  </button>
+<% end%>
+
+<% if view == :new %>
+  <button class='<%="#{primary_button}"%>'>
+    <%= link_to "Toggle Mass Invite", new_group_invite_path(@group.id, params: {mass_add_view: true}), data: {turbo_action: :advance} %>
+  </button>
+<% end%>

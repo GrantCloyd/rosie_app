@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-  <h1 class='<%="#{primary_header}"%>'> Invite new member for "<%= @topic.title %>"</h1>
+  <h1 class='<%="#{primary_header}"%>'> Invite new member for "<%= @group.title %>"</h1>
 
   <% view_state = @mass_add_view ? :mass_add : :new %>
   
@@ -8,7 +8,7 @@
   <%= render "form", invite: @invite, mass_add_view: @mass_add_view %>
 
   <button class='<%="#{secondary_button}"%>' >
-    <%= link_to "Cancel invite", topic_path(@topic), data: {turbo_action: :advance} %>
+    <%= link_to "Cancel invite", group_path(@group), data: {turbo_action: :advance} %>
   </button>
   </div>
 <% end %>

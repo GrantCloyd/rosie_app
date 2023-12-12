@@ -13,6 +13,7 @@
 class Group < ActiveRecord::Base
   has_many :user_groups, dependent: :destroy
   has_many :sections, dependent: :destroy
+  has_many :invites, dependent: :destroy
 
   enum status: {
     closed: 0,

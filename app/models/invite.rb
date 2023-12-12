@@ -27,7 +27,7 @@
 class Invite < ActiveRecord::Base
   validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  belongs_to :topic
+  belongs_to :group
   belongs_to :user, optional: true
 
   enum status: {
@@ -37,5 +37,5 @@ class Invite < ActiveRecord::Base
     rejected: 3
   }
 
-  enum invite_tier: UserTopic.roles
+  enum role_tier: UserGroup.roles
 end

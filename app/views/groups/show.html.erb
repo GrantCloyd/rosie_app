@@ -27,6 +27,9 @@
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
     </button>
+    <button class='<%="#{primary_button}"%>'>
+      <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
+    </button>
     </div>
   </div>
 <% end %>

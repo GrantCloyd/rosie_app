@@ -2,15 +2,15 @@
 
 module Invites
   class CreatorService
-    def initialize(params:, topic:)
+    def initialize(params:, group:)
       @params = params
-      @topic = topic
+      @group = group
       find_user_if_present
     end
 
     def call
       invite = build_invite
-
+      binding.pry
       invite.save! if invite.valid?
 
       invite
@@ -26,9 +26,9 @@ module Invites
 
     def build_invite
       if @user.present?
-        @topic.invites.new(@params.merge({ user_id: @user.id }))
+        @group.invites.new(@params.merge({ user_id: @user.id }))
       else
-        @topic.invites.new(@params)
+        @group.invites.new(@params)
       end
     end
   end
