@@ -34,14 +34,12 @@ groups_seeds = [{
 users = users_seeds.map { |user_seed| User.create(user_seed) }
 groups = groups_seeds.map {|group_seed|  Group.create(group_seed) }
 
-binding.pry
-
 users.each do |user| 
   groups.each do |group|
   if user.super_admin?
-    UserGroup.create(user_id: user.id, group_id: group.id, role: :creator)
+    UserGroup.create(user_id: user.id, group_id: group.id, role: :creator, privacy_tier: :all_access)
   else
-    UserGroup.create(user_id: user.id, group_id: group.id, role: :subscriber)
+    UserGroup.create(user_id: user.id, group_id: group.id, role: :subscriber, privacy_tier: :no_private_access)
     end
   end
 end

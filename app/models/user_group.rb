@@ -4,12 +4,13 @@
 #
 # Table name: user_groups
 #
-#  id         :bigint           not null, primary key
-#  role       :integer          default("subscriber"), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  group_id   :bigint           not null
-#  user_id    :bigint           not null
+#  id           :bigint           not null, primary key
+#  privacy_tier :integer          default("no_private_access"), not null
+#  role         :integer          default("subscriber"), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  group_id     :bigint           not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
@@ -30,6 +31,12 @@ class UserGroup < ActiveRecord::Base
     subscriber: 0,
     moderator: 1,
     creator: 2
+  }
+
+  enum privacy_tier: {
+    no_private_access: 0,
+    private_access: 1,
+    all_access: 2
   }
 
   def moderator_or_creator?

@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
 
   create_table "user_groups", force: :cascade do |t|
     t.integer "role", default: 0, null: false
+    t.integer "privacy_tier", default: 0, null: false
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
     t.datetime "created_at", null: false

@@ -6,7 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  note         :text
-#  privacy_tier :integer          default("no_private_access")
+#  privacy_tier :integer          default(0)
 #  role_tier    :integer          default("subscriber")
 #  status       :integer          default("pending")
 #  target_email :string           not null
@@ -40,8 +40,5 @@ class Invite < ActiveRecord::Base
 
   enum role_tier: UserGroup.roles
 
-  enum privacy_tier: {
-    no_private_access: 0,
-    private_access: 1
-  }
+  enum privacy_tier: UserGroup.privacy_tier
 end
