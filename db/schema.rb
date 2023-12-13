@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.string "target_email", null: false
     t.integer "status", default: 0
     t.integer "role_tier", default: 0
+    t.integer "privacy_tier", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_invites_on_group_id"
@@ -64,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.string "title", null: false
     t.text "description", null: false
     t.integer "status", default: 0, null: false
+    t.integer "privacy_tier", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"

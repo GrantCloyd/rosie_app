@@ -33,7 +33,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :user_section
   has_one :user, through: :user_section
-  
+
   has_many :comments, as: :commentable
   has_many :reactions, as: :reactionable
 

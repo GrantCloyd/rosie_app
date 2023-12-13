@@ -6,7 +6,13 @@
     <p  class="max-w-l mt-4">
       <%= f.label :role_tier%>
       <br>
-      <%= f.select :role_tier, invite_creation_invite_tier_options %>
+      <%= f.select :role_tier, invite_creation_role_tier_options %>
+    </p>
+
+    <p  class="max-w-l mt-4">
+      <%= f.label :privacy_tier %>
+      <br>
+      <%= f.select :privacy_tier , invite_creation_privacy_tiers_options %>
     </p>
 
     <p class="max-w-l mt-4">
@@ -26,7 +32,7 @@
     <% end%>
 
     <button class='<%="#{secondary_button}"%>'>
-      <%= f.submit "Send  Invite",   data: {turbo_action: :advance}%>
+      <%= f.submit "Send  Invite",  data: {turbo_action: :advance}%>
     </button>
   <% end %>
 </div>

@@ -18,8 +18,14 @@
       <%= f.select :status, section_creation_display_statuses %>
     </p>
 
+     <p  class="max-w-l mt-4">
+      <%= f.label :privacy_tier %>
+      <br>
+      <%= f.select :privacy_tier , section_creation_privacy_tiers_options %>
+    </p>
+
     <button class='<%="#{secondary_button} mb-2"%>'>
-      <%= f.submit data: {turbo_action: :advance }%>
+      <%= f.submit data: {turbo_action: :advance } %>
     </button>
   <% end %>
 </div>

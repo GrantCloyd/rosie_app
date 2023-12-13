@@ -2,85 +2,84 @@
 
 module Groups
   module Sections
-  class PostsController < Groups::Sections::BaseSectionsController
+    class PostsController < Groups::Sections::BaseSectionsController
+      def new; end
 
-    def new; end
+      def show
+        @post = Post.find(params[:id])
 
-    def show
-      @post = Post.find(params[:id])
-
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/show' }
-        format.html { render :show }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/show' }
+          format.html { render :show }
+        end
       end
-    end
 
-    def index; end
+      def index; end
 
-    def edit
-      @post = Post.find(params[:id])
+      def edit
+        @post = Post.find(params[:id])
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/edit' }
-        format.html { render :edit }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/edit' }
+          format.html { render :edit }
+        end
       end
-    end
 
-    def update
-      @post = Post.find(params[:id])
-      @post.update!(post_params)
+      def update
+        @post = Post.find(params[:id])
+        @post.update!(post_params)
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/update' }
-        format.html { render :show }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/update' }
+          format.html { render :show }
+        end
       end
-    end
 
-    def create
-      @section.posts.create!(post_params.merge(user_section_id: @user_section.id))
+      def create
+        @section.posts.create!(post_params.merge(user_section_id: @user_section.id))
 
-      redirect_to group_section_path(@group, @section)
-    end
-
-    def destroy
-      @post = Post.find(params[:id])
-      @post.destroy
-
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/destroy' }
-        format.html { render 'groups/sections/posts/index', notice: 'Deleted' }
+        redirect_to group_section_path(@group, @section)
       end
-    end
 
-    def publish
-      @post = Post.find(params[:id])
-      @post.update!(status: :published, published_on: Date.current)
+      def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/publish' }
-        format.html { render :index }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/destroy' }
+          format.html { render 'groups/sections/posts/index', notice: 'Deleted' }
+        end
       end
-    end
 
-    def unpublish
-      @post = Post.find(params[:id])
-      @post.update!(status: :hidden)
+      def publish
+        @post = Post.find(params[:id])
+        @post.update!(status: :published, published_on: Date.current)
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/posts/streams/unpublish' }
-        format.html { render :index }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/publish' }
+          format.html { render :index }
+        end
       end
-    end
 
-    rescue_from ActiveRecord::RecordNotFound do |_exception|
-      redirect_to group_sections_path(@group, @section), notice: 'This post could not be found'
-    end
+      def unpublish
+        @post = Post.find(params[:id])
+        @post.update!(status: :hidden)
 
-    private
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/posts/streams/unpublish' }
+          format.html { render :index }
+        end
+      end
 
-    def post_params
-      params.require(:post).permit(:title, :description, :content)
+      rescue_from ActiveRecord::RecordNotFound do |_exception|
+        redirect_to group_sections_path(@group, @section), notice: 'This post could not be found'
+      end
+
+      private
+
+      def post_params
+        params.require(:post).permit(:title, :description, :content)
+      end
     end
   end
-end
 end

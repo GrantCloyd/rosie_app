@@ -39,6 +39,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.string :title, null: false
       t.text :description, null: false
       t.integer :status, null: false, default: 0
+      t.integer :privacy_tier, null: false, default: 0
 
       t.timestamps
     end
@@ -86,6 +87,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.string :target_email, null: false
       t.integer :status, default: 0
       t.integer :role_tier, default: 0
+      t.integer :privacy_tier, default: 0
 
       t.timestamps
     end

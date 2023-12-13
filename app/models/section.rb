@@ -4,13 +4,14 @@
 #
 # Table name: sections
 #
-#  id          :bigint           not null, primary key
-#  description :text             not null
-#  status      :integer          default("unpublished"), not null
-#  title       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  group_id    :bigint           not null
+#  id           :bigint           not null, primary key
+#  description  :text             not null
+#  privacy_tier :integer          default("open_tier"), not null
+#  status       :integer          default("unpublished"), not null
+#  title        :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  group_id     :bigint           not null
 #
 # Indexes
 #
@@ -29,5 +30,11 @@ class Section < ActiveRecord::Base
     unpublished: 0,
     published: 1,
     hidden: 2
+  }
+
+  enum privacy_tier: {
+    open_tier: 0,
+    private_tier: 1,
+    manual_only_tier: 2
   }
 end
