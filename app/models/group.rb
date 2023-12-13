@@ -24,4 +24,9 @@ class Group < ActiveRecord::Base
   scope :in_order, lambda {
     order(created_at: :DESC)
   }
+
+  def current_user_group(user)
+    UserGroup.find_by(group: self, user: user)
+  end
+
 end

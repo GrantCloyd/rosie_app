@@ -15,21 +15,23 @@
     <div> 
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Sections </h3>
         <div id="sections-container">
-          <%= render 'groups/partials/sections', group: @group, sections: @sections %>
+          <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group %>
         </div> 
     </div>
   </div>
 
-  <div>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
-    </button>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
-    </button>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
-    </button>
+  <% if @user_group.moderator_or_creator? %>
+    <div>
+      <button class='<%="#{primary_button}"%>'>
+        <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
+      </button>
+      <button class='<%="#{primary_button}"%>'>
+        <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
+      </button>
+      <button class='<%="#{primary_button}"%>'>
+        <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
+      </button>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

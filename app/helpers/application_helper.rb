@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def current_user
+    User.find_by(id: session[:user_id])
+  end
+
+  def current_group
+    User.find_by(id: session[:group_id])
+  end
+
   def navigation_breadcrumbs(group, section = nil, post = nil)
     content_tag(:div, class: 'mt-2 flex justify-items') do
       create_group_tag(group) +

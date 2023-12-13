@@ -28,8 +28,9 @@ class UserSection < ApplicationRecord
 
   enum permission_level: {
     reader: 0,
-    contributor: 1,
-    moderator: 2,
-    creator: 3
+    commenter: 1,
+    contributor: 2,
+    moderator: 3,
+    creator: 4
   }
 end

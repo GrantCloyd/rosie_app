@@ -10,7 +10,7 @@
       </thead>
       <tbody class="bg-white">
         <% groups.each do |group| %>
-           <%= render 'groups/partials/group', group: group %>
+           <%= render 'groups/partials/group', group: group, user_group: group.current_user_group(current_user) %>
         <% end%>
       </tbody>
     </table>

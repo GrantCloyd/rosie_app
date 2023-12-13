@@ -31,4 +31,8 @@ class UserGroup < ActiveRecord::Base
     moderator: 1,
     creator: 2
   }
+
+  def moderator_or_creator?
+    moderator? || creator?
+  end
 end

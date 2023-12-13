@@ -38,6 +38,7 @@ module Groups
     def update
       @section = Section.find(params[:id])
       @section.update!(section_params)
+      @posts = @section.posts.in_order
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/update' }

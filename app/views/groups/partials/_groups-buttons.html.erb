@@ -1,4 +1,4 @@
-<% if view == :index %>
+<% if view == :index && current_user.super_admin? %>
   <button class='<%="#{primary_button}"%>'>
     <%= link_to "Create New Group", new_group_path, data: {turbo_action: :advance} %>
   </button>

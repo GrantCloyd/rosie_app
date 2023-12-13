@@ -3,14 +3,6 @@
     <td class='<%= "#{primary_td} pr-8"%>'> <%= group.status.titleize %> </td>
       <td class='<%= "#{primary_td} pr-8"%>'> <%= group.created_at&.strftime("%D") %> </td>
     <td class='<%= "#{primary_td} pr-12"%>'>
-        <button class='<%="#{action_button}"%>'>
-          <%= link_to "View", group_path(group.id), data: {turbo_action: :advance} %>
-        </button>
-        <button class='<%="#{action_button}"%>'>
-          <%= link_to "Edit", edit_group_path(group.id), data: {turbo_action: :advance} %>
-        </button>
-        <button class='<%="#{action_button}"%>'>
-          <%= link_to "Delete", group_path(group.id), data: {turbo_method: :delete } %>
-        </button>
+      <%= render 'groups/partials/group-actions', group: group, user_group:user_group %>
     </td>
 </tr>
