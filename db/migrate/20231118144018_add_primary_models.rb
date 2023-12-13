@@ -27,7 +27,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     end
 
     create_table :user_groups do |t|
-      t.integer :role, null: false
+      t.integer :role, null: false, default: 0 
       t.belongs_to :user, foreign_key: true,  null: false
       t.belongs_to :group, foreign_key: true, null: false
 

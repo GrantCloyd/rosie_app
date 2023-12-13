@@ -5,7 +5,7 @@
 # Table name: user_groups
 #
 #  id         :bigint           not null, primary key
-#  role       :integer          not null
+#  role       :integer          default("subscriber"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  group_id   :bigint           not null

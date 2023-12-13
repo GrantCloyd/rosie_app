@@ -16,10 +16,33 @@ users_seeds = [
     password: 'asd',
     role: :super_admin,
     full_name: 'd g'
+  },
+  {
+    email: 'd2@g.com',
+    password: 'asd',
+    role: :general,
+    full_name: 'd 2g'
   }
 ]
 
+groups_seeds = [{
+  title: "Test seed",
+  status: :closed
+}]
 
 
-users = users_seeds.map { |user_seed| User.first_or_create(user_seed) }
+users = users_seeds.map { |user_seed| User.create(user_seed) }
+groups = groups_seeds.map {|group_seed|  Group.create(group_seed) }
+
+binding.pry
+
+users.each do |user| 
+  groups.each do |group|
+  if user.super_admin?
+    UserGroup.create(user_id: user.id, group_id: group.id, role: :creator)
+  else
+    UserGroup.create(user_id: user.id, group_id: group.id, role: :subscriber)
+    end
+  end
+end
 
