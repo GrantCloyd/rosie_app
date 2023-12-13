@@ -37,4 +37,8 @@ class Section < ActiveRecord::Base
     private_tier: 1,
     manual_only_tier: 2
   }
+
+  def current_user_section(user)
+    UserSection.find_by(section: self, user: user)
+  end
 end

@@ -18,8 +18,9 @@ module Groups
     end
 
     def show
-      @section = Section.includes(:posts).find(params[:id])
+      @section = Section.includes(:posts, :user_sections).find(params[:id])
       @posts = @section.posts.in_order
+      @user_section = @section.current_user_section(current_user)
     end
 
     rescue_from ActiveRecord::RecordNotFound do |_exception|

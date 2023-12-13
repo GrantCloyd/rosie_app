@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   create_table "user_sections", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.bigint "user_id", null: false
-    t.integer "permission_level"
+    t.integer "permission_level", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_user_sections_on_section_id"

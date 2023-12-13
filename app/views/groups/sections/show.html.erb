@@ -9,15 +9,19 @@
     <div> 
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
         <div id="posts-container">
-          <%= render 'groups/sections/posts/partials/posts', group: @group, section: @section, posts: @posts %>
+          <%= render 'groups/sections/posts/partials/posts', group: @group, user_section: @user_section, section: @section, posts: @posts %>
         </div> 
     </div>
 
+    <% if @user_section.moderator_or_creator? %>
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
     </button>
+    <% end %>
+    <% if @user_section.can_post? %>
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
     </button>
+    <% end %>
   </div>
 <% end %>

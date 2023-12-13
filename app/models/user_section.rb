@@ -5,7 +5,7 @@
 # Table name: user_sections
 #
 #  id               :bigint           not null, primary key
-#  permission_level :integer
+#  permission_level :integer          default("reader"), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  section_id       :bigint           not null
@@ -31,6 +31,27 @@ class UserSection < ApplicationRecord
     commenter: 1,
     contributor: 2,
     moderator: 3,
-    creator: 4
+    creator: 4,
+    blocked: 5
   }
+
+  def moderator_or_creator?
+    moderator? || creator?
+  end
+
+  def can_post?
+    contributor? || moderator_or_creator?
+  end
+
+  def can_delete?
+    moderator_or_creator?
+  end
+
+  def can_comment?
+    !reader? || !blocked?
+  end
+
+  def can_view?
+    !blocked?
+  end
 end

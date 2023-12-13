@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
+  before_action :ensure_logged_in
+
   def index
     exit_group
 

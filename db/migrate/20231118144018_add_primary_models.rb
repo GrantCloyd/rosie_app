@@ -47,7 +47,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     create_table :user_sections do |t|
       t.belongs_to :section, foreign_key: true,  null: false
       t.belongs_to :user, foreign_key: true,  null: false
-      t.integer :permission_level
+      t.integer :permission_level, null: false, default: 0
 
       t.timestamps
     end

@@ -1,21 +1,26 @@
+<% if user_section.can_view? %>
 <button class='<%="#{action_button}"%>'>
     <%= link_to "View", group_section_post_path(group, section, post), data: {turbo_action: :advance} %>
 </button>
+<% end %>
 
+<% if post.user || user_section.moderator_or_creator? %>
 <button class='<%="#{action_button}"%>'>
     <%= link_to "Edit", edit_group_section_post_path(group, section, post), data: {turbo_action: :advance} %>
 </button>
 
-<% if !post.published? %>
-  <button class='<%="#{action_button}"%>'>
-    <%= link_to "Publish", publish_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
-  </button>
-<% else %>
-  <button class='<%="#{action_button}"%>'>
-    <%= link_to "Unpublish", unpublish_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
-  </button>
-<% end %>
+  <% if !post.published? %>
+    <button class='<%="#{action_button}"%>'>
+      <%= link_to "Publish", publish_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
+    </button>
+  <% else %>
+    <button class='<%="#{action_button}"%>'>
+      <%= link_to "Unpublish", unpublish_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
+    </button>
+  <% end %>
+
 
 <button class='<%="#{action_button}"%>'>
     <%= link_to "Delete", group_section_post_path(group, section, post), data: {turbo_method: :delete} %>
 </button>
+<% end  %>

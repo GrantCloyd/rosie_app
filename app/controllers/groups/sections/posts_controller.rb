@@ -3,6 +3,8 @@
 module Groups
   module Sections
     class PostsController < Groups::Sections::BaseSectionsController
+      before_action :set_user_section
+
       def new; end
 
       def show
@@ -51,6 +53,7 @@ module Groups
         end
       end
 
+      #todo - publish/unpublish not updating properly
       def publish
         @post = Post.find(params[:id])
         @post.update!(status: :published, published_on: Date.current)
