@@ -2,9 +2,10 @@
 
 module Invites
   class CreatorService
-    def initialize(params:, group:)
+    def initialize(params:, group:, sender:)
       @params = params
       @group = group
+      @sender = sender
       find_user_if_present
     end
 
@@ -36,8 +37,7 @@ module Invites
     end
 
     def send_invite_email!
-      binding.pry
-      GroupInviteMailer.with(email: @invite.target_email, group: @invite.group).invite_user.deliver_later
+      GroupInviteMailer.with(sender_name: @sender.full_name, email: @invite.target_email, group: @invite.group, note: @invite.note ).invite_user.deliver_later
     end
   end
 end

@@ -31,6 +31,8 @@ class Invite < ActiveRecord::Base
   belongs_to :group
   belongs_to :user, optional: true
 
+  before_save :strip_note_if_empty
+
   enum status: {
     pending: 0,
     invited: 1,
@@ -41,4 +43,8 @@ class Invite < ActiveRecord::Base
   enum role_tier: UserGroup.roles
 
   enum privacy_tier: UserGroup.privacy_tiers
+
+  def strip_note_if_empty
+    self.note = nil if self.note.empty?
+  end
 end

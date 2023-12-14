@@ -1,5 +1,9 @@
-You've been invited to join <%= @group.title %>
+You've been invited to join <%= @group.title %> by <%= @sender_name %>! 
 -----
+<% if @note %> 
+  Special Note: "<%= @note %>"
+<% end %>
+
 To create your account and login to the group just follow this link: <%= @url %>
 
 Thanks for joining and have a great day!

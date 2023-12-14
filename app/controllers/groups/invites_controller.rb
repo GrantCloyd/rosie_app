@@ -12,7 +12,7 @@ module Groups
     end
 
     def create
-      invite = Invites::CreatorService.new(params: invite_params, group: @group).call
+      invite = Invites::CreatorService.new(params: invite_params, group: @group, sender: current_user).call
 
       if invite.errors.present?
         respond_to do |format|
@@ -26,7 +26,7 @@ module Groups
 
     def mass_add
       # to do - make async
-      mass_add_service = Invites::MassAddService.new(params: mass_add_params, group: @group)
+      mass_add_service = Invites::MassAddService.new(params: mass_add_params, group: @group, sender: current_user)
       mass_add_service.call
 
       if mass_add_service.results[:errors].any?
