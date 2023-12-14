@@ -9,11 +9,14 @@ module Invites
     end
 
     def call
-      invite = build_invite
+      @invite = build_invite
 
-      invite.save! if invite.valid?
+      if @invite.valid?
+        @invite.save!
+        send_invite_email!
+      end
 
-      invite
+      @invite
     end
 
     private
@@ -21,7 +24,7 @@ module Invites
     def find_user_if_present
       return @user if defined?(@user)
 
-      @find_user_if_present ||= User.find_by(email: @params[:target_email])
+      @user ||= User.find_by(email: @params[:target_email])
     end
 
     def build_invite
@@ -30,6 +33,11 @@ module Invites
       else
         @group.invites.new(@params)
       end
+    end
+
+    def send_invite_email!
+      binding.pry
+      GroupInviteMailer.with(email: @invite.target_email, group: @invite.group).invite_user.deliver_later
     end
   end
 end

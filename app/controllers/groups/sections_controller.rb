@@ -40,6 +40,7 @@ module Groups
       @section = Section.find(params[:id])
       @section.update!(section_params)
       @posts = @section.posts.in_order
+      @user_section = @section.current_user_section(current_user)
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/update' }
