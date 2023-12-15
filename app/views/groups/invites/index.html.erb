@@ -10,19 +10,25 @@
         <tr> 
           <th class='<%="#{primary_th} pl-8"%>'> Email </th>
           <th class='<%="#{primary_th}"%>'> Status </th>
+          <th class='<%="#{primary_th}"%> pr-8'> Privacy Tier </th>
           <th class='<%="#{primary_th} pr-8"%>'> Role </th>
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
       <tbody class="bg-white">
         <% @invites.each do |invite| %>
+        <%= turbo_frame_tag "invite-#{invite.id}" do %>
           <tr>
             <td class='<%= "#{primary_td} pl-8"%>'> <%= invite.target_email %> </td>
             <td class='<%= "#{primary_td}"%>'> <%= invite.status.titleize %> </td>
-            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.role_tier %> </td>
-            <td class='<%= "#{primary_td} pr-12"%>'>  </td>
+            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.role_tier.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.privacy_tier.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-12"%>'> 
+            <%= render 'groups/invites/invite-actions', invite: invite, group: @group%>
+             </td>
           </tr>
         <% end%>
+        <% end %>
       </tbody>
     </table>
   </div>

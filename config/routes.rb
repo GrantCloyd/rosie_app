@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :invites, only: %i[new create index], controller: 'groups/invites' do
+    resources :invites, except: [:show], controller: 'groups/invites' do
       collection do
         post :mass_add
       end

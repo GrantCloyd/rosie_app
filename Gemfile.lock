@@ -105,6 +105,10 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
@@ -300,6 +304,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  dotenv-rails
   factory_bot_rails (~> 6.4, >= 6.4.2)
   image_processing (~> 1.2)
   importmap-rails

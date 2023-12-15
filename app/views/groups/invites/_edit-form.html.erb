@@ -1,0 +1,28 @@
+<div class='<%="#{primary_form} m-10 p-10"%>'>
+  <%= form_for invite, url: group_invite_path(group, invite), method: :patch do |f| %>
+
+    <h3 class="font-bold underlined"> Editing invite for <%= @invite.target_email %></h3>
+
+    <p  class="max-w-l mt-4">
+      <%= f.label :role_tier%>
+      <br>
+      <%= f.select :role_tier, invite_creation_role_tier_options %>
+    </p>
+
+    <p  class="max-w-l mt-4">
+      <%= f.label :privacy_tier %>
+      <br>
+      <%= f.select :privacy_tier , invite_creation_privacy_tiers_options %>
+    </p>
+
+
+    <p class="max-w-l mt-4 p-2">
+      Notice: This invite has already been sent to intended recipient and the message cannot be adjusted. 
+    </p>
+
+
+    <button class='<%="#{secondary_button}"%>'>
+      <%= f.submit  data: {turbo_action: :advance}%>
+    </button>
+  <% end %>
+</div>

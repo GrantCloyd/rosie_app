@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "main_view" do  %>
+  <div class="container-md">
+  <h1 class='<%="#{primary_header}"%>'> Edit Invite for "<%= @group.title %>"</h1>
+  
+  <%= render "invites-buttons", view: :edit %>1
+  <%= render "edit-form", invite: @invite, group: @group %>
+
+  <button class='<%="#{secondary_button}"%>' >
+    <%= link_to "Cancel invite", group_path(@group), data: {turbo_action: :advance} %>
+  </button>
+  </div>
+<% end %>

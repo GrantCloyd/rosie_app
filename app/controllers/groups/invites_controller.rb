@@ -39,10 +39,22 @@ module Groups
       end
     end
 
+    def edit
+      @invite = Invite.find_by(id: params[:id])
+    end
+
+    def update
+      @invite = Invite.find_by(id: params[:id])
+      binding.pry
+      @invite.update(invite_params)
+
+      redirect_to group_invites_path(@group)
+    end
+
     private
 
     def invite_params
-      params.permit(:target_email, :invite_tier, :note)
+      params.permit(:target_email, :role_tier, :privacy_tier, :note)
     end
 
     def set_mass_add_view_status
@@ -52,7 +64,7 @@ module Groups
     end
 
     def mass_add_params
-      params.permit(:target_emails, :role_tier, :note)
+      params.permit(:target_emails, :role_tier, :privacy_tier, :note)
     end
 
     def ensure_invitor_authorized

@@ -1,5 +1,5 @@
 class GroupInviteMailer < ApplicationMailer
-  default from: 'dgcloyd@gmail.com'
+  default from: ENV.fetch('USER_EMAIL')
 
   def invite_user
     @email = params[:email]

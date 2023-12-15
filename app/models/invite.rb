@@ -47,4 +47,8 @@ class Invite < ActiveRecord::Base
   def strip_note_if_empty
     self.note = nil if self.note.empty?
   end
+
+  def can_edit?
+    !accepted? || !rejected?
+  end
 end
