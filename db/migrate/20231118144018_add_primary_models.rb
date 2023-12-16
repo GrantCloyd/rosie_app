@@ -95,5 +95,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     add_index :user_groups, [:user_id, :group_id], unique: true
     add_index :user_group_sections, [:user_group_id, :section_id], unique: true
+    add_index :invites, [:target_email, :group_id], unique: true
   end
 end

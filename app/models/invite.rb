@@ -17,8 +17,9 @@
 #
 # Indexes
 #
-#  index_invites_on_group_id  (group_id)
-#  index_invites_on_user_id   (user_id)
+#  index_invites_on_group_id                   (group_id)
+#  index_invites_on_target_email_and_group_id  (target_email,group_id) UNIQUE
+#  index_invites_on_user_id                    (user_id)
 #
 # Foreign Keys
 #

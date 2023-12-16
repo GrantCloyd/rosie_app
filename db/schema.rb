@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_invites_on_group_id"
+    t.index ["target_email", "group_id"], name: "index_invites_on_target_email_and_group_id", unique: true
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
