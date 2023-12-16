@@ -56,7 +56,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     create_table :posts do |t|
       t.string :title, null: false
       t.text :description, null: false
-      t.text :content, null: false
+      t.text :content
       t.integer :status, default: 0
       t.belongs_to :section, foreign_key: true, null: false
       t.belongs_to :user_group_section, foreign_key: true, null: false

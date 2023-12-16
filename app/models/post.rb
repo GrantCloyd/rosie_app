@@ -5,7 +5,7 @@
 # Table name: posts
 #
 #  id                    :bigint           not null, primary key
-#  content               :text             not null
+#  content               :text
 #  description           :text             not null
 #  published_on          :date
 #  status                :integer          default("pending")
@@ -27,6 +27,8 @@
 #
 class Post < ActiveRecord::Base
   validates :content, :title, :description, :section_id, :user_group_section_id, presence: true
+
+  has_rich_text :content
 
   belongs_to :section
   has_one :group, through: :section
