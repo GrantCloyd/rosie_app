@@ -27,6 +27,7 @@
 #
 class Invite < ActiveRecord::Base
   validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :target_email, uniqueness: { scope: :group_id }
 
   belongs_to :group
   belongs_to :user, optional: true
@@ -35,7 +36,7 @@ class Invite < ActiveRecord::Base
 
   enum status: {
     pending: 0,
-    invited: 1,
+    email_sent: 1,
     accepted: 2,
     rejected: 3
   }
@@ -45,7 +46,7 @@ class Invite < ActiveRecord::Base
   enum privacy_tier: UserGroup.privacy_tiers
 
   def strip_note_if_empty
-    self.note = nil if self.note.empty?
+    self.note = nil if self.note&.empty?
   end
 
   def can_edit?

@@ -4,15 +4,19 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>You've been invited to join "<%= @group.title %>" by <%= @sender_name %>! </h1>
+    <h1>You've been invited to join "<%= @group_title %>" by <%= @sender_name %>! </h1>
     <% if @note %> 
       <p>
         Special Note: "<%= @note %>"
       </p>
     <% end %>
-    <p>
-      To create your account and login to the group just follow this link: <%= @url %>.
+    <p> Click here to create your account and login now: 
     </p>
+    <div>
+        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded mt-4">
+         <%= link_to "Create Your Account", @url %>.
+       </button>
+     </div>
     <p>Thanks for joining and have a great day!</p>
   </body>
 </html>

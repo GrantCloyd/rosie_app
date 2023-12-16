@@ -37,7 +37,7 @@ module Invites
     end
 
     def send_invite_email!
-      GroupInviteMailer.with(sender_name: @sender.full_name, email: @invite.target_email, group: @invite.group, note: @invite.note ).invite_user.deliver_later
+      GroupInviteMailer.with(sender_name: @sender.full_name, invite: @invite).invite_user.deliver_later
     end
   end
 end

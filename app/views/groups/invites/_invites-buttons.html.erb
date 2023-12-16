@@ -2,6 +2,12 @@
   <%= link_to "'#{@group.title}' Info", group_path(@group), data: {turbo_action: :advance} %>
 </button>
 
+<% unless view == :mass_add || view == :new %>
+<button class='<%="#{primary_button}"%>'>
+  <%= link_to "Invite friends", new_group_invite_path(@group), data: {turbo_action: :advance} %>
+</button>
+<% end %>
+
 <% if view == :mass_add %>
   <button class='<%="#{primary_button}"%>'>
     <%= link_to "Toggle Single Invite", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
