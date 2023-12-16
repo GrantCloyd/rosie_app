@@ -43,9 +43,18 @@ module Groups
       @invite = Invite.find_by(id: params[:id])
     end
 
+    def destroy
+      @invite = Invite.find_by(id: params[:id])
+      @invite.destroy
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/invites/streams/destroy' }
+        format.html { render :index }
+      end
+    end
+
     def update
       @invite = Invite.find_by(id: params[:id])
-      binding.pry
       @invite.update(invite_params)
 
       redirect_to group_invites_path(@group)

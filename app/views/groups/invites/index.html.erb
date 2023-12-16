@@ -15,10 +15,10 @@
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
+      <%= turbo_frame_tag "invite-container" do %>
       <tbody class="bg-white">
         <% @invites.each do |invite| %>
-        <%= turbo_frame_tag "invite-#{invite.id}" do %>
-          <tr>
+          <tr id='<%="invite-#{invite.id}" %>'>
             <td class='<%= "#{primary_td} pl-8"%>'> <%= invite.target_email %> </td>
             <td class='<%= "#{primary_td}"%>'> <%= invite.status.titleize %> </td>
             <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.role_tier.titleize %> </td>

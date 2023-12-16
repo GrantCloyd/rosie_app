@@ -1,0 +1,5 @@
+<%= turbo_stream.remove "invite-#{@invite.id}" %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "Invite for #{@invite.target_email} has been deleted. Note - email has already been sent" %>
+<% end %>
