@@ -20,11 +20,7 @@ module Groups
     def show
       @section = Section.includes(:posts, :user_group_sections).find(params[:id])
       @posts = @section.posts.in_order
-      @user_group_section = @section.current_user_group_section(@user_group)
-    end
-
-    rescue_from ActiveRecord::RecordNotFound do |_exception|
-      redirect_to group_sections_path, notice: 'This section could not be found'
+      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
     end
 
     def edit
@@ -40,12 +36,26 @@ module Groups
       @section = Section.find(params[:id])
       @section.update!(section_params)
       @posts = @section.posts.in_order
-      @user_group_section = @section.current_user_group_section(@user_group)
+      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/update' }
         format.html { render 'groups/sections/show' }
       end
+    end
+
+    def destroy
+      @section = Section.find(params[:id])
+      @section.destroy
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/destroy'}
+        format.html { redirect_to group_sections_path(@group) }
+      end
+    end
+
+    rescue_from ActiveRecord::RecordNotFound do |_exception|
+      redirect_to group_sections_path, notice: 'This section could not be found'
     end
 
     private

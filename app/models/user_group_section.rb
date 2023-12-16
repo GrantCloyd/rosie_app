@@ -37,6 +37,10 @@ class UserGroupSection < ApplicationRecord
     blocked: 5
   }
 
+  def self.current_user_group_section(user_group:, section:)
+    find_by(user_group: user_group, section: section)
+  end
+
   def moderator_or_creator?
     moderator? || creator?
   end

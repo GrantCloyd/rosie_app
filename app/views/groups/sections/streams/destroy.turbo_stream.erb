@@ -1,0 +1,5 @@
+<%= turbo_stream.remove @section %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "Section '#{@section.title}' has been deleted" %>
+<% end %>
