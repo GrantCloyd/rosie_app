@@ -7,7 +7,7 @@
         <button class='<%="#{action_button}"%>'>
           <%= link_to "View", group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
         </button>
-        <% if user_section.moderator_or_creator? %>
+        <% if user_group_section.moderator_or_creator? %>
         <button class='<%="#{action_button}"%>'>
           <%= link_to "Edit", edit_group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
         </button>

@@ -5,6 +5,6 @@
   <td class='<%= "#{primary_td} pr-8"%>'> <%= post.status.titleize %> </td>
   <td class='<%= "#{primary_td} pr-8"%>'> <%= post.published_on&.strftime("%D") %> </td>
   <td class='<%= "#{primary_td} pr-12"%>'>
-   <%= render 'groups/sections/posts/partials/post_actions', user_section: user_section, group: group, section: section, post: post %>
+   <%= render 'groups/sections/posts/partials/post_actions', user_group_section: user_group_section, group: group, section: section, post: post %>
   </td>
 </tr>

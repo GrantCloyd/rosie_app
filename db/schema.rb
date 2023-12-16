@@ -52,12 +52,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.text "content", null: false
     t.integer "status", default: 0
     t.bigint "section_id", null: false
-    t.bigint "user_section_id", null: false
+    t.bigint "user_group_section_id", null: false
     t.date "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_posts_on_section_id"
-    t.index ["user_section_id"], name: "index_posts_on_user_section_id"
+    t.index ["user_group_section_id"], name: "index_posts_on_user_group_section_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -69,6 +69,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"
+  end
+
+  create_table "user_group_sections", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.bigint "user_group_id", null: false
+    t.integer "permission_level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_user_group_sections_on_section_id"
+    t.index ["user_group_id", "section_id"], name: "index_user_group_sections_on_user_group_id_and_section_id", unique: true
+    t.index ["user_group_id"], name: "index_user_group_sections_on_user_group_id"
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -103,17 +114,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
     t.index ["user_id"], name: "index_user_reactions_on_user_id"
   end
 
-  create_table "user_sections", force: :cascade do |t|
-    t.bigint "section_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "permission_level", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["section_id"], name: "index_user_sections_on_section_id"
-    t.index ["user_id", "section_id"], name: "index_user_sections_on_user_id_and_section_id", unique: true
-    t.index ["user_id"], name: "index_user_sections_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "full_name", null: false
     t.string "email", null: false
@@ -127,12 +127,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_18_144018) do
   add_foreign_key "invites", "groups"
   add_foreign_key "invites", "users"
   add_foreign_key "posts", "sections"
-  add_foreign_key "posts", "user_sections"
+  add_foreign_key "posts", "user_group_sections"
   add_foreign_key "sections", "groups"
+  add_foreign_key "user_group_sections", "sections"
+  add_foreign_key "user_group_sections", "user_groups"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
   add_foreign_key "user_preferences", "users"
   add_foreign_key "user_reactions", "users"
-  add_foreign_key "user_sections", "sections"
-  add_foreign_key "user_sections", "users"
 end

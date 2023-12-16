@@ -11,7 +11,7 @@
       </thead>
       <tbody class="bg-white">
         <% sections.each do |section| %>
-           <%= render 'groups/partials/section', section: section, group: group, user_section: section.current_user_section(current_user) %>
+           <%= render 'groups/partials/section', section: section, group: group, user_group_section: section.current_user_group_section(@user_group) %>
         <% end%>
       </tbody>
     </table>

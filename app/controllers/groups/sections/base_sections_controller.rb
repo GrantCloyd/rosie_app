@@ -4,8 +4,8 @@ module Groups
   module Sections
     class BaseSectionsController < BaseGroupsController
       before_action :set_section
-      before_action :set_user_section
-      before_action :ensure_user_section_authorized
+      before_action :set_user_group_section
+      before_action :ensure_user_group_section_authorized
 
       private
 
@@ -13,12 +13,12 @@ module Groups
         @section = Section.find(params[:section_id])
       end
 
-      def set_user_section
-        @user_section = UserSection.find_by(user: current_user, section: @section)
+      def set_user_group_section
+        @user_group_section = UserGroupSection.find_by(user_group: @user_group, section: @section)
       end
 
-      def ensure_user_section_authorized
-        @user_section.present?
+      def ensure_user_group_section_authorized
+        @user_group_section.present?
       end
     end
   end

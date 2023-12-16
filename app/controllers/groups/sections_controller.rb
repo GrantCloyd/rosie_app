@@ -5,7 +5,7 @@ module Groups
     def new; end
 
     def create
-      section = ::Sections::CreatorService.new(params: section_params, user: current_user).call
+      section = ::Sections::CreatorService.new(params: section_params, user: current_user, user_group: @user_group).call
 
       if section.errors.present?
         respond_to do |format|
@@ -18,9 +18,9 @@ module Groups
     end
 
     def show
-      @section = Section.includes(:posts, :user_sections).find(params[:id])
+      @section = Section.includes(:posts, :user_group_sections).find(params[:id])
       @posts = @section.posts.in_order
-      @user_section = @section.current_user_section(current_user)
+      @user_group_section = @section.current_user_group_section(@user_group)
     end
 
     rescue_from ActiveRecord::RecordNotFound do |_exception|
@@ -40,7 +40,7 @@ module Groups
       @section = Section.find(params[:id])
       @section.update!(section_params)
       @posts = @section.posts.in_order
-      @user_section = @section.current_user_section(current_user)
+      @user_group_section = @section.current_user_group_section(@user_group)
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/update' }

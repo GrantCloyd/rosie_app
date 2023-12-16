@@ -3,7 +3,7 @@
 module Groups
   module Sections
     class PostsController < Groups::Sections::BaseSectionsController
-      before_action :set_user_section
+      before_action :set_user_group_section
 
       def new; end
 
@@ -38,7 +38,7 @@ module Groups
       end
 
       def create
-        @section.posts.create!(post_params.merge(user_section_id: @user_section.id))
+        @section.posts.create!(post_params.merge(user_group_section_id: @user_group_section.id))
 
         redirect_to group_section_path(@group, @section)
       end

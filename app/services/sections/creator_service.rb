@@ -2,15 +2,16 @@
 
 module Sections
   class CreatorService
-    def initialize(params:, user:)
+    def initialize(params:, user:, user_group:)
       @section = Section.new(params)
       @user = user
+      @user_group = user_group
     end
 
     def call
       ActiveRecord::Base.transaction do
         if @section.valid?
-          create_user_section!
+          create_user_group_section!
           @section.save!
         end
 
@@ -18,13 +19,13 @@ module Sections
       end
     end
 
-    def create_user_section!
-      user_section = UserSection.new(
-        user: @user,
+    def create_user_group_section!
+      user_group_section = UserGroupSection.new(
         section: @section,
+        user_group: @user_group,
         permission_level: :creator
       )
-      user_section.save!
+      user_group_section.save!
     end
   end
 end

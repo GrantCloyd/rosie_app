@@ -45,9 +45,9 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :user_sections do |t|
+    create_table :user_group_sections do |t|
       t.belongs_to :section, foreign_key: true,  null: false
-      t.belongs_to :user, foreign_key: true,  null: false
+      t.belongs_to :user_group, foreign_key: true, null: false
       t.integer :permission_level, null: false, default: 0
 
       t.timestamps
@@ -59,7 +59,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.text :content, null: false
       t.integer :status, default: 0
       t.belongs_to :section, foreign_key: true, null: false
-      t.belongs_to :user_section, foreign_key: true, null: false
+      t.belongs_to :user_group_section, foreign_key: true, null: false
       t.date :published_on
 
       t.timestamps
@@ -94,6 +94,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     end
 
     add_index :user_groups, [:user_id, :group_id], unique: true
-    add_index :user_sections, [:user_id, :section_id], unique: true
+    add_index :user_group_sections, [:user_group_id, :section_id], unique: true
   end
 end

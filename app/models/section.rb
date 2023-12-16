@@ -24,7 +24,7 @@
 class Section < ActiveRecord::Base
   belongs_to :group
   has_many :posts
-  has_many :user_sections
+  has_many :user_group_sections
 
   enum status: {
     unpublished: 0,
@@ -38,7 +38,7 @@ class Section < ActiveRecord::Base
     manual_only_tier: 2
   }
 
-  def current_user_section(user)
-    UserSection.find_by(section: self, user: user)
+  def current_user_group_section(user_group)
+    user_group.user_group_sections.find_by(section: self)
   end
 end
