@@ -11,7 +11,7 @@
     <% if @user_group.moderator_or_creator? %>
     <div class='<%="#{primary_form} w-42 px-2 pb-2 absolute left-4 mt-16"%>'> 
       <p  class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> * Status * </p>
-        <p class="flex justify-center"> <%= @group.status.titleize %> </p> 
+      <p class="flex justify-center"> <%= @group.status.titleize %> </p> 
    
     <div class="flex justify-items flex-col">
       <hr class="border-1 border-slate-600 mt-1">
@@ -32,11 +32,17 @@
   <% end %>
 
 
+  <% if @user_group.moderator_or_creator?  %>
+  <div class="mb-10"> 
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Unpublished / Hidden </h3>
+          <%= render 'groups/partials/sections', group: @group, sections: @pending_sections, user_group: @user_group, view: :unpublished %>
+    </div>
+  </div>
+  <% end %>
+
     <div class="mb-10"> 
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Sections </h3>
-        <div id="sections-container">
-          <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group %>
-        </div> 
+          <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group, view: :published %>
     </div>
   </div>
 

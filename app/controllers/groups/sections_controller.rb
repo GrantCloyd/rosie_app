@@ -54,6 +54,28 @@ module Groups
       end
     end
 
+    def publish
+      @section = Section.find(params[:id])
+      @section.update!(status: :published)
+      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+  
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/publish' }
+        format.html { render :index }
+      end
+    end
+  
+    def unpublish
+      @section = Section.find(params[:id])
+      @section.update!(status: :hidden)
+      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+  
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/unpublish' }
+        format.html { render :index }
+      end
+    end
+
     rescue_from ActiveRecord::RecordNotFound do |_exception|
       redirect_to group_sections_path(@group), notice: 'This section could not be found'
     end

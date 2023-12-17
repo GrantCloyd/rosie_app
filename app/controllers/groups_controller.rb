@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.includes(:sections).find(params[:id])
-    @sections = @group.sections
+    @sections, @pending_sections = @group.sections.in_order.partition(&:published?)
     @user_group = @group.current_user_group(current_user)
     select_group(@group)
   end

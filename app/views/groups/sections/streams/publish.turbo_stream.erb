@@ -1,0 +1,15 @@
+<%= turbo_stream.remove "section_#{@section.id}" %>
+
+<%= turbo_stream.append "sections-published-container" do %>
+  <%= render partial: 'groups/partials/section', 
+  locals: {
+    group: @group, 
+    section: @section, 
+    user_group_section: @user_group_section, 
+    view: :published
+    } %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "#{@section.title} has been published!" %>
+<% end %>

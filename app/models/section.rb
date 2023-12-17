@@ -37,4 +37,13 @@ class Section < ActiveRecord::Base
     private_tier: 1,
     manual_only_tier: 2
   }
+
+  scope :hidden_or_unpublished, -> {
+    hidden.or(unpublished)
+  }
+
+  scope :in_order, lambda {
+    order(created_at: :DESC)
+  }
+
 end
