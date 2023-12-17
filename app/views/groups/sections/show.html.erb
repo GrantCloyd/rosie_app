@@ -1,27 +1,41 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> '<%= @section.title %>' Details </h1>
-
-    <%= render "groups/sections/partials/sections-buttons", view: :show, cached: true %>
+    <h1 class='<%="#{primary_header}"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
     
     <%= navigation_breadcrumbs(@group, @section) %>
 
+    <div class="border-4 border-slate-400 bg-slate-200 my-4 max-w-md flex justify-center p-4"> 
+      <%= @section.description %>
+    </div>
+
+    <div class="flex justify-items">
+     <% if @user_group_section.moderator_or_creator? %>
+        <button class='<%="#{primary_button}"%>'>
+          <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
+        </button>
+      <% end %>
+      <% if @user_group_section.can_post? %>
+        <button class='<%="#{primary_button}"%>'>
+          <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
+        </button>
+      <% end %>
+    </div>
+
+    <% if @user_group_section.can_post? %>
+    <div> 
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Pending/Hidden </h3>
+        <div>
+          <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @unpublished_posts, view: :unpublished %>
+        </div> 
+    </div>
+    <% end %>
+
     <div> 
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
-        <div id="posts-container">
-          <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts %>
+        <div>
+          <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts, view: :published %>
         </div> 
     </div>
 
-    <% if @user_group_section.moderator_or_creator? %>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
-    </button>
-    <% end %>
-    <% if @user_group_section.can_post? %>
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
-    </button>
-    <% end %>
   </div>
 <% end %>

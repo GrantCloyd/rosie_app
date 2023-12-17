@@ -28,4 +28,8 @@ module CssHelper
   def primary_form
     'shadow-md bg-slate-100 rounded-md'
   end
+
+  def nav_breadcrumbs
+  'bg-slate-200 bold border-2 border-slate-300 p-1 px-2 max-w-sm mr-1 rounded-full'
+  end
 end

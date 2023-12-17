@@ -87,12 +87,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description", null: false
-    t.text "content"
     t.integer "status", default: 0
     t.bigint "section_id", null: false
     t.bigint "user_group_section_id", null: false
-    t.date "published_on"
+    t.datetime "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_posts_on_section_id"

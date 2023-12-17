@@ -16,8 +16,6 @@ module Groups
         end
       end
 
-      def index; end
-
       def edit
         @post = Post.find(params[:id])
 
@@ -53,7 +51,6 @@ module Groups
         end
       end
 
-      #todo - publish/unpublish not updating properly
       def publish
         @post = Post.find(params[:id])
         @post.update!(status: :published, published_on: Date.current)
@@ -81,7 +78,7 @@ module Groups
       private
 
       def post_params
-        params.require(:post).permit(:title, :description, :content)
+        params.require(:post).permit(:title, :status, :content)
       end
     end
   end

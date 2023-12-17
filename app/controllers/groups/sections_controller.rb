@@ -19,7 +19,7 @@ module Groups
 
     def show
       @section = Section.includes(:posts, :user_group_sections).find(params[:id])
-      @posts = @section.posts.in_order
+      @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
     end
 
@@ -35,7 +35,7 @@ module Groups
     def update
       @section = Section.find(params[:id])
       @section.update!(section_params)
-      @posts = @section.posts.in_order
+      @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
       respond_to do |format|
@@ -55,7 +55,7 @@ module Groups
     end
 
     rescue_from ActiveRecord::RecordNotFound do |_exception|
-      redirect_to group_sections_path, notice: 'This section could not be found'
+      redirect_to group_sections_path(@group), notice: 'This section could not be found'
     end
 
     private

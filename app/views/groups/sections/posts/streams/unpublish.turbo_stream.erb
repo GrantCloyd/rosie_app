@@ -1,5 +1,16 @@
-<%= turbo_stream.replace "post-#{@post.id}" do %>
+<%= turbo_stream.remove "post-#{@post.id}" do %>
   <%= render partial: 'groups/sections/posts/partials/post', locals: {group: @group, section: @section, post: @post} %>
+<% end %>
+
+<%= turbo_stream.append "posts-unpublished-container" do %>
+  <%= render partial: 'groups/sections/posts/partials/post', 
+  locals: {
+    group: @group, 
+    section: @section, 
+    post: @post, 
+    user_group_section: @user_group_section, 
+    view: :unpublished
+    } %>
 <% end %>
 
 <%= turbo_stream.update "flash" do %>

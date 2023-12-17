@@ -7,9 +7,9 @@
     </p>
 
     <p class="max-w-l mt-4">
-      <%= f.label :description %> 
+      <%= f.label :status %> 
       <br>
-      <%= f.text_area :description %>
+      <%= f.select :status, post_statuses_options %>
     </p>
 
     <p  class="max-w-xl mt-4">
