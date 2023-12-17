@@ -30,6 +30,6 @@ module CssHelper
   end
 
   def nav_breadcrumbs
-  'bg-slate-200 bold border-2 border-slate-300 p-1 px-2 max-w-sm mr-1 rounded-full'
+    'bg-slate-200 bold border-2 border-slate-300 p-1 px-2 max-w-sm mr-1 rounded-full'
   end
 end

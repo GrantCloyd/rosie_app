@@ -47,7 +47,7 @@ class Post < ActiveRecord::Base
     order(:published_on, :created_at)
   }
 
-  scope :hidden_or_pending, -> {
+  scope :hidden_or_pending, lambda {
     hidden.or(pending)
   }
 

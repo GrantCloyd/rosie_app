@@ -49,7 +49,7 @@ module Groups
       @section.destroy
 
       respond_to do |format|
-        format.turbo_stream { render 'groups/sections/streams/destroy'}
+        format.turbo_stream { render 'groups/sections/streams/destroy' }
         format.html { redirect_to group_sections_path(@group) }
       end
     end
@@ -58,18 +58,18 @@ module Groups
       @section = Section.find(params[:id])
       @section.update!(status: :published)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
-  
+
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/publish' }
         format.html { render :index }
       end
     end
-  
+
     def unpublish
       @section = Section.find(params[:id])
       @section.update!(status: :hidden)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
-  
+
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/unpublish' }
         format.html { render :index }

@@ -47,7 +47,7 @@ class Invite < ActiveRecord::Base
   enum privacy_tier: UserGroup.privacy_tiers
 
   def strip_note_if_empty
-    self.note = nil if self.note&.empty?
+    self.note = nil if note && note.empty?
   end
 
   def can_edit?

@@ -27,10 +27,10 @@ class Group < ActiveRecord::Base
   }
 
   def current_user_group(user)
-    UserGroup.find_by(group: self, user: user)
+    UserGroup.find_by(group: self, user:)
   end
 
   def last_post_time
-    posts.published.in_order.first.created_at.strftime("%D")
+    posts.published.in_order.first.created_at.strftime('%D')
   end
 end

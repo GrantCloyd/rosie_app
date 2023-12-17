@@ -38,7 +38,7 @@ class UserGroupSection < ApplicationRecord
   }
 
   def self.current_user_group_section(user_group:, section:)
-    find_by(user_group: user_group, section: section)
+    find_by(user_group:, section:)
   end
 
   def moderator_or_creator?

@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :posts, only: [] do
+    resources :comments, controller: 'posts/comments'
+    resources :reactions, controller: 'posts/reactions'
+    resources :images, controller: 'posts/images'
+  end
+
   resources :sessions, only: %i[create destroy new]
   resources :users, only: %i[new create]
 

@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   include CssHelper
-  
+
   def current_user
     User.find_by(id: session[:user_id])
   end
@@ -24,12 +24,12 @@ module ApplicationHelper
 
   def nav_tag
     content_tag(:p, class: "font-medium #{nav_breadcrumbs}") do
-    "Navigation"
-   end
+      'Navigation'
+    end
   end
 
   def create_group_tag(group)
-    content_tag(:p, class: "#{nav_breadcrumbs} hover:text-emerald-600" ) do
+    content_tag(:p, class: "#{nav_breadcrumbs} hover:text-emerald-600") do
       link_to("-> Group: #{group.title} ", group_path(group), data: { turbo_action: :advance })
     end
   end
