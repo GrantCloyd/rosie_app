@@ -3,16 +3,16 @@
     <h1 class='<%="#{primary_header}"%>'> <%= @post.title %> </h1>
 
     <% if @post.user == current_user || @user_group_section.moderator_or_creator? %>
-     <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 absolute left-4 mt-16">
-      <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p> 
-      <p class="flex justify-center mt-1"> <%= @post.status.titleize %> </p>
-      <div class="mx-auto flex justify-items flex-col">
+      <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 absolute left-4 mt-16">
+        <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p> 
+        <p class="flex justify-center mt-1"> <%= @post.status.titleize %> </p>
         <hr class="border-1 border-slate-600 mt-1" >
-    <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Edit Post", edit_group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
-    </button>
-    </div>
-    </div>
+        <div class="mx-auto flex justify-items flex-col">
+          <button class='<%="#{primary_button}"%>'>
+            <%= link_to "Edit Post", edit_group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
+          </button>
+        </div>
+      </div>
     <% end %>
 
     <%= navigation_breadcrumbs(@group, @section, @post) %>
@@ -33,4 +33,12 @@
       </div>
     </div>
   </div>
+
+  <div class='<%="#{primary_form}"%> my-10 flex justify-center p-4'> 
+    <h3> Images: </h3>
+   </div>
+
+   <div class='<%="#{primary_form}"%> my-10 flex justify-center p-4'> 
+    <h3> Comments: </h3>
+   </div>
 <% end %>
