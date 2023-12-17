@@ -60,6 +60,12 @@ module Groups
       redirect_to group_invites_path(@group)
     end
 
+    def accept
+    end
+
+    def reject
+    end
+
     private
 
     def invite_params

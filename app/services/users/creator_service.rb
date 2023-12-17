@@ -11,6 +11,7 @@ module Users
         if @user.valid?
           create_preferences!
           @user.save!
+          attach_invites!
         end
       end
 
@@ -19,9 +20,13 @@ module Users
 
     private
 
+    def attach_invites!
+      invites = Invite.where(target_email: @user.email)
+      invites.update_all(user_id: @user.id, updated_at: DateTime.current)
+    end
+
     def create_preferences!
-      @user.build_user_preference
-      @user.user_preference.save!
+      @user.build_user_preference.save!
     end
   end
 end

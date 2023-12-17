@@ -53,7 +53,7 @@ module Groups
 
       def publish
         @post = Post.find(params[:id])
-        @post.update!(status: :published, published_on: Date.current)
+        @post.update!(status: :published, published_on: DateTime.current)
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/publish' }

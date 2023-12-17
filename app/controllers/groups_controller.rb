@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
     exit_group
 
     @groups = current_user.groups.in_order
+    @invites = @current_user.invites
   end
 
   def new; end

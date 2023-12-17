@@ -4,6 +4,39 @@
 
     <%= render "groups/partials/groups-buttons", view: :index, cached: true,  group: nil %>
 
+<% if @invites.present? %>
+   <div class="mb-10"> 
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Invites </h3>
+         <div class="bg-slate-200 mt-5">
+    <table class="border-collapse table-auto w-full text-sm">
+      <thead class="pt-5">
+        <tr> 
+          <th class='<%="#{primary_th}"%>'> Status </th>
+          <th class='<%="#{primary_th}"%> pr-8'> Privacy Tier </th>
+          <th class='<%="#{primary_th} pr-8"%>'> Role </th>
+          <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
+        </tr>
+      </thead>
+      <%= turbo_frame_tag "invite-container" do %>
+      <tbody class="bg-white">
+        <% @invites.each do |invite| %>
+          <tr id='<%="invite-#{invite.id}" %>'>
+            <td class='<%= "#{primary_td}"%>'> <%= invite.status.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.role_tier.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.privacy_tier.titleize %> </td>
+            <td class='<%= "#{primary_td} pr-12"%>'> 
+           
+             </td>
+          </tr>
+        <% end%>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  </div>
+    </div>
+    <% end%>
+
     <%= render "groups/partials/groups", groups: @groups %>
   </div>
 <% end %>
