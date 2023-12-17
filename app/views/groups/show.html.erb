@@ -1,27 +1,23 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> '<%= @group.title %>' Details </h1>
+    <%= navigation_breadcrumbs(@group) %>
+    
+    <h1 class='<%="#{primary_header} mt-5"%>'> '<%= @group.title %>' Details </h1>
 
     <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
     
-    <div class='<%="#{primary_form} flex justify-center width-auto font-bold px-2"%>'> 
-      <p  class="mt-0 p-1"> Status: <%= @group.status.titleize %> </p> 
-      <p class="mt-4, p-1"> | </p>
-      <p class="mt-0 p-1"> Last Update: <%= @group.updated_at.strftime("%D") %> </p>
-    </div>
 
-    <%= navigation_breadcrumbs(@group) %>
-
-    <div> 
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Sections </h3>
-        <div id="sections-container">
-          <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group %>
-        </div> 
-    </div>
-  </div>
-
-  <% if @user_group.moderator_or_creator? %>
+    <div class='<%="#{primary_form} mx-auto px-2 pb-2"%>'> 
+      <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 flex justify-center"> * Most Recent Post On * </p> 
+      <p class="flex justify-center"> <%= @group.last_post_time %> </p>
+      <hr class="border-1 border-slate-600 mt-1">
+      <p  class="p-1 text-slate-600 flex justify-center font-medium mt-3 flex justify-center"> * Status * </p>
+        <p class="flex justify-center"> <%= @group.status.titleize %> </p> 
+   
+    <% if @user_group.moderator_or_creator? %>
     <div>
+      <hr class="border-1 border-slate-600 mt-1">
+      <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 flex justify-center"> * Actions * </p> 
       <button class='<%="#{primary_button}"%>'>
         <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
       </button>
@@ -37,4 +33,14 @@
       </div>
     </div>
   <% end %>
+    </div>
+
+    <div class="mb-10"> 
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Sections </h3>
+        <div id="sections-container">
+          <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group %>
+        </div> 
+    </div>
+  </div>
+
 <% end %>

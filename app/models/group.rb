@@ -14,6 +14,7 @@ class Group < ActiveRecord::Base
   has_many :user_groups, dependent: :destroy
   has_many :sections, dependent: :destroy
   has_many :invites, dependent: :destroy
+  has_many :posts, through: :sections
 
   enum status: {
     closed: 0,
@@ -29,4 +30,7 @@ class Group < ActiveRecord::Base
     UserGroup.find_by(group: self, user: user)
   end
 
+  def last_post_time
+    posts.in_order.first.created_at.strftime("%D")
+  end
 end

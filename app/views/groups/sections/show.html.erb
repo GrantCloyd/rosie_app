@@ -1,24 +1,34 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
-    
     <%= navigation_breadcrumbs(@group, @section) %>
+    
+    <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
+    
+    <div class="border-4 border-slate-400 bg-slate-200 my-4 max-w-md p-4 mx-auto"> 
+      <p class="text-slate-600 flex justify-center font-medium"> * Info *  </p>
+      <p class="flex justify-center mt-1"> <%= @section.description %> </p>
+      <% if @user_group_section.moderator_or_creator? %>
+        <hr class="border-1 border-slate-600 mt-1" >
+        <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p>
+        <p class="flex justify-center mt-1"> <%= @section.status.titleize %> </p>
+      <% end %>
+  
 
-    <div class="border-4 border-slate-400 bg-slate-200 my-4 max-w-md flex justify-center p-4"> 
-      <%= @section.description %>
-    </div>
-
-    <div class="flex justify-items">
      <% if @user_group_section.moderator_or_creator? %>
+     <div class="mx-auto">
+        <hr class="border-1 border-slate-600 mt-1" >
+         <p class="text-slate-600 flex justify-center font-medium mt-3"> * Actions *  </p>
         <button class='<%="#{primary_button}"%>'>
-          <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
+          <%= link_to "Edit Section Settings", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
         </button>
       <% end %>
       <% if @user_group_section.can_post? %>
         <button class='<%="#{primary_button}"%>'>
           <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
         </button>
+      </div>
       <% end %>
+      
     </div>
 
     <% if @user_group_section.can_post? %>
@@ -30,7 +40,7 @@
     </div>
     <% end %>
 
-    <div> 
+    <div class="mb-10"> 
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
         <div>
           <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts, view: :published %>
