@@ -1,12 +1,12 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> Groups </h1>
+    <h1 class='<%="#{primary_header}"%>'> Dashboard </h1>
 
     <%= render "groups/partials/groups-buttons", view: :index, cached: true,  group: nil %>
 
 <% if @invites.present? %>
    <div class="mb-10"> 
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Invites </h3>
+        <h3 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Invites </h3>
          <div class="bg-slate-200 mt-5">
     <table class="border-collapse table-auto w-full text-sm">
       <thead class="pt-5">
