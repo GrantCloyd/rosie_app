@@ -1,35 +1,31 @@
 <%= turbo_frame_tag "main_view" do  %>
   <div class="container-md">
-    <%= navigation_breadcrumbs(@group, @section) %>
     
     <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
     
-    <div class="border-4 border-slate-400 bg-slate-200 my-4 max-w-md p-4 mx-auto"> 
-      <p class="text-slate-600 flex justify-center font-medium"> * Info *  </p>
-      <p class="flex justify-center mt-1"> <%= @section.description %> </p>
+    <%= navigation_breadcrumbs(@group, @section) %>
+    
+    <% if @user_group_section.can_post? || @user_group_section.moderator_or_creator? %>
       <% if @user_group_section.moderator_or_creator? %>
-        <hr class="border-1 border-slate-600 mt-1" >
-        <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p>
-        <p class="flex justify-center mt-1"> <%= @section.status.titleize %> </p>
-      <% end %>
-  
+        <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 absolute left-4 mt-16"> 
+          <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p>
+          <p class="flex justify-center mt-1"> <%= @section.status.titleize %> </p>
 
-     <% if @user_group_section.moderator_or_creator? %>
-     <div class="mx-auto">
-        <hr class="border-1 border-slate-600 mt-1" >
-         <p class="text-slate-600 flex justify-center font-medium mt-3"> * Actions *  </p>
-        <button class='<%="#{primary_button}"%>'>
-          <%= link_to "Edit Section Settings", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
-        </button>
+          <div class="mx-auto flex justify-items flex-col">
+            <hr class="border-1 border-slate-600 mt-1" >
+              <button class='<%="#{primary_button}"%>'>
+                <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
+              </button>
+            <% end %>
+        <% if @user_group_section.can_post? %>
+          <button class='<%="#{primary_button}"%>'>
+            <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
+          </button>
+          </div>
+        </div>
       <% end %>
-      <% if @user_group_section.can_post? %>
-        <button class='<%="#{primary_button}"%>'>
-          <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
-        </button>
-      </div>
-      <% end %>
+    <% end %>
       
-    </div>
 
     <% if @user_group_section.can_post? %>
     <div> 

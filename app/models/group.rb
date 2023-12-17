@@ -31,6 +31,6 @@ class Group < ActiveRecord::Base
   end
 
   def last_post_time
-    posts.in_order.first.created_at.strftime("%D")
+    posts.published.in_order.first.created_at.strftime("%D")
   end
 end
