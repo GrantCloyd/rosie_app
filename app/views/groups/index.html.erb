@@ -11,8 +11,7 @@
     <table class="border-collapse table-auto w-full text-sm">
       <thead class="pt-5">
         <tr> 
-          <th class='<%="#{primary_th}"%>'> Status </th>
-          <th class='<%="#{primary_th}"%> pr-8'> Privacy Tier </th>
+          <th class='<%="#{primary_th}"%>'> Group </th>
           <th class='<%="#{primary_th} pr-8"%>'> Role </th>
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
@@ -21,11 +20,10 @@
       <tbody class="bg-white">
         <% @invites.each do |invite| %>
           <tr id='<%="invite-#{invite.id}" %>'>
-            <td class='<%= "#{primary_td}"%>'> <%= invite.status.titleize %> </td>
+            <td class='<%= "#{primary_td}"%>'> <%= invite.group.title %> </td>
             <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.role_tier.titleize %> </td>
-            <td class='<%= "#{primary_td} pr-8"%>'> <%= invite.privacy_tier.titleize %> </td>
             <td class='<%= "#{primary_td} pr-12"%>'> 
-           
+              <%= render 'groups/invites/invite-response-actions', invite: invite, group: invite.group %>
              </td>
           </tr>
         <% end%>

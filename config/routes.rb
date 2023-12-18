@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       end
     end
     resources :invites, except: [:show], controller: 'groups/invites' do
+      member do
+        post :accept, :reject
+      end
       collection do
         post :mass_add
       end

@@ -42,6 +42,10 @@ class Invite < ActiveRecord::Base
     rejected: 3
   }
 
+  scope :pending_or_email_sent, lambda {
+    pending.or(email_sent)
+  }
+
   enum role_tier: UserGroup.roles
 
   enum privacy_tier: UserGroup.privacy_tiers

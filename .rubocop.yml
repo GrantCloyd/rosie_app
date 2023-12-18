@@ -21,3 +21,6 @@ Layout/LineLength:
 
 Naming/MemoizedInstanceVariableName:
   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

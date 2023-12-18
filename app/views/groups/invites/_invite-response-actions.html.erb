@@ -1,0 +1,7 @@
+<button class='<%="#{action_button}"%>'>
+    <%= link_to "Accept", accept_group_invite_path(group, invite), data: {turbo_method: :post} %>
+</button>
+
+<button class='<%="#{action_button}"%>'>
+    <%= link_to "Reject", reject_group_invite_path(group, invite), data: {turbo_method: :post} %>
+</button>

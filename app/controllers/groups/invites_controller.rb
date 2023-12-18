@@ -3,7 +3,8 @@
 module Groups
   class InvitesController < Groups::BaseGroupsController
     before_action :set_mass_add_view_status, only: :new
-    before_action :ensure_invitor_authorized
+    before_action :ensure_invitor_authorized, except: %i[accept reject]
+    skip_before_action :ensure_user_authorized, only: %i[accept reject]
 
     def new; end
 
@@ -61,9 +62,28 @@ module Groups
     end
 
     def accept
+      @invite = Invite.find_by(id: params[:id])
+
+      @user_group = Invites::AcceptService.new(invite: @invite).call
+      binding.pry
+
+      if @user_group.errors.any?
+        respond_to do |format|
+          render_turbo_flash_alert(format, @user_group.errors.to_sentence)
+          format.html { redirect_to groups_path }
+        end
+      else
+        @group = @user_group.group
+        
+        respond_to do |format|
+          format.turbo_stream { render 'groups/invites/streams/accept' }
+          format.html { render 'groups/index' }
+        end
+      end
     end
 
     def reject
+      @invite = Invite.find_by(id: params[:id])
     end
 
     private

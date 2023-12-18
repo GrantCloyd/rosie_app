@@ -10,7 +10,7 @@
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
-      <tbody class="bg-white">
+      <tbody class="bg-white", id='groups-container'>
         <% groups.each do |group| %>
            <%= render 'groups/partials/group', group: group, user_group: group.current_user_group(current_user) %>
         <% end%>
