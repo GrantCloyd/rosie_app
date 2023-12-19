@@ -81,9 +81,8 @@ module Groups
       end
     end
 
-    def reject
-      @invite = Invite.find_by(id: params[:id])
-    end
+    # TO DO
+    def reject; end
 
     private
 

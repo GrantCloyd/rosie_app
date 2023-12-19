@@ -42,8 +42,6 @@ module UserGroupSections
       else
         @user_group_section.blocked!
       end
-
-      user_group_section
     end
 
     # This is a default/fallback behavior that will need to be updated when building out permissions
