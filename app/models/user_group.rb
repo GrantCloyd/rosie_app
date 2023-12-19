@@ -43,4 +43,8 @@ class UserGroup < ActiveRecord::Base
   def moderator_or_creator?
     moderator? || creator?
   end
+
+  def private_or_all_access?
+    private_access? || all_access?
+  end
 end

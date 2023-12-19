@@ -4,25 +4,32 @@
     <td class='<%= "#{primary_td} pr-8"%>'> <%= section.status.titleize %> </td>
       <td class='<%= "#{primary_td} pr-8"%>'> <%= section.created_at&.strftime("%D") %> </td>
     <td class='<%= "#{primary_td} pr-12"%>'>
+
+      <% if user_group_section&.blocked? %>
+        <button class='<%="#{action_button}"%>'>
+          Blocked
+        </button>
+      <% else %>
         <button class='<%="#{action_button}"%>'>
           <%= link_to "View", group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
         </button>
-        <% if user_group_section.moderator_or_creator? %>
-        <button class='<%="#{action_button}"%>'>
-          <%= link_to "Edit", edit_group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
-        </button>
-        <button class='<%="#{action_button}"%>'>
-          <%= link_to "Delete", group_section_path(group.id, section.id), data: {turbo_method: :delete } %>
-        </button>
-        <% if !section.published? %>
-          <button class='<%="#{action_button}"%>'>
-            <%= link_to "Publish", publish_group_section_path(group, section), data: {turbo_method: :post} %>
-          </button>
-        <% else %>
-          <button class='<%="#{action_button}"%>'>
-            <%= link_to "Unpublish", unpublish_group_section_path(group, section), data: {turbo_method: :post} %>
-          </button>
         <% end %>
+        <% if user_group_section&.moderator_or_creator? %>
+          <button class='<%="#{action_button}"%>'>
+            <%= link_to "Edit", edit_group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
+          </button>
+          <button class='<%="#{action_button}"%>'>
+            <%= link_to "Delete", group_section_path(group.id, section.id), data: {turbo_method: :delete } %>
+          </button>
+          <% if !section.published? %>
+            <button class='<%="#{action_button}"%>'>
+              <%= link_to "Publish", publish_group_section_path(group, section), data: {turbo_method: :post} %>
+            </button>
+          <% else %>
+            <button class='<%="#{action_button}"%>'>
+              <%= link_to "Unpublish", unpublish_group_section_path(group, section), data: {turbo_method: :post} %>
+            </button>
+          <% end %>
         <% end %>
     </td>
 </tr>

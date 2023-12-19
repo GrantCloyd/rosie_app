@@ -65,7 +65,6 @@ module Groups
       @invite = Invite.find_by(id: params[:id])
 
       @user_group = Invites::AcceptService.new(invite: @invite).call
-      binding.pry
 
       if @user_group.errors.any?
         respond_to do |format|
@@ -74,7 +73,7 @@ module Groups
         end
       else
         @group = @user_group.group
-        
+
         respond_to do |format|
           format.turbo_stream { render 'groups/invites/streams/accept' }
           format.html { render 'groups/index' }

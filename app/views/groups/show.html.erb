@@ -6,7 +6,6 @@
     <%= navigation_breadcrumbs(@group) %>
 
     <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
-    
 
     <% if @user_group.moderator_or_creator? %>
     <div class='<%="#{primary_form} w-42 px-2 pb-2 absolute left-4 mt-16"%>'> 
@@ -40,10 +39,9 @@
   </div>
   <% end %>
 
-    <div class="mb-10"> 
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Sections </h3>
-        <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group, view: :published %>
+  <div class="mb-10"> 
+      <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Sections </h3>
+      <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group, view: :published %>
     </div>
   </div>
-
 <% end %>

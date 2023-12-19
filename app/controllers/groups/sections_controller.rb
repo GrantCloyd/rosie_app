@@ -18,9 +18,16 @@ module Groups
     end
 
     def show
-      @section = Section.includes(:posts, :user_group_sections).find(params[:id])
-      @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
-      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+      @section = Section.includes(:posts).find(params[:id])
+      @user_group_section = UserGroupSections::CreateOrFindService.new(user_group: @user_group, section: @section).call
+
+      if @user_group_section.blocked?
+        respond_to do |format|
+          format.html { redirect_to group_path(@group), flash: { alert: 'This group is private' } }
+        end
+      else
+        @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
+      end
     end
 
     def edit
@@ -83,7 +90,7 @@ module Groups
     private
 
     def section_params
-      params.require(:section).permit(:title, :description, :status).merge(params.permit(:group_id))
+      params.require(:section).permit(:title, :description, :status, :privacy_tier).merge(params.permit(:group_id))
     end
   end
 end
