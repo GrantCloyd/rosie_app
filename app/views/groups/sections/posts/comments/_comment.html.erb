@@ -3,7 +3,7 @@
   <p class="ml-6"> <span class="font-medium underline"> <%= comment.user.full_name %> </span> </p>
   <p> <span class="ml-6 text-slate-400"> <%= commented_time_ago(comment) %> </span> </p>
   <p class="ml-6 mt-3"> <%= comment.content %> </p>
-  <% if current_user == comment.user || user_group_section.moderator_or_creator? %>
+  <% if user_group_section.moderator_or_creator? || current_user == comment.user %>
   <p class="mb-2"> 
     <button class='<%="#{action_button} ml-6 mt-4 flex justify-end"%>'>
       <%= link_to "Delete", post_comment_path(post, comment), data: {turbo_method: :delete} %>
