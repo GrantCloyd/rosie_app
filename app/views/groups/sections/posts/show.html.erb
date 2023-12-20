@@ -51,7 +51,7 @@
         </div>
       <% else %>
         <% @comments.each do |comment| %>
-          <%= render 'groups/sections/posts/comments/comment', comment: comment %>
+          <%= render 'groups/sections/posts/comments/comment', comment: comment, post: @post, user_group_section: @user_group_section%>
         <% end %>
       <% end %>
     </div>

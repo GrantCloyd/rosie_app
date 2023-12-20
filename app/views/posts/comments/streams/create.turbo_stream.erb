@@ -1,5 +1,5 @@
 <%= turbo_stream.append "comments-container" do %>
-  <%= render 'groups/sections/posts/comments/comment', comment: @comment %>
+  <%= render 'groups/sections/posts/comments/comment', comment: @comment, post: @post, user_group_section: @user_group_section %>
 <% end %>
 
 <%= turbo_stream.replace "comment-form" do %>

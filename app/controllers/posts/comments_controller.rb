@@ -8,7 +8,17 @@ module Posts
 
       respond_to do |format|
         format.turbo_stream { render 'posts/comments/streams/create' }
-        format.html { render 'groups/sections/posts' }
+        format.html { render 'groups/sections/posts/show' }
+      end
+    end
+
+    def destroy
+      @comment = Comment.find_by(id: params[:id])
+      @comment.destroy
+
+      respond_to do |format| 
+        format.turbo_stream { render 'posts/comments/streams/destroy' }
+        format.html { render 'groups/sections/posts/show' }
       end
     end
       
