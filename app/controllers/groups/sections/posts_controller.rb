@@ -8,7 +8,8 @@ module Groups
       def new; end
 
       def show
-        @post = Post.find(params[:id])
+        @post = Post.includes(:comments).find(params[:id])
+        @comments = @post.comments
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/show' }
@@ -26,8 +27,9 @@ module Groups
       end
 
       def update
-        @post = Post.find(params[:id])
+        @post = Post.includes(:comments).find(params[:id])
         @post.update!(post_params)
+        @comments = @post.comments
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/update' }

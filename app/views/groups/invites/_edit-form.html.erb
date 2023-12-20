@@ -1,7 +1,7 @@
 <div class='<%="#{primary_form} m-10 p-10"%>'>
   <%= form_for invite, url: group_invite_path(group, invite), method: :patch do |f| %>
 
-    <h3 class="font-bold underlined"> Editing invite for <%= @invite.target_email %></h3>
+    <h3 class="font-bold underline"> Editing invite for <%= @invite.target_email %></h3>
 
     <p  class="max-w-l mt-4">
       <%= f.label :role_tier%>

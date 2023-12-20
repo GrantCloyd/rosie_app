@@ -1,0 +1,9 @@
+<%= turbo_stream.append "comments-container" do %>
+  <%= render 'groups/sections/posts/comments/comment', comment: @comment %>
+<% end %>
+
+<%= turbo_stream.replace "comment-form" do %>
+  <%= render 'groups/sections/posts/comments/form', post: @post %>
+<% end %>
+
+<%= turbo_stream.remove "empty-comments" %>

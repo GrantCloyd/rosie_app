@@ -22,8 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Comment < ActiveRecord::Base
-  has_one :user
-  has_one :commented_on, as: :commentable
+  belongs_to :user
+  belongs_to :commentable, polymorphic: true
 
   has_many :comments, as: :commentable
 end
