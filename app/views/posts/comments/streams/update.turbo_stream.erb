@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "comment-#{@comment.id}" do %>
+  <%= render 'groups/sections/posts/comments/comment', comment: @comment, post: @post, user_group_section: @user_group_section  %>
+<% end %>

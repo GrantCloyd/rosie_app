@@ -7,7 +7,7 @@ module Posts
 
       respond_to do |format|
         format.turbo_stream { render 'posts/comments/streams/create' }
-        format.html { render 'groups/sections/posts/show' }
+        format.html { render template: 'groups/sections/posts/show' }
       end
     end
 
@@ -17,7 +17,26 @@ module Posts
 
       respond_to do |format|
         format.turbo_stream { render 'posts/comments/streams/destroy' }
-        format.html { render 'groups/sections/posts/show' }
+        format.html { render template: 'groups/sections/posts/show' }
+      end
+    end
+
+    def edit
+      @comment = Comment.find_by(id: params[:id])
+
+      respond_to do |format|
+        format.turbo_stream { render 'posts/comments/streams/edit' }
+        format.html { render template: 'groups/sections/posts/show' }
+      end
+    end
+
+    def update
+      @comment = Comment.find_by(id: params[:id])
+      @comment.update!(comment_params)
+
+      respond_to do |format|
+        format.turbo_stream { render 'posts/comments/streams/update' }
+        format.html { render template: 'groups/sections/posts/show' }
       end
     end
 

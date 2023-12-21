@@ -10,7 +10,7 @@ module Posts
     end
 
     def set_user_group_section
-      @user_group_section = current_user.user_group_sections.where(user_group_section: { section: @post.section })
+      @user_group_section = current_user.user_group_sections.where(user_group_sections: { section: @post.section }).first
     end
   end
 end

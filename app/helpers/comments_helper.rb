@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module CommentsHelper
-  def commented_time_ago(comment)
-    time_amount = DateTime.now.utc - comment.created_at
+  def commented_time_ago(created_or_updated_at)
+    time_amount = DateTime.now.utc - created_or_updated_at
 
     "#{time_size(time_amount)} ago"
   end

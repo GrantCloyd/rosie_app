@@ -1,35 +1,40 @@
 <%= turbo_frame_tag "main_view" do  %>
-  <div class="container-md">
-    
-    <h1 class='<%="#{primary_header} mt-5"%>'> '<%= @group.title %>' Details </h1>
-    
-    <%= navigation_breadcrumbs(@group) %>
 
-    <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
-
-    <% if @user_group.moderator_or_creator? %>
-    <div class='<%="#{primary_form} w-42 px-2 pb-2 absolute left-4 mt-16"%>'> 
-      <p  class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> * Status * </p>
-      <p class="flex justify-center"> <%= @group.status.titleize %> </p> 
+<% if @user_group.moderator_or_creator? %>
+    <div class='<%="#{primary_form} w-42 px-2 pb-2 sticky top-0 left-4 mt-16"%>'> 
    
-    <div class="flex justify-items flex-col">
+    <div class="flex justify-center">
       <hr class="border-1 border-slate-600 mt-1">
-      <button class='<%="#{primary_button}"%>'>
+      <button class='<%="#{primary_button} mx-1"%>'>
         <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
       </button>
-      <button class='<%="#{primary_button}"%>'>
+      <button class='<%="#{primary_button} mx-1"%>'>
         <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
       </button>
-      <button class='<%="#{primary_button}"%>'>
+      <button class='<%="#{primary_button} mx-1"%>'>
         <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
       </button>
-      <button class='<%="#{primary_button}"%>'>
+      <button class='<%="#{primary_button} mx-1"%>'>
         <%= link_to "View Invites", group_invites_path(@group.id), data: {turbo_action: :advance} %>
       </button>
       </div>
     </div>
   <% end %>
 
+  <div class="container-md">
+    
+    <h1 class='<%="#{primary_header} mt-5"%>'> '<%= @group.title %>' Details </h1>
+    
+    <% if @user_group.moderator_or_creator? %>
+    <div class='<%="#{primary_form} w-42"%>'>
+     <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> * Status * </p>
+      <p class="flex justify-center"> <%= @group.status.titleize %>  </p>  
+      </div> 
+      <% end %>
+    
+    <%= navigation_breadcrumbs(@group) %>
+
+    <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
 
   <% if @user_group.moderator_or_creator?  %>
   <div class="mb-10"> 

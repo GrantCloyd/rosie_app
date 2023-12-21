@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: [] do
-    resources :comments, controller: 'posts/comments'
+    resources :comments, controller: 'posts/comments', only: [:create, :destroy, :edit, :update]
     resources :reactions, controller: 'posts/reactions'
     resources :images, controller: 'posts/images'
   end

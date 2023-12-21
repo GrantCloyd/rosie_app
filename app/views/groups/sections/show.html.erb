@@ -1,31 +1,36 @@
 <%= turbo_frame_tag "main_view" do  %>
-  <div class="container-md">
-    
-    <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
-    
-    <%= navigation_breadcrumbs(@group, @section) %>
-    
-    <% if @user_group_section.can_post? || @user_group_section.moderator_or_creator? %>
-      <% if @user_group_section.moderator_or_creator? %>
-        <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 absolute left-4 mt-16"> 
-          <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p>
-          <p class="flex justify-center mt-1"> <%= @section.status.titleize %> </p>
 
-          <div class="mx-auto flex justify-items flex-col">
+ <% if @user_group_section.can_post? || @user_group_section.moderator_or_creator? %>
+      <% if @user_group_section.moderator_or_creator? %>
+        <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 sticky top-0 left-4 mt-16"> 
+
+          <div class="mx-auto flex justify-center">
             <hr class="border-1 border-slate-600 mt-1" >
-              <button class='<%="#{primary_button}"%>'>
+              <button class='<%="#{primary_button} mx-1"%>'>
                 <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
               </button>
             <% end %>
         <% if @user_group_section.can_post? %>
-          <button class='<%="#{primary_button}"%>'>
+          <button class='<%="#{primary_button} mx-1"%>'>
             <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
           </button>
           </div>
         </div>
       <% end %>
     <% end %>
-      
+
+  <div class="container-md">
+    
+    <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
+
+     <% if @user_group.moderator_or_creator? %>
+    <div class='<%="#{primary_form} w-42 my-4"%>'>
+     <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> * Status * </p>
+      <p class="flex justify-center"> <%= @section.status.titleize %>  </p>  
+      </div> 
+    <% end %>
+    
+    <%= navigation_breadcrumbs(@group, @section) %>
 
     <% if @user_group_section.can_post? %>
     <div> 

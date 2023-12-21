@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "comment-#{@comment.id}" do %>
+  <%= render 'groups/sections/posts/comments/edit-form', comment: @comment, post: @post  %>
+<% end %>
