@@ -1,24 +1,24 @@
 <%= turbo_frame_tag "main_view" do  %>
-
-        <div class='<%= "#{sticky_top_action_bar}" %>'> 
+  
+  <div class='<%= "#{sticky_top_action_bar}" %>'> 
+    <div class="mx-auto flex justify-center">
+      <%= navigation_breadcrumbs(@group, @section) %>
+      </div>
+      <% if @user_group_section.can_post? || @user_group_section.moderator_or_creator? %>
         <div class="mx-auto flex justify-center">
-          <%= navigation_breadcrumbs(@group, @section) %>
-          </div>
-          <% if @user_group_section.can_post? || @user_group_section.moderator_or_creator? %>
-            <% if @user_group_section.moderator_or_creator? %>
-            <div class="mx-auto flex justify-center">
-              <button class='<%="#{primary_button} mx-1"%>'>
-                <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
-              </button>
-            <% end %>
-        <% if @user_group_section.can_post? %>
+        <% if @user_group_section.moderator_or_creator? %>
           <button class='<%="#{primary_button} mx-1"%>'>
-            <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
+            <%= link_to "Edit Section", edit_group_section_path(@group, @section), data: {turbo_action: :advance} %>
           </button>
-          </div>
-      <% end %>
+        <% end %>
+        <% if @user_group_section.can_post? %>
+        <button class='<%="#{primary_button} mx-1"%>'>
+          <%= link_to "New Post", new_group_section_post_path(@group, @section), data: { turbo_action: :advance} %>
+        </button>
+        <% end %>
+      </div>
     <% end %>
-        </div>
+  </div>
 
   <div class="container-md">
     
