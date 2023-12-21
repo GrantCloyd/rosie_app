@@ -1,22 +1,19 @@
 <%= turbo_frame_tag "main_view" do  %>
 
-<% if @post.user == current_user || @user_group_section.moderator_or_creator? %>
-      <div class="border-4 border-slate-400 bg-slate-200 w-42 px-2 pb-2 sticky top-0 left-4 mt-16">
-        <p class="text-slate-600 flex justify-center font-medium mt-3"> * Status *  </p> 
-        <p class="flex justify-center mt-1"> <%= @post.status.titleize %> </p>
-        <hr class="border-1 border-slate-600 mt-1" >
-        <div class="mx-auto flex justify-items flex-col">
-          <button class='<%="#{primary_button}"%>'>
-            <%= link_to "Edit Post", edit_group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
-          </button>
-        </div>
-      </div>
+  <div class='<%= "#{sticky_top_action_bar}" %>'>
+    <%= navigation_breadcrumbs(@group, @section, @post) %>
+    <% if @post.user == current_user || @user_group_section.moderator_or_creator? %>
+      
+      <div class="mx-auto flex justify-center">
+        <button class='<%="#{primary_button}"%>'>
+          <%= link_to "Edit Post", edit_group_section_post_path(@group, @section, @post), data: {turbo_action: :advance} %>
+        </button>
+      </div>  
     <% end %>
+  </div>
 
   <div class="container-md">
     <h1 class='<%="#{primary_header}"%>'> <%= @post.title %> </h1>
-
-    <%= navigation_breadcrumbs(@group, @section, @post) %>
 
     <div class='<%="#{primary_form}"%>'> 
       <p class="mt-5 pt-2 flex justify-center"> <span class="font-medium text-2xl"> <%= @post.title %> </span>       </p> 

@@ -10,11 +10,11 @@ module CssHelper
   end
 
   def primary_button
-    'bg-slate-700 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded mt-2'
+    'bg-indigo-500 hover:bg-indigo-4000 text-white font-bold py-2 px-4 rounded mt-2'
   end
 
   def secondary_button
-    'bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded mt-4'
+    'bg-slate-700 hover:bg-slate-500  text-white font-bold py-2 px-4 rounded mt-4'
   end
 
   def primary_header
@@ -31,5 +31,9 @@ module CssHelper
 
   def nav_breadcrumbs
     'bg-slate-200 bold border-2 border-slate-300 p-1 px-2 max-w-sm mr-1 rounded-full'
+  end
+
+  def sticky_top_action_bar
+    "border-4 border-slate-400 bg-slate-100 w-42 px-2 pb-2 sticky top-0 left-4 mt-16 rounded-md"
   end
 end

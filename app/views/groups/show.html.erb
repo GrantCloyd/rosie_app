@@ -1,9 +1,12 @@
 <%= turbo_frame_tag "main_view" do  %>
 
-<% if @user_group.moderator_or_creator? %>
-    <div class='<%="#{primary_form} w-42 px-2 pb-2 sticky top-0 left-4 mt-16"%>'> 
+    <div class='<%= "#{sticky_top_action_bar}" %>'> 
+    <div class="mx-auto flex justify-center">
+    <%= navigation_breadcrumbs(@group) %>
+    </div>
+    <% if @user_group.moderator_or_creator? %>
    
-    <div class="flex justify-center">
+    <div class="mx-auto flex justify-center">
       <hr class="border-1 border-slate-600 mt-1">
       <button class='<%="#{primary_button} mx-1"%>'>
         <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
@@ -26,13 +29,10 @@
     <h1 class='<%="#{primary_header} mt-5"%>'> '<%= @group.title %>' Details </h1>
     
     <% if @user_group.moderator_or_creator? %>
-    <div class='<%="#{primary_form} w-42"%>'>
-     <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> * Status * </p>
-      <p class="flex justify-center"> <%= @group.status.titleize %>  </p>  
+    <div class='<%="#{primary_form}"%>'>
+     <p class="p-1 text-slate-600 flex justify-center font-medium my-4"> Status | <span class="flex justify-center ml-1"> <%= @group.status.titleize %>  </span>   </p>
       </div> 
-      <% end %>
-    
-    <%= navigation_breadcrumbs(@group) %>
+    <% end %>
 
     <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
 
