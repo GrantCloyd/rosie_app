@@ -1,15 +1,14 @@
-<div id=<%="comment-#{comment.id}"%>>
-  <hr class="border-1 border-slate-600 p-2 my-2" >
+<div id=<%="comment-#{comment.id}"%> class="bg-white my-1 pb-1 pt-2" >
   <p class="ml-6"> <span class="font-medium underline"> <%= comment.user.full_name %> </span> </p>
   <p> <span class="ml-6 text-slate-400"> <%= commented_time_ago(comment.created_at) %> </span> 
      <% if comment.updated_at != comment.created_at %>
        <span class="text-slate-400"> | Edited <%= commented_time_ago(comment.updated_at) %> </span> 
        <% end %>
   </p>
-  <p class="ml-6 mt-3"> <%= comment.content %> 
+  <p class="ml-6"> <%= comment.content %> 
   </p> 
-  <p class="my-2 ml-6">
   <% if user_group_section.moderator_or_creator? || current_user == comment.user %>
+  <p class="my-2 ml-6">
     <span>
       <button class='<%="#{action_button} "%>'>
         <%= link_to "Delete", post_comment_path(post, comment), data: {turbo_method: :delete} %>

@@ -10,7 +10,7 @@
       <%= f.submit data: {turbo_stream: true }%>
     </button>
      <button class='<%="#{action_button} mb-2 container-md"%>'>
-      <%= link_to  "Cancel", post_comment_path(post, comment), data: {turbo_stream: true} %>
+      <%= link_to  "Cancel", cancel_post_comment_path(post, comment), data: {turbo_stream: true} %>
     </button>
   <% end %>
 </div>

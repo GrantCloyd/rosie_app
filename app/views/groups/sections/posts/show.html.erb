@@ -13,21 +13,29 @@
   </div>
 
   <div class="container-md">
-    <h1 class='<%="#{primary_header}"%>'> <%= @post.title %> </h1>
 
     <div class='<%="#{primary_form}"%>'> 
-      <p class="mt-5 pt-2 flex justify-center"> <span class="font-medium text-2xl"> <%= @post.title %> </span>       </p> 
+    <div class='mt-2 p-2 rounded-lg'>
+      <p class="flex justify-center bg-white">
+         <span class="font-medium text-2xl"> <%= @post.title %> </span>       
+      </p> 
 
-      <p class="my-1 flex justify-center"> <span class="ml-1 mr-1"> by <%= @post.user.full_name %>  </span> 
+      <p class="flex justify-center bg-white"> <span class="ml-1 mr-1"> by <%= @post.user.full_name %>  </span> 
         <% if @post.published? %>
           <span >
           | Published on <%= @post.published_on.strftime("%D") %>
+          </span>
+          <% if post_edited?(@post) %>
+            <span class="ml-1">
+              | Edited on  <%= @post.updated_at.strftime("%D") %>
+          <span>
+          <% end%>
         <% end %>
-        </span>
       </p>
+      </div>
 
       <hr class="border-1 border-slate-600 mt-1">
-      <div class="flex justify-center mt-4 ml-2 pb-8 mb-2">
+      <div class="flex justify-center mt-4 ml-2 pb-8 mb-2 bg-white">
         <%= @post.content %>
       </div>
       <hr class="border-1 border-slate-600 mt-1 mb-4">

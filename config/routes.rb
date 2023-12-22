@@ -27,7 +27,11 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: [] do
-    resources :comments, controller: 'posts/comments', only: [:create, :destroy, :edit, :update]
+    resources :comments, controller: 'posts/comments', only: [:create, :destroy, :edit, :update] do
+      member do 
+        get :cancel
+      end
+    end
     resources :reactions, controller: 'posts/reactions'
     resources :images, controller: 'posts/images'
   end
