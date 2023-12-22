@@ -20,7 +20,7 @@
          <span class="font-medium text-2xl"> <%= @post.title %> </span>       
       </p> 
 
-      <p class="flex justify-center bg-white"> <span class="ml-1 mr-1"> by <%= @post.user.full_name %>  </span> 
+      <p class="flex justify-center bg-white pb-2"> <span class="ml-1 mr-1"> by <%= @post.user.full_name %>  </span> 
         <% if @post.published? %>
           <span >
           | Published on <%= @post.published_on.strftime("%D") %>
@@ -34,8 +34,7 @@
       </p>
       </div>
 
-      <hr class="border-1 border-slate-600 mt-1">
-      <div class="flex justify-center mt-4 ml-2 pb-8 mb-2 bg-white">
+      <div class="flex justify-center mt-2 mx-2 pt-2 pb-6 mb-2 bg-white">
         <%= @post.content %>
       </div>
       <hr class="border-1 border-slate-600 mt-1 mb-4">
