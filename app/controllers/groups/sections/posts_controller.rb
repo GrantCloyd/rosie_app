@@ -38,7 +38,6 @@ module Groups
       end
 
       def create
-        resize_images_before_save(post_params[:images])
         @section.posts.create!(post_params.merge(user_group_section_id: @user_group_section.id))
 
         redirect_to group_section_path(@group, @section)
@@ -82,18 +81,6 @@ module Groups
 
       def post_params
         params.require(:post).permit(:title, :status, :content, images: [])
-      end
-
-      def resize_images_before_save(images)
-        images.each do |image|
-          next unless image.is_a?(ActionDispatch::Http::UploadedFile)
-
-          binding.pry
-
-          ImageProcessing::MiniMagick
-            .source(image)
-            .resize_to_fit(1200)
-        end
       end
     end
   end

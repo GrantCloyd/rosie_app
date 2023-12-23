@@ -24,8 +24,6 @@
 #  fk_rails_...  (user_group_section_id => user_group_sections.id)
 #
 
-require "image_processing/mini_magick"
-
 class Post < ActiveRecord::Base
   validates :content, :title, :section_id, :user_group_section_id, presence: true
 
@@ -39,12 +37,11 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   has_many :reactions, as: :reactionable
-  
-  has_many_attached :images do |attachable|
-    attachable.variant :thumb, resize_to_limit: [100, 100]
-  end
+  has_many_attached :images
 
   validates :images, content_type: [:png, :jpg, :jpeg]
+
+  before_save :resize_images_before_save
 
   enum status: {
     pending: 0,
@@ -62,5 +59,18 @@ class Post < ActiveRecord::Base
 
   def display_published_or_created
     (published_on || created_at).strftime('%D %l:%m %P')
+  end
+
+  private
+
+  def resize_images_before_save
+    images.each do |image|
+      next unless image.is_a?(ActionDispatch::Http::UploadedFile)
+      next if image.persisted?
+
+      ImageProcessing::MiniMagick
+        .source(image)
+        .resize_to_fit(1200)
+    end
   end
 end
