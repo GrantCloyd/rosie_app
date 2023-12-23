@@ -18,6 +18,18 @@
       <%= f.rich_text_area :content %>
     </p>
 
+    <% post.images.each do |image| %>
+      <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
+    <% end %>
+
+  <div data-controller="multi-upload">
+    <div class="images">
+      <%= f.label :images %>
+      <%= f.file_field :images, multiple: true,  data: { action: "multi-upload#addFile"} %>
+    </div>
+
+    <div data-multi-upload-target="files"></div>
+
     <button class='<%="#{secondary_button}"%>'>
       <%= f.submit data: {turbo_action: :advance }%>
     </button>

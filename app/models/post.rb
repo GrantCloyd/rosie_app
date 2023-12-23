@@ -23,6 +23,9 @@
 #  fk_rails_...  (section_id => sections.id)
 #  fk_rails_...  (user_group_section_id => user_group_sections.id)
 #
+
+require "image_processing/mini_magick"
+
 class Post < ActiveRecord::Base
   validates :content, :title, :section_id, :user_group_section_id, presence: true
 
@@ -36,6 +39,12 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
   has_many :reactions, as: :reactionable
+  
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+
+  validates :images, content_type: [:png, :jpg, :jpeg]
 
   enum status: {
     pending: 0,

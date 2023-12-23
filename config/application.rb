@@ -28,5 +28,8 @@ module RosieApp
 
     # Use sidekiq for active jobs/mailer
     config.active_job.queue_adapter = :sidekiq
+
+    # image processing should use minimagick
+    Rails.application.config.active_storage.variant_processor
   end
 end
