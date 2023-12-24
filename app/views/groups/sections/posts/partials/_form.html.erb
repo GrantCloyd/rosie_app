@@ -18,6 +18,19 @@
       <%= f.rich_text_area :content %>
     </p>
 
+  <% if post.images.any?  %>
+  <div class="flex justify-items mt-4">
+    <% post.images.each do |image| %>
+      <div class="flex w-1/3">
+        <%= link_to "X", post_image_path(post, image), data: { turbo_method: :delete } %>
+        <%= image_tag(image.representation(resize_to_limit: [200, 200])) %>
+        <button class='<%= "#{action_button} rounded-full opacity-50"%>'>
+        </button>
+      </div>
+    <% end %>
+    </div>
+    <% end %>
+
     <% post.images.each do |image| %>
       <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
     <% end %>
