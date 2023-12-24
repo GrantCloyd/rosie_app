@@ -39,7 +39,6 @@ module Posts
       end
     end
 
-
     def update
       @comment = Comment.find_by(id: params[:id])
       @comment.update!(comment_params)

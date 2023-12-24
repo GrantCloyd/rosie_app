@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: images
@@ -16,7 +18,7 @@
 #
 #  fk_rails_...  (post_id => posts.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
   # test "the truth" do

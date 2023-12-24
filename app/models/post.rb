@@ -39,7 +39,7 @@ class Post < ActiveRecord::Base
   has_many :reactions, as: :reactionable
   has_many_attached :images
 
-  validates :images, content_type: [:png, :jpg, :jpeg]
+  validates :images, content_type: %i[png jpg jpeg]
 
   before_save :resize_images_before_save
 
