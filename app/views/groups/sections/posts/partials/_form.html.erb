@@ -19,13 +19,15 @@
     </p>
 
   <% if post.images.any?  %>
-  <div class="flex justify-items mt-4">
+  <div class="flex mt-4 w-full">
     <% post.images.each do |image| %>
-      <div class="flex w-1/3">
+      <div id='<%= "image-#{image.blob_id}"%>' class="flex relative w-full bg-white mr-2">
+        <button class='<%= "#{action_button} absolute top-0 right-0 py-1 px-3 rounded-full opacity-50"%>'>
         <%= link_to "X", post_image_path(post, image), data: { turbo_method: :delete } %>
-        <%= image_tag(image.representation(resize_to_limit: [200, 200])) %>
-        <button class='<%= "#{action_button} rounded-full opacity-50"%>'>
         </button>
+        <div class='w-full'>
+        <%= image_tag(image.representation(resize_to_limit: [200, 200])) %>
+        </div>
       </div>
     <% end %>
     </div>

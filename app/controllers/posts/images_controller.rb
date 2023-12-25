@@ -10,5 +10,15 @@ module Posts
         format.html { render template: 'groups/sections/posts/show' }
       end
     end
+
+    def destroy
+      @image = @post.images.find_by(blob_id: params[:id])
+      @image.purge
+
+      respond_to do |format|
+        format.turbo_stream { render 'posts/images/streams/destroy' }
+        format.html { render template: 'groups/sections/posts/show' }
+      end
+    end
   end
 end
