@@ -97,6 +97,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.index ["user_group_section_id"], name: "index_posts_on_user_group_section_id"
   end
 
+  create_table "section_role_permissions", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.integer "role_tier", null: false
+    t.integer "permission_level", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id", "role_tier"], name: "index_section_role_permissions_on_section_id_and_role_tier", unique: true
+    t.index ["section_id"], name: "index_section_role_permissions_on_section_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "title", null: false
@@ -167,6 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
   add_foreign_key "invites", "users"
   add_foreign_key "posts", "sections"
   add_foreign_key "posts", "user_group_sections"
+  add_foreign_key "section_role_permissions", "sections"
   add_foreign_key "sections", "groups"
   add_foreign_key "user_group_sections", "sections"
   add_foreign_key "user_group_sections", "user_groups"

@@ -25,6 +25,9 @@ class Section < ActiveRecord::Base
   belongs_to :group
   has_many :posts, dependent: :destroy
   has_many :user_group_sections, dependent: :destroy
+  has_many :section_role_permissions, dependent: :destroy
+
+  accepts_nested_attributes_for :section_role_permissions
 
   enum status: {
     unpublished: 0,

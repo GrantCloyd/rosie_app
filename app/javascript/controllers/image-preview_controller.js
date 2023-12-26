@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = [ "output", "input" ]
 
   readURL() {
-    console.log("fired")
     var input = this.inputTarget
     var output = this.outputTarget
 

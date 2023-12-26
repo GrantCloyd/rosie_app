@@ -1,5 +1,4 @@
-<div class="flex absolute top-0 right-0 mr-4" >
-
+<div class="flex absolute top-0 right-0 mr-2" >
   <% if session[:group_id].present? %>
     <button class='<%="#{secondary_button} mr-1"%>' >
       <%= link_to "Change Group", groups_path, data: {turbo_action: "_top" } %>

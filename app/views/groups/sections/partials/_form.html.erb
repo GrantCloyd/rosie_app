@@ -24,6 +24,8 @@
       <%= f.select :privacy_tier , section_creation_privacy_tiers_options %>
     </p>
 
+  <div data-default-permissions-target="permission-container"></div>
+
     <button class='<%="#{secondary_button} mb-2"%>'>
       <%= f.submit data: {turbo_action: :advance } %>
     </button>

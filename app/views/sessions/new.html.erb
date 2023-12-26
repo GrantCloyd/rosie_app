@@ -15,11 +15,11 @@
         <%= f.password_field :password %>
       </p>
 
-      <button class='<%="#{secondary_button} ml-2"%>' >
+      <button class='<%="#{primary_button} ml-2"%>' >
         <%= f.submit "Sign in", data: { turbo_action: :advnace }%>
       </button>
 
-      <button class='<%="#{secondary_button} ml-14"%>'>
+      <button class='<%="#{primary_button} ml-14"%>'>
         <%= link_to "Sign up", new_user_path, data: {turbo_action: :advance} %>
       </button>
     <% end %>
