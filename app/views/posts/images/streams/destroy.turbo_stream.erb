@@ -1,5 +1,7 @@
 <%= turbo_stream.remove "image-#{@image.blob_id}" %>
 
-<%= turbo_stream.replace "flash" do %>
+<%= turbo_stream.remove "hidden-image-#{@image.blob_id}" %>
+
+<%= turbo_stream.update "flash" do %>
   <%= flash[:alert] = "Image removed from post" %>
 <% end%>

@@ -21,7 +21,7 @@
   <% if post.images.any?  %>
   <div class="flex mt-4 w-full">
     <% post.images.each do |image| %>
-      <div id='<%= "image-#{image.blob_id}"%>' class="flex relative w-full bg-white mr-2">
+      <div id='<%= "image-#{image.blob_id}"%>' class="flex relative bg-white mr-2">
         <button class='<%= "#{action_button} absolute top-0 right-0 py-1 px-3 rounded-full opacity-50"%>'>
         <%= link_to "X", post_image_path(post, image), data: { turbo_method: :delete } %>
         </button>
@@ -34,7 +34,7 @@
     <% end %>
 
     <% post.images.each do |image| %>
-      <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
+      <%= f.hidden_field :images, multiple: true, value: image.signed_id, id:"hidden-image-#{image.blob_id}" %>
     <% end %>
 
   <div data-controller="multi-upload">

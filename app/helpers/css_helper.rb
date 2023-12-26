@@ -10,11 +10,11 @@ module CssHelper
   end
 
   def primary_button
-    'bg-indigo-500 hover:bg-indigo-4000 text-white font-bold py-2 px-4 rounded mt-2'
+    'bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 rounded mt-2'
   end
 
   def secondary_button
-    'bg-slate-700 hover:bg-slate-500  text-white font-bold py-2 px-4 rounded mt-4'
+    'bg-slate-600 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded mt-4'
   end
 
   def primary_header
@@ -22,7 +22,7 @@ module CssHelper
   end
 
   def action_button
-    'bg-slate-300 p-1 hover:text-emerald-600'
+    'bg-slate-300 p-1 hover:text-emerald-500'
   end
 
   def primary_form
