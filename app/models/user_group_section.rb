@@ -5,7 +5,7 @@
 # Table name: user_group_sections
 #
 #  id               :bigint           not null, primary key
-#  permission_level :integer          default("reader"), not null
+#  permission_level :integer          default("reader_level"), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  section_id       :bigint           not null
@@ -29,12 +29,12 @@ class UserGroupSection < ApplicationRecord
   has_one :user, through: :user_group
 
   enum permission_level: {
-    reader: 0,
-    commenter: 1,
-    contributor: 2,
-    moderator: 3,
-    creator: 4,
-    blocked: 5
+    reader_level: 0,
+    commenter_level: 1,
+    contributor_level: 2,
+    moderator_level: 3,
+    creator_level: 4,
+    blocked_level: 5
   }
 
   def self.current_user_group_section(user_group:, section:)
@@ -42,11 +42,11 @@ class UserGroupSection < ApplicationRecord
   end
 
   def moderator_or_creator?
-    moderator? || creator?
+    moderator_level? || creator_level?
   end
 
   def can_post?
-    contributor? || moderator_or_creator?
+    contributor_level? || moderator_or_creator?
   end
 
   def can_delete?
@@ -54,10 +54,10 @@ class UserGroupSection < ApplicationRecord
   end
 
   def can_comment?
-    !reader? || !blocked?
+    !reader_level? || !blocked_level?
   end
 
   def can_view?
-    !blocked?
+    !blocked_level?
   end
 end

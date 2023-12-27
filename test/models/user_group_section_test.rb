@@ -5,7 +5,7 @@
 # Table name: user_group_sections
 #
 #  id               :bigint           not null, primary key
-#  permission_level :integer          default("reader"), not null
+#  permission_level :integer          default("reader_level"), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  section_id       :bigint           not null

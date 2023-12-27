@@ -21,7 +21,7 @@ module Groups
       @section = Section.includes(:posts).find(params[:id])
       @user_group_section = UserGroupSections::CreateOrFindService.new(user_group: @user_group, section: @section).call
 
-      if @user_group_section.blocked?
+      if @user_group_section.blocked_level?
         respond_to do |format|
           format.html { redirect_to group_path(@group), flash: { alert: 'This group is private' } }
         end
@@ -90,7 +90,12 @@ module Groups
     private
 
     def section_params
+      binding.pry
       params.require(:section).permit(:title, :description, :status, :privacy_tier).merge(params.permit(:group_id))
+    end
+
+    def section_role_permission_params
+      binding.pry
     end
   end
 end

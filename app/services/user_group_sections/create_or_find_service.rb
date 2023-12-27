@@ -38,15 +38,15 @@ module UserGroupSections
 
     def handle_manual_only_tier(user_group_section)
       if @user_group.all_access?
-        user_group_section.moderator!
+        user_group_section.moderator_level!
       else
-        @user_group_section.blocked!
+        @user_group_section.blocked_level!
       end
     end
 
     # This is a default/fallback behavior that will need to be updated when building out permissions
     def handle_private_tier_creation(user_group_section)
-      return user_group_section.blocked! unless @user_group.private_or_all_access?
+      return user_group_section.blocked_level! unless @user_group.private_or_all_access?
 
       use_default_level(user_group_section)
     end
@@ -54,12 +54,12 @@ module UserGroupSections
     def use_default_level(user_group_section)
       case @user_group.role.to_sym
       when :moderator
-        user_group_section.moderator!
+        user_group_section.moderator_level!
       when :subscriber
-        user_group_section.commenter!
+        user_group_section.commenter_level!
       # shouldn't hit this case, this is purely fallback which prefers reader to blocked status
       else
-        user_group_section.reader!
+        user_group_section.reader_level!
       end
     end
   end

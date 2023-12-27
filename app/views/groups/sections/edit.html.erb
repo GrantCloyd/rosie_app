@@ -7,9 +7,6 @@
     <%= render "groups/sections/partials/form" , group: @group, section: @section, view: :edit %>
 
     <div class="flex mb-2">
-    <div data-controller="default-permissions">
-      <%= button_tag "Change Default Permissions", data: {action: "default-permissions#addPermission"}, class: "#{primary_button} mr-1" %>
-    </div> 
 
     <button class='<%="#{primary_button}"%>'>
       <%= link_to "Cancel Edit", group_section_path(@group.id, @section.id), data: {turbo_action: :advance} %>

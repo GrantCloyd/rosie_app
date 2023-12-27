@@ -11,16 +11,15 @@ export default class extends Controller {
     const originalInput = event.target
     const originalParent = originalInput.parentNode
   
-    // Create an element that contains our input element
     const selectedFile = document.createElement("div")
     selectedFile.append(originalInput)
   
     // Create label (the visible part of the new input element) with the name of
     // the selected file.
-    var labelNode = document.createElement("label");
-    var textElement = document.createTextNode(originalInput.files[0].name);
-    labelNode.appendChild(textElement);
-    selectedFile.appendChild(labelNode);
+    let labelNode = document.createElement("label")
+    let textElement = document.createTextNode(originalInput.files[0].name)
+    labelNode.appendChild(textElement)
+    selectedFile.appendChild(labelNode)
   
     // Add the selected file to the list of selected files
     this.filesTarget.append(selectedFile)

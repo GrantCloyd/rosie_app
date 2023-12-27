@@ -20,8 +20,7 @@
 #
 #  fk_rails_...  (section_id => sections.id)
 #
-class SectionRolePermissions < ActiveRecord::Base
-
+class SectionRolePermission < ActiveRecord::Base
   belongs_to :section
 
   enum permission_level: UserGroupSection.permission_levels

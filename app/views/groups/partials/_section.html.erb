@@ -5,7 +5,7 @@
       <td class='<%= "#{primary_td} pr-8"%>'> <%= section.created_at&.strftime("%D") %> </td>
     <td class='<%= "#{primary_td} pr-12"%>'>
 
-      <% if user_group_section&.blocked? %>
+      <% if user_group_section&.blocked_level? %>
         <button class='<%="#{action_button}"%>'>
           Blocked
         </button>
