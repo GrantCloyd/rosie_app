@@ -3,9 +3,9 @@
 module PostsHelper
   def post_statuses_options
     select_option_generator(
-        model: Post,
-        enum: :status
-      )
+      model: Post,
+      enum: :status
+    )
   end
 
   def post_edited?(post)

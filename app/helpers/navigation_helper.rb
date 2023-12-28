@@ -3,16 +3,16 @@
 module NavigationHelper
   include CssHelper
 
-def navigation_breadcrumbs(group, section = nil, post = nil)
-  content_tag(:div, class: 'mt-2 flex justify-items') do
-    nav_tag +
-      create_group_tag(group) +
-      create_section_tag(group, section) +
-      create_post_tag(group, section, post)
+  def navigation_breadcrumbs(group, section = nil, post = nil)
+    content_tag(:div, class: 'mt-2 flex justify-items') do
+      nav_tag +
+        create_group_tag(group) +
+        create_section_tag(group, section) +
+        create_post_tag(group, section, post)
+    end
   end
-end
 
-private
+  private
 
   def nav_tag
     content_tag(:p, class: "font-medium #{nav_breadcrumbs}") do
