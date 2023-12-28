@@ -15,7 +15,11 @@ static targets = ["permissionContainer"]
 
     const container = this.permissionContainerTarget
     let index = container.children.length
-    console.log(index)
+    let formNode 
+
+    // if (index == 0) {
+    //   formNode = this.createNode("form")
+    // }
 
     const permissionDiv = this.createNode("div", {className: "mt-4 p-2 border-2 border-slate-400"})
 
@@ -24,8 +28,14 @@ static targets = ["permissionContainer"]
 
     const permissionNodes = this.createSelectNodes("permission_level", permissions, index)
     permissionDiv.append(permissionNodes)
-    
-    container.append(permissionDiv)
+    if (formNode) {
+      formNode.append(permissionDiv)
+      container.append(formNode)
+    } else {
+      container.append(permissionDiv)
+    }
+
+
   }
 
   createSelectNodes(labelName, optionArray, index){
@@ -36,10 +46,11 @@ static targets = ["permissionContainer"]
       innerHTML: labelText
     })
     const breakNode = this.createNode("br")
-    labelNode.setAttribute("for",  `section_role_permission_[${index}]${labelName}`)
+    labelNode.setAttribute("for",  `section_role_permissions_[${index}]${labelName}`)
     const selectNode = this.createNode("select")
-    selectNode.setAttribute("name", `[${index}]${labelName}`)
-    selectNode.setAttribute("id", `section_role_permission_[${index}]${labelName}`)
+    name="[permission_level]"
+    selectNode.setAttribute("name", `section[section_role_permissions_attributes][][${labelName}]`)
+    selectNode.setAttribute("id", `section_section_role_permissions_[${labelName}]`)
     optionArray.forEach(option => {
       const title = this.capitalize(option)
       selectNode.options.add( new Option(title, option))

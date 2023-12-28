@@ -28,7 +28,15 @@
 
       <div data-controller="default-permissions" name="section_role_permissions_attributes">
       <%= button_tag "Add Default Permissions", data: {action: "default-permissions#addPermission"}, class: "#{secondary_button} mr-1" %>
-          <div data-default-permissions-target="permissionContainer">
+          <div data-default-permissions-target="permissionContainer" >
+            <%# <% 2.times do %> 
+            <%# <%= f.fields_for section.section_role_permissions.build do |srpa_f| %> 
+                  <%# <% srpa_f.label :role_tier %> 
+                  <%# <% srpa_f.select :role_tier, User.roles %> 
+                  <%# <% srpa_f.label :permission_level%> 
+                  <%# <% srpa_f.select :permission_level, UserGroupSection.permission_levels%> 
+                <%# <% end %> 
+            <%# <% end %> 
           </div>
     </div> 
 

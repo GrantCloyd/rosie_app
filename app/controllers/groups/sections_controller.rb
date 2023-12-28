@@ -91,7 +91,11 @@ module Groups
 
     def section_params
       binding.pry
-      params.require(:section).permit(:title, :description, :status, :privacy_tier).merge(params.permit(:group_id))
+      params
+        .require(:section)
+        .permit(:title, :description, :status, :privacy_tier)
+        .merge(params.permit(:group_id))
+        .merge(params[:section][:section_role_permissions_attributes].each(&:permit!))
     end
 
     def section_role_permission_params
