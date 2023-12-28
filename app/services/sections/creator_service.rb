@@ -2,6 +2,8 @@
 
 module Sections
   class CreatorService
+    SECTION_ROLE_PERMISSION_CREATION_TIERS = SectionRolePermission.role_tiers.except(:creator).keys
+
     def initialize(params:, user:, user_group:)
       @section = Section.new(params)
       @user = user
@@ -11,7 +13,8 @@ module Sections
     def call
       ActiveRecord::Base.transaction do
         if @section.valid?
-          create_user_group_section!
+          create_user_group_section
+          create_default_section_role_permissions
           @section.save!
         end
 
@@ -19,13 +22,18 @@ module Sections
       end
     end
 
-    def create_user_group_section!
-      user_group_section = UserGroupSection.new(
+    def create_user_group_section
+      UserGroupSection.create(
         section: @section,
         user_group: @user_group,
-        permission_level: :creator
+        permission_level: :creator_level
       )
-      user_group_section.save!
+    end
+
+    def create_default_section_role_permissions
+      SectionRolePermission::DEFAULT_TIER_TO_PERMISSION_MAP.each do |role_tier, permission_level|
+        SectionRolePermission.create(section: @section, role_tier:, permission_level:)
+      end
     end
   end
 end

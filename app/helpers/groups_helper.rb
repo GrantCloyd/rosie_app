@@ -2,6 +2,10 @@
 
 module GroupsHelper
   def  group_creation_display_statuses
-    Group.statuses.except(:archived).keys.map { |group| [group.titleize, group] }
+    select_option_generator(
+      model: Group,
+      enum: :status,
+      exception_array: [:archived]
+    )
   end
 end

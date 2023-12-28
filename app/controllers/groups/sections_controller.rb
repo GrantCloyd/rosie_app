@@ -5,7 +5,11 @@ module Groups
     def new; end
 
     def create
-      section = ::Sections::CreatorService.new(params: section_params, user: current_user, user_group: @user_group).call
+      section = ::Sections::CreatorService.new(
+        params: section_params,
+        user: current_user,
+        user_group: @user_group
+      ).call
 
       if section.errors.present?
         respond_to do |format|
@@ -31,7 +35,7 @@ module Groups
     end
 
     def edit
-      @section = Section.find(params[:id])
+      @section = Section.includes(:section_role_permissions).find(params[:id])
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/edit' }
@@ -40,8 +44,8 @@ module Groups
     end
 
     def update
-      @section = Section.find(params[:id])
-      @section.update!(section_params)
+      @section = Section.includes(:section_role_permissions).find(params[:id])
+      @section.update!(section_update_params)
       @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
@@ -90,16 +94,21 @@ module Groups
     private
 
     def section_params
-      binding.pry
-      params
-        .require(:section)
-        .permit(:title, :description, :status, :privacy_tier)
-        .merge(params.permit(:group_id))
-        .merge(params[:section][:section_role_permissions_attributes].each(&:permit!))
+      params.require(:section)
+            .permit(:title, :description, :status, :privacy_tier)
+            .merge(params.permit(:group_id))
     end
 
-    def section_role_permission_params
-      binding.pry
+    def section_update_params
+      section_params.merge(section_role_permissions_attributes_params)
+    end
+
+    def section_role_permissions_attributes_params
+      spra_array = params[:section][:section_role_permissions_attributes].each.with_object([]) do |(_, attributes), res|
+        res << attributes.permit(:role_tier, :permission_level, :id)
+      end
+
+      { section_role_permissions_attributes: spra_array }
     end
   end
 end

@@ -1,7 +1,7 @@
 <% url_path = view == :new ? group_sections_path : group_section_path(group, section) %> 
 
 <div class='<%="rounded-md mt-2 flex justify-center"%>'>
-  <%= form_with model: section, url: url_path, html: {class: "#{primary_form} p-10" } do |f| %>
+  <%= form_with model: section, url: url_path, html: {class: "#{primary_form} p-10 w-full justify-text" } do |f| %>
     <p class="mt-3">
       <%= f.label :title %> <br> <%= f.text_field :title %>
     </p>
@@ -18,28 +18,29 @@
       <%= f.select :status, section_creation_display_statuses %>
     </p>
 
-     <p  class="max-w-l mt-4">
+     <p  class=" mt-4">
       <%= f.label :privacy_tier %>
       <br>
       <%= f.select :privacy_tier , section_creation_privacy_tiers_options %>
     </p>
 
 
-
-      <div data-controller="default-permissions" name="section_role_permissions_attributes">
-      <%= button_tag "Add Default Permissions", data: {action: "default-permissions#addPermission"}, class: "#{secondary_button} mr-1" %>
-          <div data-default-permissions-target="permissionContainer" >
-            <%# <% 2.times do %> 
-            <%# <%= f.fields_for section.section_role_permissions.build do |srpa_f| %> 
-                  <%# <% srpa_f.label :role_tier %> 
-                  <%# <% srpa_f.select :role_tier, User.roles %> 
-                  <%# <% srpa_f.label :permission_level%> 
-                  <%# <% srpa_f.select :permission_level, UserGroupSection.permission_levels%> 
-                <%# <% end %> 
-            <%# <% end %> 
-          </div>
-    </div> 
-
+    <% if section.section_role_permissions.any? %>
+        <div class="border-2 border-slate-400 p-2 mt-2">
+          <span class="text-lg font-medium"> Permissions </span>
+        <%= f.fields_for :section_role_permissions do |srp_f| %> 
+            <%= srp_f.hidden_field :role_tier %>
+          <p class="font-medium">
+              <%= srp_f.object.role_tier.titleize %>
+          </p>
+          <p>
+            <%= srp_f.label :permission_level %> 
+            <br>
+            <%= srp_f.select :permission_level, select_permission_level_options %> 
+          </p>
+        <% end %> 
+      </div>
+    <% end %> 
 
     <button class='<%="#{secondary_button} mb-2"%>'>
       <%= f.submit data: {turbo_action: :advance } %>

@@ -2,7 +2,10 @@
 
 module PostsHelper
   def post_statuses_options
-    Post.statuses.keys.map { |status| [status.titleize, status] }
+    select_option_generator(
+        model: Post,
+        enum: :status
+      )
   end
 
   def post_edited?(post)
