@@ -1,28 +1,27 @@
 <%= turbo_frame_tag "main_view" do  %>
 
-    <div class='<%= "#{sticky_top_action_bar}" %>'> 
+    <div class='<%="#{sticky_top_action_bar}" %>'> 
     <div class="mx-auto flex justify-center">
     <%= navigation_breadcrumbs(@group) %>
     </div>
     <% if @user_group.moderator_or_creator? %>
-   
-    <div class="mx-auto flex justify-center">
-      <hr class="border-1 border-slate-600 mt-1">
-      <button class='<%="#{primary_button} mx-1"%>'>
-        <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
-      </button>
-      <button class='<%="#{primary_button} mx-1"%>'>
-        <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
-      </button>
-      <button class='<%="#{primary_button} mx-1"%>'>
-        <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
-      </button>
-      <button class='<%="#{primary_button} mx-1"%>'>
-        <%= link_to "View Invites", group_invites_path(@group.id), data: {turbo_action: :advance} %>
-      </button>
-      </div>
+      <div class="mx-auto flex justify-center">
+        <hr class="border-1 border-slate-600 mt-1">
+        <button class='<%="#{primary_button} mx-1"%>'>
+          <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
+        </button>
+        <button class='<%="#{primary_button} mx-1"%>'>
+          <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
+        </button>
+        <button class='<%="#{primary_button} mx-1"%>'>
+          <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
+        </button>
+        <button class='<%="#{primary_button} mx-1"%>'>
+          <%= link_to "View Invites", group_invites_path(@group.id), data: {turbo_action: :advance} %>
+        </button>
+        </div>
+    <% end %>
     </div>
-  <% end %>
 
   <div class="container-md">
     

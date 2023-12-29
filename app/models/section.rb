@@ -12,17 +12,21 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  group_id     :bigint           not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
 #  index_sections_on_group_id  (group_id)
+#  index_sections_on_user_id   (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (group_id => groups.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Section < ActiveRecord::Base
   belongs_to :group
+  belongs_to :user
   has_many :posts, dependent: :destroy
   has_many :user_group_sections, dependent: :destroy
   has_many :section_role_permissions, dependent: :destroy

@@ -22,7 +22,7 @@ module Groups
     end
 
     def show
-      @section = Section.includes(:posts).find(params[:id])
+      @section = Section.includes(:posts, :section_role_permissions).find(params[:id])
       @user_group_section = UserGroupSections::CreateOrFindService.new(user_group: @user_group, section: @section).call
 
       if @user_group_section.blocked_level?

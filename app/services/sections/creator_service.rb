@@ -11,6 +11,7 @@ module Sections
     end
 
     def call
+      @section.user_id = @user.id
       ActiveRecord::Base.transaction do
         if @section.valid?
           create_user_group_section

@@ -36,7 +36,7 @@ class UserGroup < ActiveRecord::Base
 
   enum privacy_tier: {
     no_private_access: 0,
-    private_access: 1,
+    private_Secaccess: 1,
     all_access: 2
   }
 
@@ -46,5 +46,9 @@ class UserGroup < ActiveRecord::Base
 
   def private_or_all_access?
     private_access? || all_access?
+  end
+
+  def can_publish_section?
+    moderator_or_creator?
   end
 end

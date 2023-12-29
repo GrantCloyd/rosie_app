@@ -6,7 +6,7 @@
     <p  class="max-w-l mt-4">
       <%= f.label :role_tier%>
       <br>
-      <%= f.select :role_tier, invite_creation_role_tier_options %>
+      <%= f.select :role_tier, invite_creation_role_tier_options(user_group) %>
     </p>
 
     <p  class="max-w-l mt-4">

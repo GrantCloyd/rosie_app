@@ -14,7 +14,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.includes(:sections).find(params[:id])
-    @sections, @pending_sections = @group.sections.in_order.partition(&:published?)
+    @sections = @group.sections.published.in_order
+    @pending_sections = @group.sections.hidden_or_unpublished.where(user: current_user)
     @user_group = @group.current_user_group(current_user)
     select_group(@group)
   end

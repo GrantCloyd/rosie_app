@@ -109,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
 
   create_table "sections", force: :cascade do |t|
     t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
     t.string "title", null: false
     t.text "description", null: false
     t.integer "status", default: 0, null: false
@@ -116,6 +117,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"
+    t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
   create_table "user_group_sections", force: :cascade do |t|
@@ -179,6 +181,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
   add_foreign_key "posts", "user_group_sections"
   add_foreign_key "section_role_permissions", "sections"
   add_foreign_key "sections", "groups"
+  add_foreign_key "sections", "users"
   add_foreign_key "user_group_sections", "sections"
   add_foreign_key "user_group_sections", "user_groups"
   add_foreign_key "user_groups", "groups"
