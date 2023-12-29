@@ -37,6 +37,12 @@ class UserGroupSection < ApplicationRecord
     blocked_level: 5
   }
 
+  USER_GROUP_TO_SECTION_PRIVACY_TIER_MAPPING = {
+    no_private_access: [:open_tier],
+    private_access: %i[open_tier private_tier],
+    all_access: %i[open_tier private_tier manual_only_tier]
+  }.freeze
+
   def self.current_user_group_section(user_group:, section:)
     find_by(user_group:, section:)
   end

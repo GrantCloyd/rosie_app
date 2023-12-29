@@ -17,6 +17,8 @@ module Groups
           format.html { render :new }
         end
       else
+        ::Sections::PublishService.new(section).call if section.published?
+
         redirect_to group_path(section.group)
       end
     end
@@ -69,6 +71,8 @@ module Groups
       @section = Section.find(params[:id])
       @section.update!(status: :published)
       @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+
+      ::Sections::PublishService.new(@section).call
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/publish' }
