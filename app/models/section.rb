@@ -33,6 +33,8 @@ class Section < ActiveRecord::Base
 
   accepts_nested_attributes_for :section_role_permissions
 
+  after_save :upsert_user_group_sections, if: :status_change_affects_user_group_sections?
+
   enum status: {
     unpublished: 0,
     published: 1,
@@ -52,4 +54,16 @@ class Section < ActiveRecord::Base
   scope :in_order, lambda {
     order(created_at: :DESC)
   }
+
+  private
+
+  # will fire after update, publish, or create
+  def upsert_user_group_sections
+    Sections::CreateOrUpdateUserGroupSectionsService.new(self).call
+  end
+
+  def status_change_affects_user_group_sections?
+    (saved_change_to_status? && status == 'published') ||
+      saved_change_to_privacy_tier
+  end
 end

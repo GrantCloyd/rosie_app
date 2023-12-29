@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Sections
-  class PublishService
+  class CreateOrUpdateUserGroupSectionsService
     def initialize(section)
       @section = section
     end

@@ -23,6 +23,8 @@
 class SectionRolePermission < ActiveRecord::Base
   belongs_to :section
 
+  after_update :upsert_user_group_sections, if: :status_change_affects_user_group_sections?
+
   enum permission_level: UserGroupSection.permission_levels
   enum role_tier: UserGroup.roles
 
@@ -30,4 +32,14 @@ class SectionRolePermission < ActiveRecord::Base
     moderator: :moderator_level,
     subscriber: :commenter_level
   }.freeze
+
+  private
+
+  def upsert_user_group_sections
+    UserGroupSections::MassUpsertByRoleTierJob.perform_later(section_id, role_tier)
+  end
+
+  def status_change_affects_user_group_sections?
+    saved_change_to_permission_level?
+  end
 end

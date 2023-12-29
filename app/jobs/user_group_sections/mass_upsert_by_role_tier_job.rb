@@ -15,8 +15,8 @@ module UserGroupSections
       UserGroupSection
         .upsert_all(
           user_group_section_attributes,
-          unique_by: [:user_group_id, :section_id]
-          )
+          unique_by: %i[user_group_id section_id]
+        )
     end
 
     private
