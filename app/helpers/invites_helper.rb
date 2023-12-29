@@ -3,10 +3,10 @@
 module InvitesHelper
   def invite_creation_role_tier_options(user_group)
     exception_array = if user_group.creator?
-      []
-    else 
-      [:creator]
-    end
+                        []
+                      else
+                        [:creator]
+                      end
 
     select_option_generator(
       model: Invite,

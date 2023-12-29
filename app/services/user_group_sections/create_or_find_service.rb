@@ -25,7 +25,6 @@ module UserGroupSections
         assign_permissions_by_tier(user_group_section)
       end
 
-
       user_group_section.save!
 
       user_group_section
