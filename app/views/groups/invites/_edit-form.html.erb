@@ -12,7 +12,7 @@
     <p  class="max-w-l mt-4">
       <%= f.label :privacy_tier %>
       <br>
-      <%= f.select :privacy_tier , invite_creation_privacy_tiers_options %>
+      <%= f.select :privacy_tier , invite_creation_privacy_tiers_options(user_group) %>
     </p>
 
 

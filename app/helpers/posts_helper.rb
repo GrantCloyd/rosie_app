@@ -4,7 +4,7 @@ module PostsHelper
   def post_statuses_options
     select_option_generator(
       model: Post,
-      enum: :status
+      plural_enum: :statuses
     )
   end
 

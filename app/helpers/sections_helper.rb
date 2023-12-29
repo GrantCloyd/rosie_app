@@ -4,7 +4,7 @@ module SectionsHelper
   def section_creation_display_statuses
     select_option_generator(
       model: Section,
-      enum: :status,
+      plural_enum: :statuses,
       exception_array: [:hidden]
     )
   end
@@ -12,7 +12,7 @@ module SectionsHelper
   def section_creation_privacy_tiers_options
     select_option_generator(
       model: Section,
-      enum: :privacy_tier
+      plural_enum: :privacy_tiers
     )
   end
 end

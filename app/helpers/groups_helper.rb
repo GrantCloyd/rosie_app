@@ -4,7 +4,7 @@ module GroupsHelper
   def  group_creation_display_statuses
     select_option_generator(
       model: Group,
-      enum: :status,
+      plural_enum: :statuses,
       exception_array: [:archived]
     )
   end

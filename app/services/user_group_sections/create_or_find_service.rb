@@ -42,8 +42,9 @@ module UserGroupSections
     end
 
     def handle_manual_only_tier(user_group_section)
-      # TO DO - give a more fine grained approach
-      user_group_section.blocked_level!
+      return user_group_section.blocked_level! unless @user_group.all_access?
+
+      use_role_section_permission(user_group_section)
     end
 
     def handle_private_tier_creation(user_group_section)

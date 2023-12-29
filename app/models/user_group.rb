@@ -36,7 +36,7 @@ class UserGroup < ActiveRecord::Base
 
   enum privacy_tier: {
     no_private_access: 0,
-    private_Secaccess: 1,
+    private_access: 1,
     all_access: 2
   }
 

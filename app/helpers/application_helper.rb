@@ -9,9 +9,7 @@ module ApplicationHelper
     User.find_by(id: session[:group_id])
   end
 
-  def select_option_generator(model:, enum:, exception_array: [])
-    plural_enum = enum.to_s.pluralize.to_sym
-
+  def select_option_generator(model:, plural_enum:, exception_array: [])
     model.send(plural_enum).except(*exception_array).keys.map { |enum_type| [enum_type.titleize, enum_type] }
   end
 end
