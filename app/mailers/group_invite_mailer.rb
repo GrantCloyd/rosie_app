@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupInviteMailer < ApplicationMailer
-  default from: ENV.fetch('USER_EMAIL')
+  default from: ENV.fetch('SMTP_EMAIL')
   after_action :update_invite_status, only: [:invite_user]
 
   def invite_user

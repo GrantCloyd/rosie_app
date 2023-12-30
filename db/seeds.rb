@@ -7,10 +7,10 @@
 
 users_seeds = [
   {
-    email: 'd@g.com',
-    password: 'asd',
+    email: ENV["SMTP_EMAIL"],
+    password: ENV["ADMIN_SECRET"],
     role: :super_admin,
-    full_name: 'd g'
+    full_name: 'Grant Cloyd'
   },
   {
     email: 'd2@g.com',

@@ -29,8 +29,8 @@ class SectionRolePermission < ActiveRecord::Base
   enum role_tier: UserGroup.roles
 
   DEFAULT_TIER_TO_PERMISSION_MAP = {
-    moderator: :moderator_level,
-    subscriber: :commenter_level
+    subscriber: :commenter_level,
+    moderator: :moderator_level
   }.freeze
 
   private
