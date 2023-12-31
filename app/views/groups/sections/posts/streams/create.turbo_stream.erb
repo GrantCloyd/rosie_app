@@ -1,3 +1,9 @@
 <%= turbo_stream.replace "main_view" do %>
-  <%= render template: 'groups/sections/show' %>
+  <%= render template: 'groups/sections/show', group: @group, section: @section, user_group_section: @user_group_section, posts: @posts, unpublished_posts: @unpublished_posts %>
+<% end %>
+
+<%= turbo_stream.replace "flash"  do %>
+  <% if_pubished_text = !@post.published? ? " Don't forget to publish!" : "" %>
+  <% flash[:alert] = "#{@post.title} has been created.#{if_pubished_text}" %>
+  <%= render 'layouts/flash' %>
 <% end %>

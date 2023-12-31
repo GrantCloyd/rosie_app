@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  after_action -> { flash.clear }
-
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -46,7 +44,7 @@ class ApplicationController < ActionController::Base
   def render_turbo_flash_alert(format, message)
     format.turbo_stream do
       flash.now[:alert] = message
-      render 'layouts/flash'
+      turbo_stream.replace 'flash', partial: 'layouts/flash'
     end
   end
 end

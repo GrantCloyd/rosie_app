@@ -1,14 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "current", "main" ]
+  static targets = [ "current"]
 
     async currentTargetConnected() {
-     console.log("con fired")
-     let currentFlash = this.currentTarget
-     await new Promise(r => setTimeout(r, 3000))
-      currentFlash.remove()
+        await new Promise(_ => setTimeout(_, 2750))
+        this.currentTarget.remove()
   }
-
- 
 }

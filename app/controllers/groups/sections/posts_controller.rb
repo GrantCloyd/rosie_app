@@ -38,9 +38,25 @@ module Groups
       end
 
       def create
-        @section.posts.create!(post_params.merge(user_group_section_id: @user_group_section.id))
+        @post = @section.posts.new(post_params.merge(user_group_section_id: @user_group_section.id))
+        @post.valid?
 
-        redirect_to group_section_path(@group, @section)
+        if @post.errors.present?
+          respond_to do |format|
+            binding.pry
+            render_turbo_flash_alert(format, @post.errors.full_messages.to_sentence.to_s)
+            format.html { render :new }
+          end
+        else
+          @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
+
+          respond_to do |format|
+            format.turbo_stream { render 'groups/sections/posts/streams/create' }
+            format.html do
+              render template: 'groups/sections/show', group: @group, section: @section, posts: @posts, unpublished_posts: @unpublished_posts
+            end
+          end
+        end
       end
 
       def destroy
