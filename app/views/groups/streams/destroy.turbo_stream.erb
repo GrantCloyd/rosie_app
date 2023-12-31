@@ -1,5 +1,6 @@
 <%= turbo_stream.remove "group-#{@group.id}" %>
 
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "#{@group.title} has been deleted" %>
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "#{@group.title} has been deleted" %>
+  <%= render 'layouts/flash' %>
 <% end %>

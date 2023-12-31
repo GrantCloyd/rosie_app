@@ -2,6 +2,7 @@
   <%= render template: 'sessions/new' %>
 <% end %>
 
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "Account has been created, please log-in" %>
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "Account has been created, please log-in" %>
+  <%= render 'layouts/flash' %>
 <% end %>

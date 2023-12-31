@@ -1,7 +1,3 @@
 <%= turbo_stream.replace "main_view" do %>
   <% render template: "groups/index", groups: @groups, invites: @invites %>
-<% end%>
-
-<%= turbo_stream.update "flash" do %>
-  <%= flash[alert] = nil %>
-<% end %> 
+<% end %>

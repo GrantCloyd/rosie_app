@@ -2,6 +2,7 @@
   <%= render template: 'groups/sections/posts/show' %>
 <% end %>
 
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "#{@post.title} has been updated!" %>
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "#{@post.title} has been updated!" %>
+  <%= render 'layouts/flash' %>
 <% end %>

@@ -10,6 +10,7 @@
     } %>
 <% end %>
 
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "#{@section.title} has been hidden!" %>
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "#{@section.title} has been hidden!" %>
+  <%= render 'layouts/flash' %>
 <% end %>

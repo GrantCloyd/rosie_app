@@ -4,6 +4,7 @@
   <%= render 'groups/partials/group', group: @group, user_group: @user_group %>
 <% end%>
 
-<%= turbo_stream.update "flash" do %>
-  <%= flash[:alert] = "Welcome to #{@group.title}!" %>
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "Welcome to #{@group.title}!" %>
+  <%= render 'layouts/flash' %>
 <% end %>

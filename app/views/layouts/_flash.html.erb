@@ -1,7 +1,9 @@
-<div class="max-w-md my-5 bg-slate-100" id="flash">
+  <div data-controller="flash">
+  <div class="max-w-md my-5 bg-slate-100" id="flash" data-flash-target="main">
   <% flash.each do |type, message| %>
-    <div>
+    <div data-flash-target="current" >
       <%= simple_format message %>
     </div>
   <% end %>
+</div>
 </div>
