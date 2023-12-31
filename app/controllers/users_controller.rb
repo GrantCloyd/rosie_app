@@ -16,8 +16,10 @@ class UsersController < ApplicationController
         format.html { render :new }
       end
     else
-      # TODO: - refactor to have notice appear
-      redirect_to new_session_path, notice: 'Account created. Please Log-in'
+      respond_to do |format|
+        format.turbo_stream { render 'users/streams/create' }
+        format.html { render 'sessions/new' }
+      end
     end
   end
 

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "main_view" do %>
+  <%= render template: 'sessions/new' %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= flash[:alert] = "Account has been created, please log-in" %>
+<% end %>
