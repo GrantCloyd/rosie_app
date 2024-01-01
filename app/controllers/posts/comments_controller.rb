@@ -12,7 +12,7 @@ module Posts
           format.html { render :new }
         end
       else
-
+        @comment.save!
         respond_to do |format|
           format.turbo_stream { render 'posts/comments/streams/create' }
           format.html { render template: 'groups/sections/posts/show' }

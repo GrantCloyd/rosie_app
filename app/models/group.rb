@@ -22,7 +22,7 @@ class Group < ActiveRecord::Base
     archived: 2
   }
 
-  validates :title, presence: true, length: { in: 1..150 }
+  validates :title, presence: true, length: { in: 3..150 }
 
   scope :in_order, lambda {
     order(created_at: :DESC)

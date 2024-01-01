@@ -53,6 +53,7 @@ module Groups
             format.html { render :new }
           end
         else
+          @post.save!
           @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
           respond_to do |format|
             format.turbo_stream { render 'groups/sections/posts/streams/create' }
