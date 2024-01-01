@@ -42,9 +42,11 @@ class ApplicationController < ActionController::Base
   end
 
   def render_turbo_flash_alert(format, message)
-    format.turbo_stream do
-      flash.now[:alert] = message
-      turbo_stream.replace 'flash', partial: 'layouts/flash'
-    end
+    flash[:alert] = message
+    format.turbo_stream { render 'layouts/streams/flash_error' }
+  end
+
+  def format_errors(object)
+    object.errors.full_messages.to_sentence.to_s
   end
 end

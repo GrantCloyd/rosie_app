@@ -47,7 +47,7 @@
     </div>
 
     <button class='<%="#{secondary_button}"%>'>
-      <%= f.submit data: {turbo_action: :advance }%>
+      <%= f.submit data: {turbo_action: :advance, turbo_stream: true }%>
     </button>
   <% end %>
 </div>

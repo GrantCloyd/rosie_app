@@ -35,6 +35,9 @@ class Section < ActiveRecord::Base
 
   after_save :upsert_user_group_sections, if: :status_change_affects_user_group_sections?
 
+  validates :title, presence: true, length: { in: 3..80 }
+  validates :description, presence: true, length: { in: 3..125 }
+
   enum status: {
     unpublished: 0,
     published: 1,

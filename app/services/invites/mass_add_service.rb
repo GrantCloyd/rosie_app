@@ -30,7 +30,7 @@ module Invites
 
     def display_error_messages
       @results[:errors].each_with_object([]) do |invalid_invite, error_array|
-        error_array << "** Invite for #{invalid_invite.target_email} could not be sent: #{invalid_invite.errors.full_messages.to_sentence}"
+        error_array << "** Invite for #{invalid_invite.target_email} could not be sent: #{format_errors(invalid_invite)}"
       end.join("\n\n")
     end
   end

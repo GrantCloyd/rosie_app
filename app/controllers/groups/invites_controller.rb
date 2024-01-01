@@ -17,7 +17,7 @@ module Groups
 
       if invite.errors.present?
         respond_to do |format|
-          render_turbo_flash_alert(format, invite.errors.full_messages.to_sentence.to_s)
+          render_turbo_flash_alert(format, format_errors(invite))
           format.html { render :new }
         end
       else
@@ -68,7 +68,7 @@ module Groups
 
       if @user_group.errors.any?
         respond_to do |format|
-          render_turbo_flash_alert(format, @user_group.errors.to_sentence)
+          render_turbo_flash_alert(format, format_errors(@user_group))
           format.html { redirect_to groups_path }
         end
       else

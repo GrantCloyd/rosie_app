@@ -13,11 +13,6 @@
 #  updated_at      :datetime         not null
 #
 class User < ActiveRecord::Base
-  validates :email, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :full_name, length: { in: 3..120 }
-  validates :email, :full_name, :password_digest, presence: true
-
   has_secure_password
 
   has_one :user_preference, dependent: :destroy
@@ -27,6 +22,11 @@ class User < ActiveRecord::Base
   has_many :user_group_sections, through: :user_groups
   has_many :groups, through: :user_groups
   has_many :invites
+
+  validates :email, uniqueness: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :full_name, length: { in: 3..120 }
+  validates :email, :full_name, :password_digest, presence: true
 
   enum role: {
     general: 0,

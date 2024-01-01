@@ -13,7 +13,7 @@ module Groups
 
       if section.errors.present?
         respond_to do |format|
-          render_turbo_flash_alert(format, section.errors.full_messages.to_sentence.to_s)
+          render_turbo_flash_alert(format, format_errors(section))
           format.html { render :new }
         end
       else
@@ -45,13 +45,19 @@ module Groups
 
     def update
       @section = Section.includes(:section_role_permissions).find(params[:id])
-      @section.update!(section_update_params)
-      @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
-      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+      if @section.update(section_update_params)
+        @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
+        @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
-      respond_to do |format|
-        format.turbo_stream { render 'groups/sections/streams/update' }
-        format.html { render 'groups/sections/show' }
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/streams/update' }
+          format.html { render 'groups/sections/show' }
+        end
+      else
+        respond_to do |format|
+          render_turbo_flash_alert(format, format_errors(@section))
+          format.html { render 'groups/sections/show' }
+        end
       end
     end
 

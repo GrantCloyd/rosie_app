@@ -3,11 +3,20 @@
 module Posts
   class CommentsController < Posts::BasePostsController
     def create
-      @comment = @post.comments.create(comment_params)
+      @comment = @post.comments.new(comment_params)
+      @comment.valid?
 
-      respond_to do |format|
-        format.turbo_stream { render 'posts/comments/streams/create' }
-        format.html { render template: 'groups/sections/posts/show' }
+      if @comment.errors.present?
+        respond_to do |format|
+          render_turbo_flash_alert(format, format_errors(@comment))
+          format.html { render :new }
+        end
+      else
+
+        respond_to do |format|
+          format.turbo_stream { render 'posts/comments/streams/create' }
+          format.html { render template: 'groups/sections/posts/show' }
+        end
       end
     end
 
@@ -41,11 +50,16 @@ module Posts
 
     def update
       @comment = Comment.find_by(id: params[:id])
-      @comment.update!(comment_params)
-
-      respond_to do |format|
-        format.turbo_stream { render 'posts/comments/streams/update' }
-        format.html { render template: 'groups/sections/posts/show' }
+      if @comment.update(comment_params)
+        respond_to do |format|
+          format.turbo_stream { render 'posts/comments/streams/update' }
+          format.html { render template: 'groups/sections/posts/show' }
+        end
+      else
+        respond_to do |format|
+          render_turbo_flash_alert(format, format_errors(@post))
+          format.html { render :edit }
+        end
       end
     end
 

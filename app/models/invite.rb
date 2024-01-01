@@ -27,13 +27,13 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Invite < ActiveRecord::Base
-  validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :target_email, uniqueness: { scope: :group_id }
-
   belongs_to :group
   belongs_to :user, optional: true
 
   before_save :strip_note_if_empty
+
+  validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :target_email, uniqueness: { scope: :group_id }
 
   enum status: {
     pending: 0,

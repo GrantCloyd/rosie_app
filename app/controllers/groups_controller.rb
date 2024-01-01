@@ -31,9 +31,15 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    @group.update!(group_params)
 
-    redirect_to group_path(@group), notice: 'group updated!'
+    if @group.update(group_params)
+      redirect_to group_path(@group), notice: 'group updated!'
+    else
+      respond_to do |format|
+        render_turbo_flash_alert(format, format_errors(group))
+        format.html { render :edit }
+      end
+    end
   rescue ActiveRecord::RecordNotFound
     redirect_to groups_path, notice: 'This group no longer exists'
   end
@@ -43,7 +49,7 @@ class GroupsController < ApplicationController
 
     if group.errors.present?
       respond_to do |format|
-        render_turbo_flash_alert(format, group.errors.full_messages.to_sentence.to_s)
+        render_turbo_flash_alert(format, format_errors(group))
         format.html { render :new }
       end
     else

@@ -28,28 +28,32 @@ module Groups
 
       def update
         @post = Post.includes(:comments).find(params[:id])
-        @post.update!(post_params)
-        @comments = @post.comments
+        if @post.update(post_params)
+          @comments = @post.comments
 
-        respond_to do |format|
-          format.turbo_stream { render 'groups/sections/posts/streams/update' }
-          format.html { render :show }
+          respond_to do |format|
+            format.turbo_stream { render 'groups/sections/posts/streams/update' }
+            format.html { render :show }
+          end
+        else
+          respond_to do |format|
+            render_turbo_flash_alert(format, format_errors(@post))
+            format.html { render :edit }
+          end
         end
       end
 
-      def create
+      def create # rubocop:disable Metrics/MethodLength
         @post = @section.posts.new(post_params.merge(user_group_section_id: @user_group_section.id))
         @post.valid?
 
         if @post.errors.present?
           respond_to do |format|
-            binding.pry
-            render_turbo_flash_alert(format, @post.errors.full_messages.to_sentence.to_s)
+            render_turbo_flash_alert(format, format_errors(@post))
             format.html { render :new }
           end
         else
           @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
-
           respond_to do |format|
             format.turbo_stream { render 'groups/sections/posts/streams/create' }
             format.html do

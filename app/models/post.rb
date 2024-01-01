@@ -25,8 +25,6 @@
 #
 
 class Post < ActiveRecord::Base
-  validates :content, :title, :section_id, :user_group_section_id, presence: true
-
   has_rich_text :content
 
   belongs_to :section
@@ -40,6 +38,7 @@ class Post < ActiveRecord::Base
   has_many_attached :images
 
   validates :images, content_type: %i[png jpg jpeg]
+  validates :content, :title, :section_id, :user_group_section_id, presence: true
 
   before_save :resize_images_before_save
 
