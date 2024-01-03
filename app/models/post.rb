@@ -34,7 +34,7 @@ class Post < ActiveRecord::Base
   has_one :user, through: :user_group_section, class_name: 'User'
 
   has_many :comments, as: :commentable
-  has_many :reactions, as: :reactionable
+  has_many :user_reactions, as: :reactionable
   has_many_attached :images
 
   validates :images, content_type: %i[png jpg jpeg]

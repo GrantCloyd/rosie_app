@@ -4,14 +4,16 @@
         <tr> 
           <th class='<%="#{primary_th} pl-8"%>'> Title </th>
           <th class='<%="#{primary_th}"%>'> Description </th>
+          <% if view == :unpublished %>
           <th class='<%="#{primary_th} pr-8"%>'> Status </th>
+          <% end %>
           <th class='<%="#{primary_th} pr-8"%>'> Created </th>
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
       <tbody class="bg-white" id=<%="sections-#{view.to_s}-container"%>>
         <% sections.each do |section| %>
-           <%= render 'groups/partials/section', section: section, group: group, user_group: user_group, user_group_section: UserGroupSection.current_user_group_section(user_group: user_group, section: section) %>
+           <%= render 'groups/partials/section', section: section, group: group, user_group: user_group, user_group_section: UserGroupSection.current_user_group_section(user_group: user_group, section: section), view: view %>
         <% end%>
       </tbody>
     </table>

@@ -82,7 +82,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     create_table :user_reactions do |t|
       t.belongs_to :user, foreign_key: true, null: false
-      t.integer :reaction_status, null: false
+      t.integer :status, null: false
       t.references :reactionable, polymorphic: true, null: false
 
       t.timestamps

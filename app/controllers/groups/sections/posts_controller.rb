@@ -8,7 +8,8 @@ module Groups
       def new; end
 
       def show
-        @post = Post.includes(:comments).find(params[:id])
+        @post = Post.includes(:comments, :user_reactions).find(params[:id])
+        @current_user_reaction = @post.user_reactions.select { |p| p.user_id == current_user.id }&.first
         @comments = @post.comments
 
         respond_to do |format|

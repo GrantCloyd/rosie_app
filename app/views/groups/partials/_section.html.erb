@@ -1,7 +1,9 @@
 <tr id='<%= dom_id(section) %>'>
     <td class='<%= "#{primary_td} pl-8"%>'> <%= section.title %> </td>
     <td class='<%= "#{primary_td} overflow-hidden max-w-md"%>'> <%= section.description %> </td>
+    <% if view == :unpublished %>
     <td class='<%= "#{primary_td} pr-8"%>'> <%= section.status.titleize %> </td>
+    <% end %>
       <td class='<%= "#{primary_td} pr-8"%>'> <%= section.created_at&.strftime("%D") %> </td>
     <td class='<%= "#{primary_td} pr-12"%>'>
 

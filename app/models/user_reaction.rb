@@ -5,8 +5,8 @@
 # Table name: user_reactions
 #
 #  id                :bigint           not null, primary key
-#  reaction_status   :integer          not null
 #  reactionable_type :string           not null
+#  status            :integer          not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  reactionable_id   :bigint           not null
@@ -25,10 +25,10 @@ class UserReaction < ActiveRecord::Base
   has_one :user
   has_one :reactionable
 
-  enum reaction_status: {
+  enum status: {
     like: 0,
     love: 1,
     care: 2,
-    thank: 3
+    laugh: 3
   }
 end

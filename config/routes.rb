@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         get :cancel
       end
     end
-    resources :reactions, controller: 'posts/reactions'
+    resources :user_reactions, controller: 'posts/user_reactions'
     resources :images, controller: 'posts/images'
   end
 

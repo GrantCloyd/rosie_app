@@ -4,7 +4,7 @@
 </button>
 <% end %>
 
-<% if post.user || user_group_section.moderator_or_creator? %>
+<% if post.user == current_user || user_group_section.moderator_or_creator? %>
 <button class='<%="#{action_button}"%>'>
     <%= link_to "Edit", edit_group_section_post_path(group, section, post), data: {turbo_action: :advance} %>
 </button>
@@ -18,7 +18,6 @@
       <%= link_to "Unpublish", unpublish_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
     </button>
   <% end %>
-
 
 <button class='<%="#{action_button}"%>'>
     <%= link_to "Delete", group_section_post_path(group, section, post), data: {turbo_method: :delete} %>

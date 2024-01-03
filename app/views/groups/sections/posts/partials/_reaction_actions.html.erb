@@ -1,0 +1,17 @@
+<% unless current_user_reaction %>
+<button class='<%="#{action_button}"%>'>
+  <%= link_to "Like", post_user_reactions_path(post, {status: :like}), data: {turbo_method: :post } %>
+</button>
+
+<button class='<%="#{action_button}"%>'>
+  <%= link_to "Love", post_user_reactions_path(post, {status: :love}), data: {turbo_method: :post } %>
+</button>
+
+<button class='<%="#{action_button}"%>'>
+  <%= link_to "Care", post_user_reactions_path(post, {status: :care}), data: {turbo_method: :post } %>
+</button>
+
+<button class='<%="#{action_button}"%>'>
+  <%= link_to "Laugh", post_user_reactions_path(post, {status: :laugh}), data: {turbo_method: :post } %>
+</button>
+<% end %>
