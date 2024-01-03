@@ -15,8 +15,8 @@ module Posts
       @reaction = UserReaction.find_by(id: params[:id])&.destroy
 
       # respond_to do |format|
-        #TO DO format.turbo_stream { render 'posts/reactions/streams/destroy' }
-        # format.html { redirect_to groups_sections_posts_show_path(current_group, @post.section, @post) }
+      # TO DO format.turbo_stream { render 'posts/reactions/streams/destroy' }
+      # format.html { redirect_to groups_sections_posts_show_path(current_group, @post.section, @post) }
       # end
     end
 

@@ -41,10 +41,10 @@
       <div>
         Reactions:
         </div>
-        <span> Likes: <%= @post.user_reactions.like.count %> </span> | 
-        <span> Loves: <%= @post.user_reactions.love.count %> </span> | 
-        <span> Cares: <%= @post.user_reactions.care.count %> </span> | 
-        <span> Laughs: <%= @post.user_reactions.laugh.count %> </span> |
+        <span> Likes: <%= @reaction_counter.likes %> </span> | 
+        <span> Loves: <%= @reaction_counter.loves %> </span> | 
+        <span> Cares: <%= @reaction_counter.cares %> </span> | 
+        <span> Laughs: <%= @reaction_counter.laughs %> </span> |
         <div>
           <%= render 'groups/sections/posts/partials/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
           </div>
