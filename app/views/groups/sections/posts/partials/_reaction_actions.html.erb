@@ -15,3 +15,8 @@
   <%= link_to "Laugh", post_user_reactions_path(post, {status: :laugh}), data: {turbo_method: :post } %>
 </button>
 <% end %>
+ <% if current_user_reaction %>
+  <button class='<%="#{action_button}"%>'>
+    <%= link_to "Un#{current_user_reaction.status}", post_user_reaction_path(@post, @current_user_reaction), data: {turbo_method: :delete} %>
+  </button>
+<% end %>

@@ -45,11 +45,6 @@
         <span> Loves: <%= @post.user_reactions.love.count %> </span> | 
         <span> Cares: <%= @post.user_reactions.care.count %> </span> | 
         <span> Laughs: <%= @post.user_reactions.laugh.count %> </span> |
-        <% if @current_user_reaction %>
-          <button class='<%="#{action_button}"%>'>
-          <%= link_to "Change Reaction", post_user_reaction_path(@post, @current_user_reaction), data: {turbo_method: :delete} %>
-        </button>
-        <% end %>
         <div>
           <%= render 'groups/sections/posts/partials/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
           </div>
