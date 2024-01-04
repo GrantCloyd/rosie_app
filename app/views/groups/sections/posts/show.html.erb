@@ -41,10 +41,9 @@
       <div>
         Reactions:
         </div>
-        <span> Likes: <%= @reaction_counter.likes %> </span> | 
-        <span> Loves: <%= @reaction_counter.loves %> </span> | 
-        <span> Cares: <%= @reaction_counter.cares %> </span> | 
-        <span> Laughs: <%= @reaction_counter.laughs %> </span> |
+        <% @reaction_counter.each do |status, count| %>
+          <span> <%= "#{status} | #{count}" %> </span> 
+        <% end %>
         <div>
           <%= render 'groups/sections/posts/partials/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
           </div>

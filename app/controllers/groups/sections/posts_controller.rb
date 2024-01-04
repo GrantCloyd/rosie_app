@@ -10,8 +10,7 @@ module Groups
       def show
         @post = Post.includes(:comments, :user_reactions).find(params[:id])
         @current_user_reaction = @post.user_reactions.select { |p| p.user_id == current_user.id }&.first
-        @reaction_counter = UserReactions::CountPresenterService.new(@post.user_reactions)
-        @reaction_counter.count
+        @reaction_counter = UserReactions::CountPresenterService.new(@post.user_reactions).count
         @comments = @post.comments
 
         respond_to do |format|
