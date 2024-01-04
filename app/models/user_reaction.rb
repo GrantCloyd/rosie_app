@@ -22,7 +22,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserReaction < ActiveRecord::Base
-  has_one :user
+  belongs_to :user
   has_one :reactionable
 
   enum status: {

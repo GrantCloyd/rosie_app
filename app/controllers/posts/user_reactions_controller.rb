@@ -2,6 +2,14 @@
 
 module Posts
   class UserReactionsController < Posts::BasePostsController
+    
+    def index
+      user_reactions = UserReaction.includes(:user).where(reactionable_id: @post.id, reactionable_type: "Post")
+      @current_user_reaction = user_reactions.find_by(user_id: current_user.id )
+      @reaction_counter = UserReactions::CountPresenterService.new(user_reactions).count
+      render layout: false
+    end
+    
     def create
       @reaction = @post.user_reactions.create(reaction_params)
 

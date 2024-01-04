@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "user_reactions_container" do %>
+<div>
+  <% @reaction_counter.each do |status, details| %>
+    <span> <%= "#{status} | #{details[:count]}" %> </span> 
+    <ul> Reactees
+      <% details[:names].each do |name|%>
+      <li> <%= "#{name}"%> </li>
+      <% end %>
+    </ul>
+  <% end %>
+    <div>
+      <%= render 'groups/sections/posts/partials/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
+    </div>
+</div>
+<% end %>
