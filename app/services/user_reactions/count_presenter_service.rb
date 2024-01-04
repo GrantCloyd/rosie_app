@@ -10,9 +10,9 @@ module UserReactions
 
     def count
       @user_reactions.each do |ur|
-        @counter[ur.status] += 1
+        @counter[ur.status.pluralize.titleize] += 1
       end
-      @counter.transform_keys { |k| k.pluralize.titleize }
+      @counter
     end
   end
 end
