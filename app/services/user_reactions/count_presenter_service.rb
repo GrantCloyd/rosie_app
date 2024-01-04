@@ -6,7 +6,7 @@ module UserReactions
   class CountPresenterService
     def initialize(user_reactions)
       @user_reactions = user_reactions
-      @counter = Hash.new { |hash, key| hash[key] = {names: [], count: 0} }
+      @counter = Hash.new { |hash, key| hash[key] = { names: [], count: 0 } }
     end
 
     def count
