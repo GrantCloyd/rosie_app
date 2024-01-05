@@ -2,7 +2,6 @@
 
 module Posts
   class CommentsController < Posts::BasePostsController
-
     def index
       @comments = @post.comments
       render layout: false
@@ -45,7 +44,7 @@ module Posts
       end
     end
 
-    # TODO this should probably be moved to js it doesn't need to be a stream
+    # TODO: this should probably be moved to js it doesn't need to be a stream
     def cancel
       @comment = Comment.find_by(id: params[:id])
 

@@ -2,6 +2,11 @@
 
 module Posts
   class ImagesController < Posts::BasePostsController
+    def index
+      @images = @post.images
+      render layout: false
+    end
+
     def show
       @image = @post.images.find_by(blob_id: params[:id])
 

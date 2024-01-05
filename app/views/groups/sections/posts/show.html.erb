@@ -41,7 +41,7 @@
       <div>
         Reactions:
         </div>
-        <%= turbo_frame_tag 'user_reactions_container', src: post_user_reactions_path(@post) do %>
+        <%= turbo_frame_tag 'user_reactions_container', src: post_user_reactions_path(@post), loading: :lazy do %>
         <div> Loading ... </div>
         <% end %>
     </div>
@@ -49,19 +49,14 @@
 
   <div class='<%="#{primary_form}"%> my-10 flex justify-center p-4'> 
     <h3> Images: </h3>
-    <div id='images-container'>
-      <% @post.images.each do |image| %>
-        <%= link_to(image_tag(image.representation(resize_to_limit: [100, 100])), post_image_path(@post, image.blob_id), data: {turbo_stream: true })  %>
-    <% end%>
-    </div>
-    <div id="larger-image">
-
-      </div>
+    <%= turbo_frame_tag "images_container", src: post_images_path(@post), loading: :lazy do %>
+    <div> Loading ... </div>
+    <% end %>
    </div>
     
    <div class='<%="#{primary_form}"%> my-10 p-4'> 
     <h3 class="flex justify-center"> Comments: </h3>
-    <%= turbo_frame_tag 'comments_container', src: post_comments_path(@post) do %>
+    <%= turbo_frame_tag 'comments_container', src: post_comments_path(@post), loading: :lazy do %>
       <div> Loading ... </div>
      <% end %>
    </div>

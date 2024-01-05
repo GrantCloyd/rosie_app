@@ -8,8 +8,7 @@ module Groups
       def new; end
 
       def show
-        @post = Post.includes(:comments).find(params[:id])
-        @comments = @post.comments
+        @post = Post.find(params[:id])
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/show' }
