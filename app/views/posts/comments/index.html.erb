@@ -1,0 +1,13 @@
+<%= turbo_frame_tag 'comments_container' do %>
+ <div id="comments-container">
+  <% if @comments.empty? %>
+    <div id="empty-comments">
+      <hr class="border-1 border-slate-600 mt-1 mb-4">
+      <p  class=" mt-2 flex justify-center"> No comments yet. Be the first! </p>
+    </div>
+  <% else %>
+    <% @comments.each do |comment| %>
+      <%= render 'groups/sections/posts/comments/comment', comment: comment, post: @post, user_group_section: @user_group_section %>
+    <% end %>
+  <% end %>
+<% end %>
