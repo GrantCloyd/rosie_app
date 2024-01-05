@@ -1,0 +1,12 @@
+   <% reaction_css_class = "flex justify-center relative border-2 border-slate-200 mx-1 p-2 rounded-lg" %>
+
+   <% if user_reaction_status == status %>
+      <div class='<%= "#{reaction_css_class} bg-emerald-100"%>'>
+      <%= link_to post_user_reaction_path(@post, @current_user_reaction), data: {turbo_method: :delete} do %>
+        <%= render 'posts/user_reactions/user_reaction_detail', status: status, details: details %>
+      <% end %>
+    <% else %>
+      <div class='<%= "#{reaction_css_class}"%>'>
+        <%= render 'posts/user_reactions/user_reaction_detail', status: status, details: details %>
+      <% end %>
+    </div>

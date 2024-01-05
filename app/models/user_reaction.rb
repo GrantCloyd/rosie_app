@@ -28,7 +28,7 @@ class UserReaction < ActiveRecord::Base
   enum status: {
     like: 0,
     love: 1,
-    care: 2,
+    celebrate: 2,
     laugh: 3
   }
 end

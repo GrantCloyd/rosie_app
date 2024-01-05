@@ -1,22 +1,35 @@
+<% reaction_button_css = 'bg-slate-300 py-4 px-5 flex relative hover:text-black rounded-full mr-1 text-xl' %>
+<% reaction_span_css = 'flex absolute opacity-0 bg-slate-200 hover:opacity-75 rounded-full top-4' %>
+
+
 <% unless current_user_reaction %>
-<button class='<%="#{action_button}"%>'>
-  <%= link_to "Like", post_user_reactions_path(post, {status: :like}), data: {turbo_method: :post } %>
+<div class="flex justify-evenly">
+<button class='<%="#{reaction_button_css}"%>'>
+  <%= link_to post_user_reactions_path(post, {status: :like}), data: {turbo_method: :post } do %>
+    <span> <%="\u{1F44D}"%> </span>
+    <span class='<%="#{reaction_span_css} left-3"%>'> Like </span>
+  <% end %>
 </button>
 
-<button class='<%="#{action_button}"%>'>
-  <%= link_to "Love", post_user_reactions_path(post, {status: :love}), data: {turbo_method: :post } %>
+<button class='<%="#{reaction_button_css}"%>'>
+  <%= link_to post_user_reactions_path(post, {status: :love}), data: {turbo_method: :post } do %> 
+    <span class="text-red-400"> <%= "\u{2665}" %> </span>
+    <span class='<%="#{reaction_span_css}"%> left-2'> Love </span>
+  <% end %>
 </button>
 
-<button class='<%="#{action_button}"%>'>
-  <%= link_to "Care", post_user_reactions_path(post, {status: :care}), data: {turbo_method: :post } %>
+<button class='<%="#{reaction_button_css}"%>'>
+  <%= link_to post_user_reactions_path(post, {status: :celebrate}), data: {turbo_method: :post } do %>
+    <span> <%= "\u{1F64C}" %> </span>
+    <span class='<%="#{reaction_span_css}"%> -left-3'> Celebrate </span>
+  <% end %>
 </button>
 
-<button class='<%="#{action_button}"%>'>
-  <%= link_to "Laugh", post_user_reactions_path(post, {status: :laugh}), data: {turbo_method: :post } %>
+<button class='<%="#{reaction_button_css}"%>'>
+  <%= link_to post_user_reactions_path(post, {status: :laugh}), data: {turbo_method: :post } do %>
+  <span> <%= "\u{1F606}" %> </span>
+  <span class='<%="#{reaction_span_css} left-0"%>'> Laugh </span>
+  <% end %>
 </button>
-<% end %>
- <% if current_user_reaction %>
-  <button class='<%="#{action_button}"%>'>
-    <%= link_to "Un#{current_user_reaction.status}", post_user_reaction_path(@post, @current_user_reaction), data: {turbo_method: :delete} %>
-  </button>
+</div>
 <% end %>
