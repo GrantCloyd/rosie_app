@@ -2,12 +2,12 @@
 
 
 <%= turbo_frame_tag "user_reactions_container" do %>
-<div class="flex justify-item">
+<div id="user-reactions-container" class="flex justify-center">
   <% @reaction_counter.each do |status, details| %>
-   <%= render 'posts/user_reactions/user_reaction', status: status, details: details, user_reaction_status: user_reaction_status %>
+    <%= render 'posts/user_reactions/user_reaction', status: status, details: details, user_reaction_status: user_reaction_status %>
    <% end %>
     </div>
-  <div class="my-3 p-2">
-      <%= render 'groups/sections/posts/partials/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
+  <div class="my-3 p-2" id="reaction-action-container">
+      <%= render 'posts/user_reactions/reaction_actions', post: @post, current_user_reaction: @current_user_reaction, reaction_counter: @reaction_counter %>
     </div>
 <% end %>

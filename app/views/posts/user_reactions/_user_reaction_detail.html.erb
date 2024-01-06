@@ -1,6 +1,10 @@
- <p> <%= "#{status} | #{details[:count]}" %> 
+<% optional_css = status == 'Loves' ? 'text-red-400' : "" %>
+ 
+<p> 
+  <span class='<%= optional_css %>'> <%= "#{status_to_unicode(status)}" %> </span> 
+  <span> | <%= " #{details[:count]}" %>  </span>
     <ul> 
-      <div class="flex absolute flex-col left-16 opacity-0 bg-slate-400 rounded-lg hover:opacity-100">
+      <div class="flex absolute flex-col w-30 right-0 top-0 opacity-0 bg-slate-400 z-10 rounded-lg hover:opacity-70">
       <% details[:names].each do |name| %>
         <li class="px-1 mt-1"> <%= "#{name}"%> </li>
       <% end %>

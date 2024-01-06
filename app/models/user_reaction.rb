@@ -31,4 +31,8 @@ class UserReaction < ActiveRecord::Base
     celebrate: 2,
     laugh: 3
   }
+
+  def format_status
+    status.pluralize.titleize
+  end
 end

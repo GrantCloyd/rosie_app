@@ -1,14 +1,21 @@
-<div id=<%="comment-#{comment.id}"%> class="bg-white my-1 pb-1 pt-2" >
+<div id='<%="comment-#{comment.id}"%>' class="bg-white pb-1 border-b border-slate-200" >
+  <p class="rounded-full p-2 bg-emerald-200 w-10 flex relative left-1 top-3 underline">
+    <span class="translate-x-2">
+    <%= comment.user.full_name.first %>
+    </span>
+  </p>
+  <div class="relative top-0 left-6">
   <p class="ml-6"> <span class="font-medium underline"> <%= comment.user.full_name %> </span> </p>
   <p> <span class="ml-6 text-slate-400"> <%= commented_time_ago(comment.created_at) %> </span> 
      <% if comment.updated_at != comment.created_at %>
        <span class="text-slate-400"> | Edited <%= commented_time_ago(comment.updated_at) %> </span> 
        <% end %>
   </p>
-  <p class="ml-6"> <%= comment.content %> 
+  <p class="ml-5 mr-7 px-1"> 
+    <%= comment.content %> 
   </p> 
+  <p class="my-2 relative text-end right-12">
   <% if user_group_section.moderator_or_creator? || current_user == comment.user %>
-  <p class="my-2 ml-6">
     <span>
       <button class='<%="#{action_button} "%>'>
         <%= link_to "Delete", post_comment_path(post, comment), data: {turbo_method: :delete} %>
@@ -21,6 +28,7 @@
         <%= link_to "Edit", edit_post_comment_path(post, comment), data: { turbo_stream: true }%>
       </button>
       </span>
-  </p>
   <% end %>
+  </p>
+  </div>
 </div>

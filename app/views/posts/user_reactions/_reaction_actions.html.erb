@@ -1,0 +1,34 @@
+<% reaction_button_css = 'bg-slate-200 py-4 px-5 flex relative hover:text-black rounded-full mr-1 text-xl' %>
+<% reaction_span_css = 'flex absolute opacity-0 bg-slate-200 hover:opacity-75 rounded-full top-4' %>
+
+<% unless current_user_reaction %>
+  <div class="flex justify-evenly">
+    <button class='<%="#{reaction_button_css}"%>'>
+      <%= link_to post_user_reactions_path(post, {status: :like}), data: {turbo_method: :post } do %>
+        <span> <%= status_to_unicode('Likes') %> </span>
+        <span class='<%="#{reaction_span_css} left-3"%>'> Like </span>
+      <% end %>
+    </button>
+
+    <button class='<%="#{reaction_button_css}"%>'>
+      <%= link_to post_user_reactions_path(post, {status: :love}), data: {turbo_method: :post } do %> 
+        <span class="text-red-400"> <%= status_to_unicode('Loves') %> </span>
+        <span class='<%="#{reaction_span_css}"%> left-2'> Love </span>
+      <% end %>
+    </button>
+
+    <button class='<%="#{reaction_button_css}"%>'>
+      <%= link_to post_user_reactions_path(post, {status: :celebrate}), data: {turbo_method: :post } do %>
+        <span> <%= status_to_unicode('Celebrates') %> </span>
+        <span class='<%="#{reaction_span_css}"%> -left-3'> Celebrate </span>
+      <% end %>
+    </button>
+
+    <button class='<%="#{reaction_button_css}"%>'>
+      <%= link_to post_user_reactions_path(post, {status: :laugh}), data: {turbo_method: :post } do %>
+      <span> <%= status_to_unicode('Laughs') %> </span>
+      <span class='<%="#{reaction_span_css} left-0"%>'> Laugh </span>
+      <% end %>
+    </button>
+  </div>
+<% end %>

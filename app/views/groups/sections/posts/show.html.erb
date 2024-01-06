@@ -37,10 +37,6 @@
         <%= @post.content %>
       </div>
       <hr class="border-1 border-slate-600 mt-1 mb-4">
-     
-      <div>
-        Reactions:
-        </div>
         <%= turbo_frame_tag 'user_reactions_container', src: post_user_reactions_path(@post), loading: :lazy do %>
         <div> Loading ... </div>
         <% end %>

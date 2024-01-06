@@ -36,4 +36,8 @@ module CssHelper
   def sticky_top_action_bar
     'border-4 border-slate-400 bg-slate-100 w-42 px-2 pb-2 sticky top-0 left-4 mt-16 rounded-md bg-opacity-80'
   end
+
+  def reaction_css_class
+    'flex justify-center relative border-2 border-slate-200 mx-1 p-2 rounded-lg'
+  end
 end

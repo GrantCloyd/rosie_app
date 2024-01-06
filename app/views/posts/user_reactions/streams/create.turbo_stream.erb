@@ -1,0 +1,15 @@
+<%= turbo_stream.update "reaction-action-container" do %>
+  <%= render 'posts/user_reactions/reaction_actions', post: @post, current_user_reaction: @current_user_reaction %>
+<% end %>
+
+<% binding%>
+
+<% if @details[:count] == 1 %>
+  <%= turbo_stream.append "user-reactions-container" do %>
+   <%= render 'posts/user_reactions/user_reaction', status: @status, details: @details, user_reaction_status: @status %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "users-#{@status}" do %>
+    <%= render 'posts/user_reactions/user_reaction', status: @status, details: @details, user_reaction_status: @status %>
+  <% end%>
+<% end %>

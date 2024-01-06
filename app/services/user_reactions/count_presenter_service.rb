@@ -3,7 +3,7 @@
 # the intent is to reduce overall db hits - but this could be moved to
 # a jsonb column pre-calculated on the post to reduce load time
 
-# TO DO - benchmarking and determining how slow this will be on an individual page
+# TO DO - benchmarking and determining how slow this will be on an individual page at larger scale
 module UserReactions
   class CountPresenterService
     def initialize(user_reactions)
@@ -13,7 +13,7 @@ module UserReactions
 
     def count
       @user_reactions.each do |ur|
-        key = ur.status.pluralize.titleize
+        key = ur.format_status
         @counter[key][:count] += 1
         @counter[key][:names] << ur.user.full_name
       end
