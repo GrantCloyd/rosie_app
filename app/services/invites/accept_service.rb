@@ -7,14 +7,15 @@ module Invites
     end
 
     def call
-      user_group = convert_invite_to_user_group
+      @user_group = convert_invite_to_user_group
 
-      if user_group.save!
+      if @user_group.save!
         update_invite_status!
+        create_user_group_sections!
         notify_group_creator!
       end
 
-      user_group
+      @user_group
     end
 
     private
@@ -34,6 +35,10 @@ module Invites
 
     def notify_group_creator!
       Invites::MemberJoinedNotificationJob.perform_later(@invite.group_id, @invite.user_id)
+    end
+
+    def create_user_group_sections!
+      Invites::CreateUserGroupSectionsJob.perform_later(@user_group.id)
     end
   end
 end
