@@ -15,6 +15,7 @@
 # Indexes
 #
 #  index_user_reactions_on_reactionable  (reactionable_type,reactionable_id)
+#  index_user_reactions_on_status        (status)
 #  index_user_reactions_on_user_id       (user_id)
 #
 # Foreign Keys

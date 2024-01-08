@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_invites_on_group_id"
+    t.index ["status"], name: "index_invites_on_status"
     t.index ["target_email", "group_id"], name: "index_invites_on_target_email_and_group_id", unique: true
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
@@ -117,6 +118,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"
+    t.index ["status"], name: "index_sections_on_status"
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
@@ -160,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_user_reactions_on_reactionable"
+    t.index ["status"], name: "index_user_reactions_on_status"
     t.index ["user_id"], name: "index_user_reactions_on_user_id"
   end
 
