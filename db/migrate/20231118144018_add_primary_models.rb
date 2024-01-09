@@ -65,8 +65,9 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     create_table :posts do |t|
       t.string :title, null: false
       t.integer :status, default: 0
+      t.integer :pin_index
       t.belongs_to :section, foreign_key: true, null: false
-      t.belongs_to :user_group_section, foreign_key: true, null: false
+      t.belongs_to :user, foreign_key: true, null: false
       t.datetime :published_on
 
       t.timestamps
@@ -107,5 +108,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     add_index :sections, :status
     add_index :user_reactions, :status
     add_index :invites, :status
+    add_index :posts, :pin_index
   end
 end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       resources :posts, controller: 'groups/sections/posts' do
         member do
-          post :publish, :unpublish
+          post :publish, :unpublish, :pin, :unpin
         end
       end
     end

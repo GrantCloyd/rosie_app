@@ -4,24 +4,26 @@
 #
 # Table name: posts
 #
-#  id                    :bigint           not null, primary key
-#  published_on          :datetime
-#  status                :integer          default("pending")
-#  title                 :string           not null
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  section_id            :bigint           not null
-#  user_group_section_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  pin_index    :integer
+#  published_on :datetime
+#  status       :integer          default("pending")
+#  title        :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  section_id   :bigint           not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
-#  index_posts_on_section_id             (section_id)
-#  index_posts_on_user_group_section_id  (user_group_section_id)
+#  index_posts_on_pin_index   (pin_index)
+#  index_posts_on_section_id  (section_id)
+#  index_posts_on_user_id     (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (section_id => sections.id)
-#  fk_rails_...  (user_group_section_id => user_group_sections.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 class Post < ActiveRecord::Base
@@ -30,15 +32,14 @@ class Post < ActiveRecord::Base
   belongs_to :section
   has_one :group, through: :section
 
-  belongs_to :user_group_section
-  has_one :user, through: :user_group_section, class_name: 'User'
+  belongs_to :user
 
   has_many :comments, as: :commentable
   has_many :user_reactions, as: :reactionable
   has_many_attached :images
 
   validates :images, content_type: %i[png jpg jpeg]
-  validates :content, :title, :section_id, :user_group_section_id, presence: true
+  validates :content, :title, :section_id, :user_id, presence: true
 
   before_save :resize_images_before_save
 
@@ -49,7 +50,7 @@ class Post < ActiveRecord::Base
   }
 
   scope :in_order, lambda {
-    order(:published_on, :created_at)
+    order(:pin_index, :published_on, :created_at)
   }
 
   scope :hidden_or_pending, lambda {

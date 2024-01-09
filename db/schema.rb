@@ -89,13 +89,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.integer "status", default: 0
+    t.integer "pin_index"
     t.bigint "section_id", null: false
-    t.bigint "user_group_section_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["pin_index"], name: "index_posts_on_pin_index"
     t.index ["section_id"], name: "index_posts_on_section_id"
-    t.index ["user_group_section_id"], name: "index_posts_on_user_group_section_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "section_role_permissions", force: :cascade do |t|
@@ -181,7 +183,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
   add_foreign_key "invites", "groups"
   add_foreign_key "invites", "users"
   add_foreign_key "posts", "sections"
-  add_foreign_key "posts", "user_group_sections"
+  add_foreign_key "posts", "users"
   add_foreign_key "section_role_permissions", "sections"
   add_foreign_key "sections", "groups"
   add_foreign_key "sections", "users"

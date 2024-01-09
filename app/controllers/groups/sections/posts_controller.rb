@@ -43,7 +43,7 @@ module Groups
       end
 
       def create # rubocop:disable Metrics/MethodLength
-        @post = @section.posts.new(post_params.merge(user_group_section_id: @user_group_section.id))
+        @post = @section.posts.new(post_params.merge(user_id: current_user.id))
         @post.valid?
 
         if @post.errors.present?
@@ -65,6 +65,8 @@ module Groups
 
       def destroy
         @post = Post.find(params[:id])
+
+        Posts::UnpinService.new(post: @post, section: @section).call unless @post.pin_index.nil?
         @post.destroy
 
         respond_to do |format|
@@ -85,12 +87,30 @@ module Groups
 
       def unpublish
         @post = Post.find(params[:id])
+        Posts::UnpinService.new(post: @post, section: @section).call unless @post.pin_index.nil?
         @post.update!(status: :hidden)
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/unpublish' }
           format.html { render :index }
         end
+      end
+
+      def pin
+        @post = Post.find(params[:id])
+        current_post_index = @section.posts.where.not(pin_index: nil).count
+        @post.update(pin_index: current_post_index)
+      end
+
+      def unpin
+        @post = Post.find(params[:id])
+
+        if @post.pin_index.nil?
+          render_turbo_flash_alert(format, 'Message is not currently pinned')
+          format.html { redirect_to groups_posts_path(@current_group, @post) }
+        end
+
+        Posts::UnpinService.new(post: @post, section: @section).call
       end
 
       rescue_from ActiveRecord::RecordNotFound do |_exception|
