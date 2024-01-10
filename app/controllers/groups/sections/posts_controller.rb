@@ -2,7 +2,7 @@
 
 module Groups
   module Sections
-    class PostsController < Groups::Sections::BaseSectionsController
+    class PostsController < Groups::Sections::BaseSectionsController # rubocop:disable Metrics/ClassLength
       before_action :set_user_group_section
 
       def new; end
@@ -111,6 +111,30 @@ module Groups
         end
 
         Posts::UnpinService.new(post: @post, section: @section).call
+      end
+
+      def pin_up
+        post = Post.find(params[:id])
+
+        if post.pin_index.nil? || post.pin_index.zero?
+          render_turbo_flash_alert(format, 'Message can not be reordered')
+          format.html { redirect_to groups_posts_path(@current_group, post) }
+        end
+
+        # the submitted post
+        @new_low_index_post, @new_high_index_post = Posts::SwapPinIndexService.new(high_index: post).call
+      end
+
+      def pin_down
+        post = Post.find(params[:id])
+        last_index = (@section.posts.where.not(pin_index: nil).count - 1)
+
+        if post.pin_index.nil? || last_index == post.pin_index
+          render_turbo_flash_alert(format, 'Message can not be reordered')
+          format.html { redirect_to groups_posts_path(@current_group, @post) }
+        end
+                              # the submitted post # rubocop:disable Layout/CommentIndentation
+        @new_low_index_post, @new_high_index_post = Posts::SwapPinIndexService.new(low_index: @post).call
       end
 
       rescue_from ActiveRecord::RecordNotFound do |_exception|

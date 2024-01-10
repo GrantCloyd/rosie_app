@@ -23,7 +23,7 @@ module Posts
     end
 
     def reindex_section_pin_indices
-      # all pinned items higher than current
+      # all pinned items high_indexer than current
       posts = @section.posts.where(pin_index: @current_pin_index..).order(:pin_index)
 
       posts.to_a.each.with_index(@current_pin_index) do |post, indx|
