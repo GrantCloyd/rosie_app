@@ -113,28 +113,19 @@ module Groups
         Posts::UnpinService.new(post: @post, section: @section).call
       end
 
-      def pin_up
-        post = Post.find(params[:id])
+      def pin_shift
+        pin_index = params[:pin_index]
+        shift_direction = params[:shift_direction]
 
-        if post.pin_index.nil? || post.pin_index.zero?
+        pin_indices = shift_direction == :up ? [pin_index, pin_index - 1] : [pin_index, pin_index + 1]
+        posts = Post.where(pin_index: pin_indices).order(:pin_index)
+
+        if posts.length != 2
           render_turbo_flash_alert(format, 'Message can not be reordered')
           format.html { redirect_to groups_posts_path(@current_group, post) }
         end
 
-        # the submitted post
-        @new_low_index_post, @new_high_index_post = Posts::SwapPinIndexService.new(high_index: post).call
-      end
-
-      def pin_down
-        post = Post.find(params[:id])
-        last_index = (@section.posts.where.not(pin_index: nil).count - 1)
-
-        if post.pin_index.nil? || last_index == post.pin_index
-          render_turbo_flash_alert(format, 'Message can not be reordered')
-          format.html { redirect_to groups_posts_path(@current_group, @post) }
-        end
-                              # the submitted post # rubocop:disable Layout/CommentIndentation
-        @new_low_index_post, @new_high_index_post = Posts::SwapPinIndexService.new(low_index: @post).call
+        @new_low_index_post, @new_high_index_post = swap_and_save(posts.first, posts.last)
       end
 
       rescue_from ActiveRecord::RecordNotFound do |_exception|
@@ -145,6 +136,15 @@ module Groups
 
       def post_params
         params.require(:post).permit(:title, :status, :content, images: [])
+      end
+
+      def swap_and_save(low_index, high_index)
+        temp_index = low_index.pin_index
+
+        low_index.pin_index = high_index.pin_index
+        high_index.pin_index = temp_index
+        # NOTE: 'high_index' now is the lower index
+        [high_index, low_index].each(&:save)
       end
     end
   end
