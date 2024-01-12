@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Groups
-  class SectionsController < Groups::BaseGroupsController # rubocop:disable Metrics/ClassLength
+  class SectionsController < Groups::BaseGroupsController
     def new; end
 
     def create
