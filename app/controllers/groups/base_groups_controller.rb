@@ -7,6 +7,23 @@ module Groups
     before_action :ensure_logged_in
     before_action :ensure_user_authorized
 
+    def section_post_sorter(posts)
+      pinned = []
+      published = []
+      unpublished = []
+
+      posts.each do |post|
+        if post.pin_index.present?
+          pinned << post
+        elsif post.published?
+          published << post
+        else
+          unpublished << post
+        end
+      end
+      [pinned, published, unpublished]
+    end
+
     private
 
     def set_group

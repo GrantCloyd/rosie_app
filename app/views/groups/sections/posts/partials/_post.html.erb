@@ -1,5 +1,10 @@
 
 <tr id='<%= "post-#{post.id}"%>'>
+<% if view != :unpublished && user_group_section.moderator_or_creator? %>
+  <td class='<%= "#{primary_td} pl-12"%>'> 
+    <%= render 'groups/sections/posts/partials/pin_actions', post: post, group: group, section: section %>
+    </td >
+    <% end %>
   <td class='<%= "#{primary_td} pl-8"%>'> <%= post.display_published_or_created %> </td>
   <td class='<%= "#{primary_td}"%>'> <%= post.user.full_name %> </td>
   <td class='<%= "#{primary_td}"%>'> <%= post.title %> </td>

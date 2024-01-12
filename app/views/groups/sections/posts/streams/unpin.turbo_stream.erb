@@ -1,0 +1,22 @@
+<%= turbo_stream.remove "post-#{@post.id}" do %>
+  <%= render partial: 'groups/sections/posts/partials/post', locals: {group: @group, section: @section, post: @post} %>
+<% end %>
+
+
+<% pin_container_name = @post.published? ? 'published' : 'unpublished' %>
+
+<%= turbo_stream.append "posts-#{pin_container_name}-container" do %>
+  <%= render partial: 'groups/sections/posts/partials/post', 
+  locals: {
+    group: @group, 
+    section: @section, 
+    post: @post, 
+    user_group_section: @user_group_section, 
+    view: :pinned
+    } %>
+<% end %>
+
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "#{@post.title} has been unpinned!" %>
+  <%= render 'layouts/flash' %>
+<% end %>

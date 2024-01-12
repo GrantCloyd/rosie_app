@@ -29,7 +29,6 @@
         <div class="border-2 border-slate-400 p-2 mt-2">
           <span class="text-lg font-medium"> Permissions </span>
         <%= f.fields_for :section_role_permissions do |srp_f| %> 
-        <% binding.pry %>
         <% next if srp_f.object.role_tier == 'moderator' && @user_group.role != 'creator' %>
             <%= srp_f.hidden_field :role_tier %>
           <p class="font-medium">

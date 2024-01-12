@@ -1,0 +1,23 @@
+  <% if post.pin_index.present? %>
+    
+    <% unless post.pin_index.zero? %>
+   <button class='<%="#{action_button}"%>'>
+      <%= link_to "\u{2B06}", pin_shift_group_section_post_path(group, section, post, pin_index: post.pin_index, shift_direction: :up), data: {turbo_method: :post} %>
+    </button>
+    <% end %>
+
+    <% unless section.last_posts_pin_index == post.pin_index %>
+    <button class='<%="#{action_button}"%>'>
+      <%= link_to "\u{2B07}", pin_shift_group_section_post_path(group, section, post, pin_index: post.pin_index, shift_direction: :down), data: {turbo_method: :post} %>
+    </button>
+    <% end %>
+
+    <button class='<%="#{action_button}"%>'>
+      <%= link_to "\u{274C}", unpin_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
+    </button>
+  
+  <% else %>
+    <button class='<%="#{action_button}"%>'>
+      <%= link_to "\u{1F4CD}", pin_group_section_post_path(group, section, post), data: {turbo_method: :post} %>
+    </button>
+  <% end %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Groups
-  class SectionsController < Groups::BaseGroupsController
+  class SectionsController < Groups::BaseGroupsController # rubocop:disable Metrics/ClassLength
     def new; end
 
     def create
@@ -30,7 +30,7 @@ module Groups
           format.html { redirect_to group_path(@group), flash: { alert: 'This group is private' } }
         end
       else
-        @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
+        @pinned_posts, @posts, @unpublished_posts = section_post_sorter(@section.posts.in_order)
       end
     end
 
@@ -46,7 +46,7 @@ module Groups
     def update
       @section = Section.includes(:section_role_permissions).find(params[:id])
       if @section.update(section_update_params)
-        @posts, @unpublished_posts = @section.posts.in_order.partition(&:published?)
+        @pinned_posts, @posts, @unpublished_posts = section_post_sorter(@section.posts.in_order)
         @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
         respond_to do |format|

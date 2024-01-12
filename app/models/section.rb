@@ -59,6 +59,14 @@ class Section < ActiveRecord::Base
     order(created_at: :DESC)
   }
 
+  def last_posts_pin_index
+    @last_posts_pin_index ||= self.posts.pinned.order(pin_index: :DESC).limit(1).pluck(:pin_index)&.first
+  end
+
+  def unpublished_or_hidden?
+    unpublished? || hidden?
+  end
+
   private
 
   # will fire after update, publish, or create

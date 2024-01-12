@@ -2,7 +2,7 @@
 
 module Groups
   module Sections
-    class BaseSectionsController < BaseGroupsController
+    class BaseSectionsController < Groups::BaseGroupsController
       before_action :set_section
       before_action :set_user_group_section
       before_action :ensure_user_group_section_authorized

@@ -57,8 +57,16 @@ class Post < ActiveRecord::Base
     hidden.or(pending)
   }
 
+  scope :pinned, lambda {
+    where.not(pin_index: nil)
+  }
+
   def display_published_or_created
     (published_on || created_at).strftime('%D %l:%m %P')
+  end
+
+  def pending_or_hidden?
+    pending? || hidden?
   end
 
   private

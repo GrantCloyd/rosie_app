@@ -1,0 +1,21 @@
+<%= turbo_stream.replace "post-#{@new_low_index_post.id}" do %>
+    <%= render partial: 'groups/sections/posts/partials/post', 
+  locals: {
+    group: @group, 
+    section: @section, 
+    post: @new_high_index_post, 
+    user_group_section: @user_group_section, 
+    view: :pinned
+    } %>
+<% end %>
+
+<%= turbo_stream.replace "post-#{@new_high_index_post.id}" do %>
+    <%= render partial: 'groups/sections/posts/partials/post', 
+  locals: {
+    group: @group, 
+    section: @section, 
+    post: @new_low_index_post, 
+    user_group_section: @user_group_section, 
+    view: :pinned
+    } %>
+<% end %>

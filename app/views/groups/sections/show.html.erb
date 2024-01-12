@@ -24,7 +24,7 @@
     
     <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
 
-     <% if @user_group.moderator_or_creator? %>
+     <% if @user_group.moderator_or_creator? && @section.unpublished_or_hidden? %>
     <div class='<%="#{primary_form} w-42 my-4"%>'>
      <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> Status 
       <span class="flex justify-center ml-1"> | <%= @section.status.titleize %>  </span>  
@@ -33,20 +33,33 @@
     <% end %>
 
     <% if @user_group_section.can_post? %>
-    <div> 
+      <div> 
+      <% if @unpublished_posts.any? %>
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Pending/Hidden </h3>
-        <div>
-          <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @unpublished_posts, view: :unpublished %>
-        </div> 
+      <% end %>
+      <div>
+        <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @unpublished_posts, view: :unpublished %>
+      </div> 
     </div>
     <% end %>
 
     <div class="mb-10"> 
+      <% if @pinned_posts.any? %>
+        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Pinned </h3>
+      <% end %>
+      <div>
+        <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @pinned_posts, view: :pinned %>
+      </div>  
+        </div>
+
+    <div class="mb-10"> 
+      <% if @posts.any? %>
         <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
-        <div>
-          <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts, view: :published %>
-        </div> 
-    </div>
+      <% end %>
+      <div>
+        <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts, view: :published %>
+      </div>  
+        </div>
 
   </div>
 <% end %>

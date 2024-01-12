@@ -1,9 +1,13 @@
-<% time_text = view == :published ? "Published On" : "Created On" %>
+<% time_text = view == :unpublished ? "Created On" : "Published On"  %>
 
-<div class="bg-slate-200 mt-5">
+<div class="bg-slate-200">
   <table class="border-collapse table-auto w-full text-sm">
+    <% if posts.any? %>
     <thead class="pt-5">
       <tr> 
+        <% if view != :unpublished && user_group_section.moderator_or_creator? %>
+          <th class='<%="#{primary_th} pl-12"%>'> </th>
+        <% end %>
         <th class='<%="#{primary_th} pl-8"%>'> <%= time_text %> </th>
         <th class='<%="#{primary_th}"%>'> Author </th>
         <th class='<%="#{primary_th}"%> pr-8'> Title </th>
@@ -13,10 +17,11 @@
         <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
       </tr>
     </thead>
+    <% end %>
     <tbody class="bg-white" id=<%="posts-#{view.to_s}-container"%>>
       <% posts.each do |post| %>
         <%= render 'groups/sections/posts/partials/post', user_group_section: user_group_section, group: group, section: section, post: post, view: view %>
-      <% end%>
+      <% end %>
     </tbody>
   </table>
 </div>
