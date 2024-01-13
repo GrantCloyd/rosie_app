@@ -13,16 +13,16 @@
         </button>
       <% else %>
         <button class='<%="#{action_button}"%>'>
-          <%= link_to "View", group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
+          <%= link_to "View", group_section_path(group, section), data: {turbo_action: :advance} %>
         </button>
         <% end %>
         <% if user_group_section&.moderator_or_creator? %>
           <button class='<%="#{action_button}"%>'>
-            <%= link_to "Edit", edit_group_section_path(group.id, section.id), data: {turbo_action: :advance} %>
+            <%= link_to "Edit", edit_group_section_path(group, section), data: {turbo_action: :advance} %>
           </button>
         <% if section.user == current_user || user_group.creator?  %>
           <button class='<%="#{action_button}"%>'>
-            <%= link_to "Delete", group_section_path(group.id, section.id), data: {turbo_method: :delete } %>
+            <%= link_to "Delete", group_section_path(group, section), data: {turbo_method: :delete } %>
           </button>
             <% if !section.published? %>
               <button class='<%="#{action_button}"%>'>

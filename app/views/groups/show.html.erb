@@ -8,16 +8,16 @@
       <div class="mx-auto flex justify-center">
         <hr class="border-1 border-slate-600 mt-1">
         <button class='<%="#{primary_button} mx-1"%>'>
-          <%= link_to "Edit Group", edit_group_path(@group.id), data: {turbo_action: :advance} %>
+          <%= link_to "Edit Group", edit_group_path(@group), data: {turbo_action: :advance} %>
         </button>
         <button class='<%="#{primary_button} mx-1"%>'>
-          <%= link_to "New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
+          <%= link_to "New Section", new_group_section_path(@group), data: {turbo_action: :advance} %>
         </button>
         <button class='<%="#{primary_button} mx-1"%>'>
-          <%= link_to "Invite Users", new_group_invite_path(@group.id), data: {turbo_action: :advance} %>
+          <%= link_to "Invite Users", new_group_invite_path(@group), data: {turbo_action: :advance} %>
         </button>
         <button class='<%="#{primary_button} mx-1"%>'>
-          <%= link_to "View Invites", group_invites_path(@group.id), data: {turbo_action: :advance} %>
+          <%= link_to "View Invites", group_invites_path(@group), data: {turbo_action: :advance} %>
         </button>
         </div>
     <% end %>

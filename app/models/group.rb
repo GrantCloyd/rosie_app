@@ -5,6 +5,7 @@
 # Table name: groups
 #
 #  id         :bigint           not null, primary key
+#  slug       :string           not null
 #  status     :integer          default("closed"), not null
 #  title      :string           not null
 #  created_at :datetime         not null
@@ -15,6 +16,8 @@ class Group < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :invites, dependent: :destroy
   has_many :posts, through: :sections
+
+  before_validation :set_slug, only: %i[create update]
 
   enum status: {
     closed: 0,
@@ -34,5 +37,15 @@ class Group < ActiveRecord::Base
 
   def last_post_time
     posts.published.in_order.first.created_at.strftime('%D')
+  end
+
+  def to_param
+    "#{id}-#{slug}"
+  end
+
+  private
+
+  def set_slug
+    self.slug = title.parameterize.to_s
   end
 end

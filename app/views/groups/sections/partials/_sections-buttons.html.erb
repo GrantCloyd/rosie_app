@@ -4,7 +4,7 @@
 
 <% if view != :new %>
   <button class='<%="#{primary_button}"%>'>
-    <%= link_to "Create New Section", new_group_section_path(@group.id), data: {turbo_action: :advance} %>
+    <%= link_to "Create New Section", new_group_section_path(@group), data: {turbo_action: :advance} %>
   </button>
 <% end%>
 

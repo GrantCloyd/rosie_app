@@ -9,7 +9,7 @@
     <div class="flex mb-2">
 
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Cancel Edit", group_section_path(@group.id, @section.id), data: {turbo_action: :advance} %>
+      <%= link_to "Cancel Edit", group_section_path(@group, @section), data: {turbo_action: :advance} %>
     </button>
     </div>
   </div>

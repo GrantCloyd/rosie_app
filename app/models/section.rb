@@ -7,6 +7,7 @@
 #  id           :bigint           not null, primary key
 #  description  :text             not null
 #  privacy_tier :integer          default("open_tier"), not null
+#  slug         :string           not null
 #  status       :integer          default("unpublished"), not null
 #  title        :string           not null
 #  created_at   :datetime         not null
@@ -39,6 +40,8 @@ class Section < ActiveRecord::Base
   validates :title, presence: true, length: { in: 3..80 }
   validates :description, presence: true, length: { in: 3..125 }
 
+  before_validation :set_slug, only: %i[create update]
+
   enum status: {
     unpublished: 0,
     published: 1,
@@ -67,6 +70,10 @@ class Section < ActiveRecord::Base
     unpublished? || hidden?
   end
 
+  def to_param
+    "#{id}-#{slug}"
+  end
+
   private
 
   # will fire after update, publish, or create
@@ -77,5 +84,9 @@ class Section < ActiveRecord::Base
   def status_change_affects_user_group_sections?
     (saved_change_to_status? && status == 'published') ||
       saved_change_to_privacy_tier
+  end
+
+  def set_slug
+    self.slug = title.parameterize.to_s
   end
 end

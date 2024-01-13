@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
 
   create_table "groups", force: :cascade do |t|
     t.string "title", null: false
+    t.string "slug", null: false
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
+    t.string "slug", null: false
     t.integer "status", default: 0
     t.integer "pin_index"
     t.bigint "section_id", null: false
@@ -114,6 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.bigint "group_id", null: false
     t.bigint "user_id", null: false
     t.string "title", null: false
+    t.string "slug", null: false
     t.text "description", null: false
     t.integer "status", default: 0, null: false
     t.integer "privacy_tier", default: 0, null: false

@@ -7,7 +7,7 @@
     <%= render "groups/partials/form" , group: @group, view: :edit %>
 
     <button class='<%="#{primary_button}"%>'>
-      <%= link_to "Cancel Edit", group_path(@group.id), data: {turbo_action: :advance} %>
+      <%= link_to "Cancel Edit", group_path(@group), data: {turbo_action: :advance} %>
     </button>
   </div>
   <% end %>

@@ -21,6 +21,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     create_table :groups do |t|
       t.string :title, null: false
+      t.string :slug, null: false
       t.integer :status , null: false, default: 0
 
       t.timestamps
@@ -39,6 +40,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.belongs_to :group, foreign_key: true, null: false
       t.belongs_to :user, foreign_key: true, null: false
       t.string :title, null: false
+      t.string :slug, null: false
       t.text :description, null: false
       t.integer :status, null: false, default: 0
       t.integer :privacy_tier, null: false, default: 0
@@ -64,6 +66,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
 
     create_table :posts do |t|
       t.string :title, null: false
+      t.string :slug, null: false
       t.integer :status, default: 0
       t.integer :pin_index
       t.belongs_to :section, foreign_key: true, null: false

@@ -7,6 +7,7 @@
 #  id           :bigint           not null, primary key
 #  pin_index    :integer
 #  published_on :datetime
+#  slug         :string           not null
 #  status       :integer          default("pending")
 #  title        :string           not null
 #  created_at   :datetime         not null
@@ -39,9 +40,10 @@ class Post < ActiveRecord::Base
   has_many_attached :images
 
   validates :images, content_type: %i[png jpg jpeg]
-  validates :content, :title, :section_id, :user_id, presence: true
+  validates :content, :title, :section_id, :user_id, :slug, presence: true
 
   before_save :resize_images_before_save
+  before_validation :set_slug, only: %i[create update]
 
   enum status: {
     pending: 0,
@@ -69,6 +71,10 @@ class Post < ActiveRecord::Base
     pending? || hidden?
   end
 
+  def to_param
+    "#{id}-#{slug}"
+  end
+
   private
 
   def resize_images_before_save
@@ -80,5 +86,9 @@ class Post < ActiveRecord::Base
         .source(image)
         .resize_to_fit(1200)
     end
+  end
+
+  def set_slug
+    self.slug = title.parameterize.to_s
   end
 end

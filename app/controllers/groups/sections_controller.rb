@@ -51,12 +51,12 @@ module Groups
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/streams/update' }
-          format.html { render 'groups/sections/show' }
+          format.html { edirect_to group_sections_path(@group) }
         end
       else
         respond_to do |format|
           render_turbo_flash_alert(format, format_errors(@section))
-          format.html { render 'groups/sections/show' }
+          format.html { redirect_to group_sections_path(@group) }
         end
       end
     end
