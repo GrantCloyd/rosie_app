@@ -111,7 +111,7 @@ module Groups
       end
     end
 
-    def pin_shift
+    def pin_shift # rubocop:disable Metrics/MethodLength
       pin_index = params[:pin_index].to_i
       shift_direction = params[:shift_direction].to_sym
 
