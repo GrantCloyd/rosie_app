@@ -120,9 +120,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_16_195651) do
     t.text "description", null: false
     t.integer "status", default: 0, null: false
     t.integer "privacy_tier", default: 0, null: false
+    t.integer "pin_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_sections_on_group_id"
+    t.index ["pin_index"], name: "index_sections_on_pin_index"
     t.index ["status"], name: "index_sections_on_status"
     t.index ["user_id"], name: "index_sections_on_user_id"
   end

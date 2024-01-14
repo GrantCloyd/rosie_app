@@ -1,4 +1,9 @@
 <tr id='<%= dom_id(section) %>'>
+    <% if view != :unpublished && user_group_section.moderator_or_creator? %>
+      <td class='<%= "#{primary_td} pl-12"%>'> 
+      <%= render 'groups/partials/section-pin-actions', section: section, group: group %>
+    </td >
+    <% end %>
     <td class='<%= "#{primary_td} pl-8"%>'> <%= section.title %> </td>
     <td class='<%= "#{primary_td} overflow-hidden max-w-md"%>'> <%= section.description %> </td>
     <% if view == :unpublished %>

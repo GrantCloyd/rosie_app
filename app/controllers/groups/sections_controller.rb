@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 module Groups
-  class SectionsController < Groups::BaseGroupsController
+  class SectionsController < Groups::BaseGroupsController # rubocop:disable Metrics/ClassLength
+    before_action :set_section, only: %i[show pin unpin edit update publish unpublish destroy]
+    before_action :set_user_group_section, only: %i[show pin unpin edit update publish unpublish]
+
     def new; end
 
     def create
@@ -17,14 +20,11 @@ module Groups
           format.html { render :new }
         end
       else
-        redirect_to group_path(section.group)
+        redirect_to group_path(current_group)
       end
     end
 
     def show
-      @section = Section.includes(:posts, :section_role_permissions).find(params[:id])
-      @user_group_section = UserGroupSections::CreateOrFindService.new(user_group: @user_group, section: @section).call
-
       if @user_group_section.blocked_level?
         respond_to do |format|
           format.html { redirect_to group_path(@group), flash: { alert: 'This group is private' } }
@@ -35,8 +35,6 @@ module Groups
     end
 
     def edit
-      @section = Section.includes(:section_role_permissions).find(params[:id])
-
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/edit' }
         format.html { render :edit }
@@ -44,10 +42,8 @@ module Groups
     end
 
     def update
-      @section = Section.includes(:section_role_permissions).find(params[:id])
       if @section.update(section_update_params)
         @pinned_posts, @posts, @unpublished_posts = section_post_sorter(@section.posts.in_order)
-        @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/streams/update' }
@@ -62,7 +58,7 @@ module Groups
     end
 
     def destroy
-      @section = Section.find(params[:id])
+      UnpinService.new(pinnable: @section, belongs_to_assoc: current_group).call if @section.pinned?
       @section.destroy
 
       respond_to do |format|
@@ -72,9 +68,7 @@ module Groups
     end
 
     def publish
-      @section = Section.find(params[:id])
       @section.update!(status: :published)
-      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/publish' }
@@ -83,9 +77,9 @@ module Groups
     end
 
     def unpublish
-      @section = Section.find(params[:id])
       @section.update!(status: :hidden)
-      @user_group_section = UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+
+      UnpinService.new(pinnable: @section, belongs_to_assoc: current_group).call if @section.pinned?
 
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/unpublish' }
@@ -93,8 +87,56 @@ module Groups
       end
     end
 
+    def pin
+      current_section_index = @group.sections.where.not(pin_index: nil).count
+      @section.update(pin_index: current_section_index)
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/pin' }
+        format.html { redirect_to group_path(current_group) }
+      end
+    end
+
+    def unpin
+      if @section.pin_index.nil?
+        render_turbo_flash_alert(format, 'Section is not currently pinned')
+        format.html { redirect_to groups_path(@current_group) }
+      end
+
+      UnpinService.new(pinnable: @section, belongs_to_assoc: current_group).call
+
+      respond_to do |format|
+        format.turbo_stream { render 'groups/sections/streams/unpin' }
+        format.html { redirect_to group_section_path(current_group, section) }
+      end
+    end
+
+    def pin_shift
+      pin_index = params[:pin_index].to_i
+      shift_direction = params[:shift_direction].to_sym
+
+      pin_indices = shift_direction == :up ? [pin_index, pin_index - 1] : [pin_index, pin_index + 1]
+      sections = Section.where(pin_index: pin_indices).order(:pin_index)
+
+      if sections.size == 2
+
+        @new_low_index_section, @new_high_index_section = swap_and_save(sections.first, sections.last)
+        @user_group_sections = UserGroupSection.where(user_group: @user_group, section: sections)
+
+        respond_to do |format|
+          format.turbo_stream { render 'groups/sections/streams/pin_shift' }
+          format.html { redirect_to group_path(current_group) }
+        end
+      else
+        respond_to do |format|
+          render_turbo_flash_alert(format, 'Section can not be reordered')
+          format.html { redirect_to group_path(current_group) }
+        end
+      end
+    end
+
     rescue_from ActiveRecord::RecordNotFound do |_exception|
-      redirect_to group_sections_path(@group), notice: 'This section could not be found'
+      redirect_to group_path(current_group), notice: 'This section could not be found'
     end
 
     private
@@ -115,6 +157,23 @@ module Groups
       end
 
       { section_role_permissions_attributes: spra_array }
+    end
+
+    def swap_and_save(low_index, high_index)
+      temp_index = low_index.pin_index
+
+      low_index.pin_index = high_index.pin_index
+      high_index.pin_index = temp_index
+      # NOTE: 'high_index' now is the lower index
+      [high_index, low_index].each(&:save)
+    end
+
+    def set_section
+      @section = Section.includes(:posts, :section_role_permissions).find(params[:id])
+    end
+
+    def set_user_group_section
+      @user_group_section ||= UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
     end
   end
 end

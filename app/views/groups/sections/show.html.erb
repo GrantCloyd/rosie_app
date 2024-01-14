@@ -44,18 +44,12 @@
     <% end %>
 
     <div class="mb-10"> 
-      <% if @pinned_posts.any? %>
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Pinned </h3>
-      <% end %>
       <div>
         <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @pinned_posts, view: :pinned %>
       </div>  
         </div>
 
     <div class="mb-10"> 
-      <% if @posts.any? %>
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center'> Posts </h3>
-      <% end %>
       <div>
         <%= render 'groups/sections/posts/partials/posts', group: @group, user_group_section: @user_group_section, section: @section, posts: @posts, view: :published %>
       </div>  

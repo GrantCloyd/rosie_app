@@ -1,0 +1,19 @@
+<%= turbo_stream.replace @new_low_index_section do %>
+    <%= render partial: 'groups/partials/section', 
+  locals: {
+    group: @group, 
+    section: @new_high_index_section,
+    user_group_section: @user_group_sections.first, 
+    view: :pinned
+    } %>
+<% end %>
+
+<%= turbo_stream.replace @new_high_index_section do %>
+    <%= render partial: 'groups/partials/section', 
+  locals: {
+    group: @group, 
+    section: @new_low_index_section, 
+    user_group_section: @user_group_sections.last, 
+    view: :pinned
+    } %>
+<% end %>

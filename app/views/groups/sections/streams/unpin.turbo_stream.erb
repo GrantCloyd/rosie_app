@@ -1,0 +1,19 @@
+<%= turbo_stream.remove @section %>
+
+<% pin_container_name = @section.published? ? 'published' : 'unpublished' %>
+
+<%= turbo_stream.append "sections-#{pin_container_name}-container" do %>
+  <%= render partial: 'groups/partials/section', 
+  locals: {
+    group: @group, 
+    section: @section,
+    user_group: @user_group, 
+    user_group_section: @user_group_section,
+    view: pin_container_name.to_sym
+    } %>
+<% end %>
+
+<%= turbo_stream.replace "flash"  do %>
+  <% flash[:alert] = "#{@section.title} has been unpinned!" %>
+  <%= render 'layouts/flash' %>
+<% end %>

@@ -1,7 +1,11 @@
  <div class="bg-slate-200 mt-5">
     <table class="border-collapse table-auto w-full text-sm">
-      <thead class="pt-5">
-        <tr> 
+      <% if sections.any? %>
+        <thead class="pt-5">
+        <tr>
+          <% if view != :unpublished && user_group.moderator_or_creator? %>
+          <th class='<%="#{primary_th} pl-12"%>'> </th>
+          <% end %>
           <th class='<%="#{primary_th} pl-8"%>'> Title </th>
           <th class='<%="#{primary_th}"%>'> Description </th>
           <% if view == :unpublished %>
@@ -11,10 +15,13 @@
           <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
         </tr>
       </thead>
+      <% end %>
       <tbody class="bg-white" id=<%="sections-#{view.to_s}-container"%>>
+      <% if sections.any? %>
         <% sections.each do |section| %>
            <%= render 'groups/partials/section', section: section, group: group, user_group: user_group, user_group_section: UserGroupSection.current_user_group_section(user_group: user_group, section: section), view: view %>
         <% end%>
+        <% end %>
       </tbody>
     </table>
   </div>

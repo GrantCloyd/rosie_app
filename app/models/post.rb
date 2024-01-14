@@ -75,6 +75,10 @@ class Post < ActiveRecord::Base
     "#{id}-#{slug}"
   end
 
+  def pinned?
+    pin_index.present?
+  end
+
   private
 
   def resize_images_before_save

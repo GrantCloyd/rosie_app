@@ -43,6 +43,10 @@ class Group < ActiveRecord::Base
     "#{id}-#{slug}"
   end
 
+  def last_sections_pin_index
+    @last_sections_pin_index ||= sections.pinned.order(pin_index: :DESC).limit(1).pluck(:pin_index)&.first
+  end
+
   private
 
   def set_slug

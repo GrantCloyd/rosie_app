@@ -36,15 +36,21 @@
     <%= render "groups/partials/groups-buttons", view: :show, cached: true, group: @group %>
 
   <% if @user_group.moderator_or_creator?  %>
-  <div class="mb-10"> 
-        <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Unpublished / Hidden </h3>
-          <%= render 'groups/partials/sections', group: @group, sections: @pending_sections, user_group: @user_group, view: :unpublished %>
+    <% if @pending_sections.any? %>
+          <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Unpublished / Hidden </h2>
+    <% end %>
+    <div class="mb-10"> 
+            <%= render 'groups/partials/sections', group: @group, sections: @pending_sections, user_group: @user_group, view: :unpublished %>
+      </div>
     </div>
-  </div>
   <% end %>
 
+   <div class="mb-10"> 
+      <%= render 'groups/partials/sections', group: @group, sections: @pinned_sections, user_group: @user_group, view: :pinned %>
+    </div>
+  </div>
+
   <div class="mb-10"> 
-      <h2 class='text-xl text-slate-200 font-bold underline mt-2 p-2 flex justify-center ml-5'> Sections </h3>
       <%= render 'groups/partials/sections', group: @group, sections: @sections, user_group: @user_group, view: :published %>
     </div>
   </div>

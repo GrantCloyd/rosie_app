@@ -6,6 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  description  :text             not null
+#  pin_index    :integer
 #  privacy_tier :integer          default("open_tier"), not null
 #  slug         :string           not null
 #  status       :integer          default("unpublished"), not null
@@ -17,9 +18,10 @@
 #
 # Indexes
 #
-#  index_sections_on_group_id  (group_id)
-#  index_sections_on_status    (status)
-#  index_sections_on_user_id   (user_id)
+#  index_sections_on_group_id   (group_id)
+#  index_sections_on_pin_index  (pin_index)
+#  index_sections_on_status     (status)
+#  index_sections_on_user_id    (user_id)
 #
 # Foreign Keys
 #
@@ -59,7 +61,11 @@ class Section < ActiveRecord::Base
   }
 
   scope :in_order, lambda {
-    order(created_at: :DESC)
+    order(:pin_index, created_at: :DESC)
+  }
+
+  scope :pinned, lambda {
+    where.not(pin_index: nil)
   }
 
   def last_posts_pin_index
@@ -68,6 +74,10 @@ class Section < ActiveRecord::Base
 
   def unpublished_or_hidden?
     unpublished? || hidden?
+  end
+
+  def pinned?
+    pin_index.present?
   end
 
   def to_param

@@ -14,8 +14,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.includes(:sections).find(params[:id])
-    @sections = @group.sections.published.in_order
-    @pending_sections = @group.sections.hidden_or_unpublished.where(user: current_user)
+    @pinned_sections, @sections, @pending_sections = group_sections_sorter(@group.sections.in_order)
     @user_group = @group.current_user_group(current_user)
     select_group(@group)
   end
@@ -75,5 +74,23 @@ class GroupsController < ApplicationController
 
   def group_params
     params.require(:group).permit(:status, :title)
+  end
+
+  def group_sections_sorter(sections)
+    pinned = []
+    published = []
+    pending = []
+
+    sections.each do |section|
+      if section.pinned?
+        pinned << section
+      elsif section.published?
+        published << section
+      else
+        pending << section
+      end
+    end
+
+    [pinned, published, pending]
   end
 end

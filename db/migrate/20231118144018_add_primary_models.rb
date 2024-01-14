@@ -44,6 +44,7 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
       t.text :description, null: false
       t.integer :status, null: false, default: 0
       t.integer :privacy_tier, null: false, default: 0
+      t.integer :pin_index
 
       t.timestamps
     end
@@ -112,5 +113,6 @@ class AddPrimaryModels < ActiveRecord::Migration[7.1]
     add_index :user_reactions, :status
     add_index :invites, :status
     add_index :posts, :pin_index
+    add_index :sections, :pin_index
   end
 end

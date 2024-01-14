@@ -66,7 +66,7 @@ module Groups
       def destroy
         @post = Post.find(params[:id])
 
-        Posts::UnpinService.new(post: @post, section: @section).call unless @post.pin_index.nil?
+        UnpinService.new(pinnable: @post, belongs_to_assoc: @section).call if @post.pinned?
         @post.destroy
 
         respond_to do |format|
@@ -87,7 +87,7 @@ module Groups
 
       def unpublish
         @post = Post.find(params[:id])
-        Posts::UnpinService.new(post: @post, section: @section).call unless @post.pin_index.nil?
+        UnpinService.new(pinnable: @post, belongs_to_assoc: @section).call unless @post.pin_index.nil?
         @post.update!(status: :hidden)
 
         respond_to do |format|
@@ -111,11 +111,11 @@ module Groups
         @post = Post.find(params[:id])
 
         if @post.pin_index.nil?
-          render_turbo_flash_alert(format, 'Message is not currently pinned')
-          format.html { redirect_to groups_posts_path(@current_group, @post) }
+          render_turbo_flash_alert(format, 'Post is not currently pinned')
+          format.html { redirect_to groups_section_path(current_group, @section) }
         end
 
-        Posts::UnpinService.new(post: @post, section: @section).call
+        UnpinService.new(pinnable: @post, belongs_to_assoc: @section).call
 
         respond_to do |format|
           format.turbo_stream { render 'groups/sections/posts/streams/unpin' }
@@ -130,18 +130,19 @@ module Groups
         pin_indices = shift_direction == :up ? [pin_index, pin_index - 1] : [pin_index, pin_index + 1]
         posts = Post.where(pin_index: pin_indices).order(:pin_index)
 
-        if posts.length != 2
+        if posts.size == 2
+
+          @new_low_index_post, @new_high_index_post = swap_and_save(posts.first, posts.last)
+
           respond_to do |format|
-            render_turbo_flash_alert(format, 'Message can not be reordered')
-            format.html { redirect_to groups_posts_path(@current_group, post) }
+            format.turbo_stream { render 'groups/sections/posts/streams/pin_shift' }
+            format.html { redirect_to group_section_path(current_group, section) }
           end
-        end
-
-        @new_low_index_post, @new_high_index_post = swap_and_save(posts.first, posts.last)
-
-        respond_to do |format|
-          format.turbo_stream { render 'groups/sections/posts/streams/pin_shift' }
-          format.html { redirect_to group_section_path(current_group, section) }
+        else
+          respond_to do |format|
+            render_turbo_flash_alert(format, 'Post can not be reordered')
+            format.html { redirect_to groups_path(current_group) }
+          end
         end
       end
 

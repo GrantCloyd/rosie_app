@@ -13,7 +13,7 @@ module Groups
       unpublished = []
 
       posts.each do |post|
-        if post.pin_index.present?
+        if post.pinned?
           pinned << post
         elsif post.published?
           published << post

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :groups do 
     resources :sections, controller: 'groups/sections' do
       member do
-        post :publish, :unpublish
+        post :publish, :unpublish, :pin, :unpin, :pin_shift
       end
       resources :posts, controller: 'groups/sections/posts' do
         member do
