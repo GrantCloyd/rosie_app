@@ -7,4 +7,4 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-Annotate.load_tasks
+Annotate.load_tasks if Rails.env.development?
