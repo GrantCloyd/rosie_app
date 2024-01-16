@@ -10,7 +10,7 @@ class GroupInviteMailer < ApplicationMailer
     @group_title = @invite.group.title
     @note = @invite.note
     @sender_name = params[:sender_name]
-    @url = 'http://localhost:3000/users/new'
+    @url = ENV['BASE_URL'] + '/users/new'
     mail(to: @email, subject: "You've been invited!")
   end
 

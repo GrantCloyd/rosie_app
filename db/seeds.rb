@@ -11,12 +11,6 @@ users_seeds = [
     password: ENV["ADMIN_SECRET"],
     role: :super_admin,
     full_name: 'Grant Cloyd'
-  },
-  {
-    email: 'd2@g.com',
-    password: 'asd',
-    role: :general,
-    full_name: 'd 2g'
   }
 ]
 
