@@ -1,17 +1,26 @@
 
 <tr id='<%= "post-#{post.id}"%>'>
-<% if view != :unpublished && user_group_section.moderator_or_creator? %>
-  <td class='<%= "#{primary_td} pl-12"%>'> 
+  <% if view != :unpublished && user_group_section.moderator_or_creator? %>
+  <td class='<%= "#{primary_td} pl-1"%>'> 
     <%= render 'groups/sections/posts/partials/pin_actions', post: post, group: group, section: section %>
-    </td >
-    <% end %>
-  <td class='<%= "#{primary_td} pl-8"%>'> <%= post.display_published_or_created %> </td>
-  <td class='<%= "#{primary_td}"%>'> <%= post.user.full_name %> </td>
+  </td >
+  <% end %>
+  <% if view == :unpublished %>
+    <td class='<%= "#{primary_td} pl-12 text-red-600"%>'> Pending </td>
+  <% elsif view == :pinned && !user_group_section.moderator_or_creator?%>
+    <td class='<%= "#{primary_td}"%>'> <%= "\u{1F4CD}"%> </td>
+  <% elsif !user_group_section.moderator_or_creator? %>
+    <td class='<%= "#{primary_td}"%>'> </td>
+  <% end %>
+  <div>
   <td class='<%= "#{primary_td}"%>'> <%= post.title %> </td>
+  <td class='<%= "#{primary_td}"%>'> <%= post.user.full_name %> </td>
+  <td class='<%= "#{primary_td} pl-8"%>'> <%= post.display_published_or_created %> </td>
  <% if view == :unpublished %>
   <td class='<%= "#{primary_td} pr-8"%>'> <%= post.status.titleize %> </td> 
   <% end %>
-  <td class='<%= "#{primary_td} pr-12"%>'>
+  <td class='<%= "#{primary_td} pr-12 relative text-end"%>'>
    <%= render 'groups/sections/posts/partials/post_actions', user_group_section: user_group_section, group: group, section: section, post: post %>
   </td>
+  </div>
 </tr>

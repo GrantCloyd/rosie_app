@@ -64,7 +64,7 @@ class Post < ActiveRecord::Base
   }
 
   def display_published_or_created
-    (published_on || created_at).strftime('%D %l:%m %P')
+    (published_on || created_at).strftime('%D')
   end
 
   def pending_or_hidden?

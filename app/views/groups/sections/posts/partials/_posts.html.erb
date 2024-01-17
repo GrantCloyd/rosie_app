@@ -1,22 +1,30 @@
-<% time_text = view == :unpublished ? "Created On" : "Published On"  %>
+<% time_text = view == :unpublished ? "Created" : "Published"  %>
+
+<% if section.any_posts_pinned? && view == :published %>
+  <div class="mt-2"> </div>
+<% end %>
 
 <div class="bg-slate-200">
   <table class="border-collapse table-auto w-full text-sm">
     <% if posts.any? %>
     <thead class="pt-5">
       <tr> 
-        <% if view != :unpublished && user_group_section.moderator_or_creator? %>
+        <% if user_group_section.moderator_or_creator? %>
           <th class='<%="#{primary_th} pl-12"%>'> </th>
         <% end %>
-        <th class='<%="#{primary_th} pl-8"%>'> <%= time_text %> </th>
-        <th class='<%="#{primary_th}"%>'> Author </th>
+        <% if !user_group_section.moderator_or_creator? && section.any_posts_pinned? %>
+           <td class='<%= "#{primary_td}"%>'> </td>
+        <% end %>
         <th class='<%="#{primary_th}"%> pr-8'> Title </th>
+        <th class='<%="#{primary_th}"%>'> Author </th>
+        <th class='<%="#{primary_th} pl-8"%>'> <%= time_text %> </th>
          <% if view == :unpublished %>
           <th class='<%="#{primary_th} pr-8"%>'> Status </th>
         <% end %>
-        <th class='<%="#{primary_th} pr-12"%>'> Actions </th>
+        <th class='<%="#{primary_th} pr-12"%>'> </th>
       </tr>
     </thead>
+    
     <% end %>
     <tbody class="bg-white" id=<%="posts-#{view.to_s}-container"%>>
       <% posts.each do |post| %>

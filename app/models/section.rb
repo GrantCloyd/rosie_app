@@ -84,6 +84,12 @@ class Section < ActiveRecord::Base
     "#{id}-#{slug}"
   end
 
+  def any_posts_pinned?
+    return @any_posts_pinned if defined?(@any_posts_pinned)
+
+    @any_posts_pinned ||= posts.where.not(pin_index: nil).limit(1).present?
+  end
+
   private
 
   # will fire after update, publish, or create
