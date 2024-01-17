@@ -7,5 +7,3 @@ then
   # something went wrong; convey that and exit
   exit 1
 fi
-
-bundle exec rails db:seed

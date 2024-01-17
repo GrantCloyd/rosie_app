@@ -83,6 +83,7 @@ Rails.application.configure do
     :protocol => 'http'
   } 
   
+  # this default enables a send using the smtp account even in development
   config.action_mailer.smtp_settings = {
     :address => 'smtp.gmail.com',
     :port => 587,
@@ -91,4 +92,9 @@ Rails.application.configure do
     :authentication => 'plain',
     :enable_starttls_auto => true 
   }
+
+  # enables the bot generator to automatically generate with a name that annoate will recognize
+  config.generators do |g|
+    g.factory_bot filename_proc: ->(table_name) { "#{table_name.to_s.singularize}_factory" }
+  end
 end
