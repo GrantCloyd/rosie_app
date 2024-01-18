@@ -22,11 +22,14 @@
 
   <div class="container-md">
     
-    <h1 class='<%="#{primary_header} mt-5"%>'> <%= @group.title %> : <%= @section.title %> Details </h1>
+    <h1 class='<%="#{primary_header} mt-5"%>'> <%= @section.title %> Details </h1>
+    <div class='<%="#{primary_form} p-2 flex justify-center"%>'>
+      <%= @section.description %>
+      </div>
 
      <% if @user_group.moderator_or_creator? && @section.unpublished_or_hidden? %>
     <div class='<%="#{primary_form} w-42 my-4"%>'>
-     <p class="p-1 text-slate-600 flex justify-center font-medium mt-3 "> Status 
+     <p class="p-1 text-slate-600 flex justify-center font-medium mt-3"> Status 
       <span class="flex justify-center ml-1"> | <%= @section.status.titleize %>  </span>  
       </p>
       </div> 
