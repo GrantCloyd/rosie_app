@@ -34,6 +34,7 @@ FactoryBot.define do
     association :group, strategy: :build
     title { 'Cool section' }
     status { :published }
-    slug { "#{id}-#{title.parameterize}" }
+    description { 'cool words yo' }
+    slug { 'cool-section' }
   end
 end

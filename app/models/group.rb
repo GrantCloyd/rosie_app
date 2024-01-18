@@ -17,7 +17,7 @@ class Group < ActiveRecord::Base
   has_many :invites, dependent: :destroy
   has_many :posts, through: :sections
 
-  before_validation :set_slug, only: %i[create update]
+  after_validation :set_slug, only: %i[create update]
 
   enum status: {
     closed: 0,
@@ -36,7 +36,7 @@ class Group < ActiveRecord::Base
   end
 
   def last_post_time
-    posts.published.in_order.first.created_at.strftime('%D')
+    posts.published.in_order.first.published_on.strftime('%D')
   end
 
   def to_param
@@ -50,6 +50,6 @@ class Group < ActiveRecord::Base
   private
 
   def set_slug
-    self.slug = title.parameterize.to_s
+    self.slug = title&.parameterize&.to_s
   end
 end

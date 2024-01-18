@@ -15,6 +15,6 @@ FactoryBot.define do
   factory :group do
     title { 'Cool group' }
     status { :closed }
-    slug { "#{id}-#{title.parameterize}" }
+    slug { 'cool-group' }
   end
 end
