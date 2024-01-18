@@ -33,6 +33,11 @@ class UserGroupTest < ActiveSupport::TestCase
       user_group_moderator = build(:user_group, role: :moderator)
       [user_group_creator, user_group_moderator].each { |ug| assert ug.moderator_or_creator? }
     end
+
+    it 'is false for non expected roles' do
+      user_group_sub = build(:user_group, role: :subscriber)
+      refute user_group_sub.moderator_or_creator?
+    end
   end
 
   describe '#private_or_all_access?' do
@@ -41,6 +46,11 @@ class UserGroupTest < ActiveSupport::TestCase
       user_group_all = build(:user_group, privacy_tier: :all_access)
 
       [user_group_private, user_group_all].each { |ug| assert ug.private_or_all_access? }
+    end
+
+    it 'is false for non expected privacy_tiers' do
+      user_group_sub = build(:user_group, privacy_tier: :no_private_access)
+      refute user_group_sub.private_or_all_access?
     end
   end
 end

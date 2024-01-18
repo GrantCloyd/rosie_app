@@ -36,7 +36,7 @@ class Group < ActiveRecord::Base
   end
 
   def last_post_time
-    posts.published.in_order.first.published_on.strftime('%D')
+    posts.published.in_order.first&.published_on&.strftime('%D')
   end
 
   def to_param

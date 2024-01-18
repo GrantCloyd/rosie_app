@@ -27,35 +27,28 @@
 #  fk_rails_...  (group_id => groups.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class Invite < ActiveRecord::Base
-  belongs_to :group
-  belongs_to :user, optional: true
+require 'test_helper'
 
-  before_save :strip_note_if_empty
+class GroupTest < ActiveSupport::TestCase
+  describe '#strip_note_if_empty' do
+    it 'sets note to nil if passed an empty string' do
+      invite = create(:invite, note: '')
 
-  validates :target_email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :target_email, uniqueness: { scope: :group_id }
-
-  enum status: {
-    pending: 0,
-    email_sent: 1,
-    accepted: 2,
-    rejected: 3
-  }
-
-  scope :pending_or_email_sent, lambda {
-    pending.or(email_sent)
-  }
-
-  enum role_tier: UserGroup.roles
-
-  enum privacy_tier: UserGroup.privacy_tiers
-
-  def strip_note_if_empty
-    self.note = nil if note && note.empty?
+      assert_nil invite.note
+    end
   end
 
-  def can_edit?
-    pending? || email_sent?
+  describe '#can_edit?' do
+    it 'correctly passes for pending or email sent' do
+      invite_pending = build_stubbed(:invite, status: :pending)
+      invite_sent = build_stubbed(:invite, status: :email_sent)
+      [invite_pending, invite_sent].each { |i| assert i.can_edit? }
+    end
+
+    it 'correctly fails for accepted or rejected' do
+      invite_accepted = build_stubbed(:invite, status: :accepted)
+      invite_rejected = build_stubbed(:invite, status: :rejected)
+      [invite_accepted, invite_rejected].each { |i| refute i.can_edit? }
+    end
   end
 end

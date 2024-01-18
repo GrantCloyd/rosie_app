@@ -16,7 +16,7 @@ FactoryBot.define do
   factory :user do
     full_name { 'Cool Person' }
     password_digest { 'sosecret' }
-    email { 'yo@me.com' }
+    sequence(:email) { |n| "yo#{n}@me.com" }
     role { :super_admin }
   end
 end
