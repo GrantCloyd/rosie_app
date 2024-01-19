@@ -28,9 +28,19 @@
 #
 FactoryBot.define do
   factory :post do
-    association :user, strategy: :build
+    user
     section
     title { 'Cool Post' }
-    slug { "#{id}-#{title.parameterize}" }
+    slug { 'cool-post' }
+
+    trait :with_image do
+      after(:build) do |post|
+        post.images.attach(
+          io: File.open(Rails.root.join('test', 'fixtures', 'files', 'test.jpg')),
+          filename: 'test.jpg',
+          content_type: 'image/jpeg'
+        )
+      end
+    end
   end
 end

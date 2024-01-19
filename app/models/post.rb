@@ -40,10 +40,10 @@ class Post < ActiveRecord::Base
   has_many_attached :images
 
   validates :images, content_type: %i[png jpg jpeg]
-  validates :content, :title, :section_id, :user_id, :slug, presence: true
+  validates :title, :section_id, :user_id, presence: true
 
   before_save :resize_images_before_save
-  before_validation :set_slug, only: %i[create update]
+  after_validation :set_slug, only: %i[create update]
 
   enum status: {
     pending: 0,
@@ -93,6 +93,6 @@ class Post < ActiveRecord::Base
   end
 
   def set_slug
-    self.slug = title.parameterize.to_s
+    self.slug = title&.parameterize&.to_s
   end
 end

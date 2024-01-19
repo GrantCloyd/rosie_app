@@ -14,9 +14,3 @@ module ActiveSupport
     include FactoryBot::Syntax::Methods
   end
 end
-
-module Minitest
-  class Spec
-    include FactoryBot::Syntax::Methods
-  end
-end
