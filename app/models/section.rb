@@ -69,6 +69,8 @@ class Section < ActiveRecord::Base
   }
 
   def last_posts_pin_index
+    return @last_posts_pin_index if defined?(@last_posts_pin_index)
+
     @last_posts_pin_index ||= posts.pinned.order(pin_index: :DESC).limit(1).pluck(:pin_index)&.first
   end
 

@@ -32,16 +32,34 @@ require 'test_helper'
 
 class SectionTest < ActiveSupport::TestCase
   describe 'status change callback' do
+    it 'triggers a callback when the status is created as published' do
+      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+
+      create(:section, privacy_tier: :open_tier, status: :published)
+    end
+
+    it 'triggers a callback when the status is changed to published' do
+      section = create(:section, privacy_tier: :open_tier, status: :unpublished)
+      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+      section.update(status: :published)
+    end
+
+    it 'triggers a callback when the privacy tier is updated' do
+      section = create(:section, privacy_tier: :open_tier, status: :published)
+      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+      section.update(privacy_tier: :private_tier)
+    end
+
     it 'does not trigger a callback when status or privacy tier is not updated' do
       section = create(:section, privacy_tier: :private_tier, pin_index: nil)
       Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:new).never
       section.update(pin_index: 0)
     end
 
-    it 'does trigger a callback when the status is created as published' do
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+    it 'does not trigger a callback when the status is created as unpublished' do
+      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
 
-      create(:section, privacy_tier: :open_tier, status: :published)
+      create(:section, privacy_tier: :open_tier, status: :unpublished)
     end
 
     it 'does not trigger a callback when the status is created as unpublished' do
@@ -49,23 +67,60 @@ class SectionTest < ActiveSupport::TestCase
 
       create(:section, privacy_tier: :open_tier, status: :unpublished)
     end
+  end
 
-    it 'does trigger a callback when the status is changed to published' do
-      section = create(:section, privacy_tier: :open_tier, status: :unpublished)
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
-      section.update(status: :published)
+  describe '#last_posts_pin_index' do
+    it 'returns nil if none are present' do
+      section = build_stubbed(:section)
+
+      assert_nil section.last_posts_pin_index
     end
 
-    it 'does trigger a callback when the privacy tier is updated' do
-      section = create(:section, privacy_tier: :open_tier, status: :published)
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
-      section.update(privacy_tier: :private_tier)
+    it 'returns the last pin_index when present' do
+      section = create(:section)
+      create_list(:post, 3, section:) do |post, idx|
+        post.update(pin_index: idx)
+      end
+
+      assert_equal 2, section.last_posts_pin_index
+    end
+  end
+
+  describe '#any_posts_pinned?' do
+    it 'is false if no posts are present' do
+      section = build_stubbed(:section)
+
+      refute section.any_posts_pinned?
     end
 
-    it 'does not trigger a callback when the status is created as unpublished' do
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
+    it 'is false if any are present but no pin index exists' do
+      section = create(:section)
+      create(:post, section:)
 
-      create(:section, privacy_tier: :open_tier, status: :unpublished)
+      refute section.any_posts_pinned?
+
+      refute section.any_posts_pinned?
+    end
+
+    it 'is true if any are present and a pin index exists' do
+      section = create(:section)
+      create(:post, section:, pin_index: 0)
+
+      assert section.any_posts_pinned?
+    end
+  end
+
+  describe '#hidden_or_unpublished?' do
+    it 'succeeds when the expected status is present' do
+      sections_with_expected_status = %i[unpublished hidden].map do |status|
+        build_stubbed(:section, status:)
+      end
+
+      sections_with_expected_status.each { |sec| assert sec.unpublished_or_hidden? }
+    end
+
+    it 'fails when the section is published' do
+      refute build_stubbed(:section, status: :published).unpublished_or_hidden?
     end
   end
 end

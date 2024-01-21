@@ -25,5 +25,6 @@ Naming/MemoizedInstanceVariableName:
 Metrics/AbcSize:
   Enabled: false
 
-Minitest/MetricsBlockLength:
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*' 
