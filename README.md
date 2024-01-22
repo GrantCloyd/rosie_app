@@ -1,8 +1,8 @@
 # README
 
 * Ruby/Rails versions
-  - Ruby - 3.2.2
-  - Rails - 7.1.2
+  - Ruby - 3.3.0
+  - Rails - 7.1.3
 
 * System dependencies
   - Postgresql@16
@@ -12,13 +12,15 @@
 * Database creation
   - Install postgresql service (ie `brew install postgresql@16` and make sure to add path to zshrc or bash config file per prompt)
   - start postgresql service (ie `brew service start postgresql@16` or similar linux service command)
+  - Note - if you'd like to use the seed file, this app uses the dotenv gem for local development and has smtp set up for local development 
+    when sending emails as part of the invite to group flow. Create a .env file and add "SMTP_EMAIL" (an email address) and "ADMIN_SECRET" (whatever password you want to use). 
   - `rails db:create && rails db:migrate && rails db:seed`
 
 * Start App
   - install Ruby 3.2.2 (can use rbenv or asdf for version management)
   - install rails (`sudo gem install rails`) 
   - run `bundle` in root directory
-  - build css - `rails tailwindcss:build`
+  - build or watch css - `rails tailwindcss:build` or `rails tailwind:watch` if you want to make changes and have it recompile
   - create db/seed if you haven't already
   - `rails server`
   - open app on localhost:3000
@@ -27,7 +29,7 @@
 * For Sidekiq
   - install redis (`brew install redis` or similar)
   - start redis server
-  - run sidekiq via `sidekiq` command in root directory
+  - run sidekiq via `bundle exec sidekiq` command in root directory
 
+When you've got everything running - you'll need to create a super admin user to actually create a group using the interface. You can use the seed method mentioned in the database creation section or create one by running `rails console` and creating a user with the `role` of `:super_admin`
 
-* ...
