@@ -42,7 +42,7 @@ class Section < ActiveRecord::Base
   validates :title, presence: true, length: { in: 3..80 }
   validates :description, presence: true, length: { in: 3..125 }
 
-  before_validation :set_slug, only: %i[create update]
+  after_validation :set_slug, only: %i[create update]
 
   enum status: {
     unpublished: 0,
@@ -105,6 +105,8 @@ class Section < ActiveRecord::Base
   end
 
   def set_slug
+    return unless title.present?
+
     self.slug = title.parameterize.to_s
   end
 end

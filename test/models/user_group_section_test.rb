@@ -25,7 +25,62 @@
 require 'test_helper'
 
 class UserGroupSectionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  describe 'permission methods' do
+    describe '#moderator_or_creator?' do
+      it 'is valid if level matches' do
+        permission_levels = %i[moderator_level creator_level]
+
+        ug_secs = permission_level_generator(select_array: permission_levels)
+        ug_secs.each { |ugs| assert ugs.moderator_or_creator? }
+      end
+      it 'is not valid for other permission levels' do
+        permission_levels = %i[creator_level moderator_level]
+
+        ug_secs = permission_level_generator(except_array: permission_levels)
+        ug_secs.each { |ugs| refute ugs.moderator_or_creator? }
+      end
+    end
+
+    describe '#can_post?' do
+      it 'is valid if level matches' do
+        permission_levels = %i[moderator_level creator_level contributor_level]
+
+        ug_secs = permission_level_generator(select_array: permission_levels)
+        ug_secs.each { |ugs| assert ugs.can_post? }
+      end
+      it 'is not valid for other permission levels' do
+        permission_levels = %i[moderator_level creator_level contributor_level]
+
+        ug_secs = permission_level_generator(except_array: permission_levels)
+        ug_secs.each { |ugs| refute ugs.can_post? }
+      end
+    end
+
+    describe '#can_comment?' do
+      it 'is valid if level matches' do
+        permission_levels = %i[reader_level blocked_level]
+
+        ug_secs = permission_level_generator(except_array: permission_levels)
+        ug_secs.each { |ugs| assert ugs.can_comment? }
+      end
+      it 'is not valid for other permission levels' do
+        permission_levels = %i[reader_level blocked_level]
+
+        ug_secs = permission_level_generator(select_array: permission_levels)
+        ug_secs.each { |ugs| refute ugs.can_comment }
+      end
+    end
+  end
+
+  private
+
+  def permission_level_generator(select_array: nil, except_array: nil)
+    if select_array.present?
+      UserGroupSection.permission_levels.select do |k, _v|
+        select_array.include?(k)
+      end.keys.map { |permission_level| build_stubbed(:user_group_section, permission_level:) }
+    else
+      UserGroupSection.permission_levels.except(*except_array).keys.map { |permission_level| build_stubbed(:user_group_section, permission_level:) }
+    end
+  end
 end

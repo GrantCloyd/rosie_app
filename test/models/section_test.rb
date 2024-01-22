@@ -31,41 +31,51 @@
 require 'test_helper'
 
 class SectionTest < ActiveSupport::TestCase
-  describe 'status change callback' do
-    it 'triggers a callback when the status is created as published' do
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+  describe 'callbacks' do
+    describe '#set_slug' do
+      it 'sets the slug when a section is created' do
+        section = create(:section, title: 'What in the')
 
-      create(:section, privacy_tier: :open_tier, status: :published)
+        assert_equal 'what-in-the', section.slug
+      end
     end
 
-    it 'triggers a callback when the status is changed to published' do
-      section = create(:section, privacy_tier: :open_tier, status: :unpublished)
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
-      section.update(status: :published)
-    end
+    describe 'status change and #upsert_user_group_section' do
+      it 'triggers when section is created as published' do
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
 
-    it 'triggers a callback when the privacy tier is updated' do
-      section = create(:section, privacy_tier: :open_tier, status: :published)
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
-      section.update(privacy_tier: :private_tier)
-    end
+        create(:section, privacy_tier: :open_tier, status: :published)
+      end
 
-    it 'does not trigger a callback when status or privacy tier is not updated' do
-      section = create(:section, privacy_tier: :private_tier, pin_index: nil)
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:new).never
-      section.update(pin_index: 0)
-    end
+      it 'triggers when the status is changed to published' do
+        section = create(:section, privacy_tier: :open_tier, status: :unpublished)
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+        section.update(status: :published)
+      end
 
-    it 'does not trigger a callback when the status is created as unpublished' do
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
+      it 'triggers when the privacy tier is updated' do
+        section = create(:section, privacy_tier: :open_tier, status: :published)
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).once
+        section.update(privacy_tier: :private_tier)
+      end
 
-      create(:section, privacy_tier: :open_tier, status: :unpublished)
-    end
+      it 'does not trigger when status or privacy tier is not updated' do
+        section = create(:section, privacy_tier: :private_tier, pin_index: nil)
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:new).never
+        section.update(pin_index: 0)
+      end
 
-    it 'does not trigger a callback when the status is created as unpublished' do
-      Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
+      it 'does not trigger when the status is created as unpublished' do
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
 
-      create(:section, privacy_tier: :open_tier, status: :unpublished)
+        create(:section, privacy_tier: :open_tier, status: :unpublished)
+      end
+
+      it 'does not trigger when the status is created as unpublished' do
+        Sections::CreateOrUpdateUserGroupSectionsService.any_instance.expects(:call).never
+
+        create(:section, privacy_tier: :open_tier, status: :unpublished)
+      end
     end
   end
 
