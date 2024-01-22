@@ -67,7 +67,22 @@ class UserGroupSectionTest < ActiveSupport::TestCase
         permission_levels = %i[reader_level blocked_level]
 
         ug_secs = permission_level_generator(select_array: permission_levels)
-        ug_secs.each { |ugs| refute ugs.can_comment }
+        ug_secs.each { |ugs| refute ugs.can_comment? }
+      end
+    end
+
+    describe '#can_view?' do
+      it 'is valid if level matches' do
+        permission_levels = %i[blocked_level]
+
+        ug_secs = permission_level_generator(except_array: permission_levels)
+        ug_secs.each { |ugs| assert ugs.can_view? }
+      end
+      it 'is not valid for other permission levels' do
+        permission_levels = %i[blocked_level]
+
+        ug_secs = permission_level_generator(select_array: permission_levels)
+        ug_secs.each { |ugs| refute ugs.can_view? }
       end
     end
   end
