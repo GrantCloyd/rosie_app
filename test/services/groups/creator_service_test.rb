@@ -8,35 +8,28 @@ module Groups
       subject { CreatorService.new(params:, user:) }
 
       describe 'success' do
-        it 'creates a group' do
-          assert_difference 'Group.count' do
-            subject.call
-          end
-        end
-
-        it 'creates a user_group' do
+        it 'creates a Group and UserGroup' do
           assert_difference 'UserGroup.count' do
-            subject.call
+            assert_difference 'Group.count' do
+              subject.call
+            end
           end
         end
 
-        it 'returns a group' do
+        it 'returns a valid group' do
           group = subject.call
           assert_equal 'Group', group.class.name
+          assert group.valid?
         end
       end
 
       describe 'failure' do
         let(:params) { { status: :closed, title: 'yo' } }
-        it 'does not create a group' do
-          assert_no_difference 'Group.count' do
-            subject.call
-          end
-        end
-
-        it 'does not create a user_group' do
+        it 'does not create a Group or UserGroup' do
           assert_no_difference 'UserGroup.count' do
-            subject.call
+            assert_no_difference 'Group.count' do
+              subject.call
+            end
           end
         end
 

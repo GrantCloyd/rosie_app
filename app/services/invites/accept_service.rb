@@ -9,7 +9,7 @@ module Invites
     def call
       @user_group = convert_invite_to_user_group
 
-      if @user_group.save!
+      if @user_group.save
         update_invite_status!
         create_user_group_sections!
         notify_group_creator!
