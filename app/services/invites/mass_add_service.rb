@@ -17,7 +17,7 @@ module Invites
         invite = Invites::CreatorService.new(
           params: @params.except(:target_emails).merge({ target_email: email }),
           group: @group,
-          sender: @sender
+          sender_name: @sender.full_name
         ).call
 
         if invite.errors.present?

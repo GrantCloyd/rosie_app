@@ -13,7 +13,7 @@ module Groups
     end
 
     def create
-      invite = Invites::CreatorService.new(params: invite_params, group: @group, sender: current_user).call
+      invite = Invites::CreatorService.new(params: invite_params, group: @group, sender_name: current_user.full_name).call
 
       if invite.errors.present?
         respond_to do |format|
