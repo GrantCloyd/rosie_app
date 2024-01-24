@@ -12,7 +12,6 @@
 #  updated_at :datetime         not null
 #
 require 'test_helper'
-require 'sidekiq/testing'
 
 class GroupTest < ActiveSupport::TestCase
   describe 'callbacks' do

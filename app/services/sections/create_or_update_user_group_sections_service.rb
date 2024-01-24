@@ -7,7 +7,7 @@ module Sections
     end
 
     def call
-      create_user_group_sections
+      create_user_group_sections #unless Rails.env.test?
     end
 
     private

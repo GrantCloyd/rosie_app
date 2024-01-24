@@ -29,7 +29,9 @@
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
+  
   describe 'validations' do
+  
     it 'checks for presence and fails if attributes are nil' do
       %w[title section_id user_id].each do |attr|
         post = build_stubbed(:post)
@@ -41,8 +43,12 @@ class PostTest < ActiveSupport::TestCase
   end
 
   describe 'callbacks' do
+   before do 
+      (ActiveJob::Base.descendants + [ActiveJob::Base]).each(&:disable_test_adapter)
+    end
     it 'sets the slug on create' do
       post = create(:post, title: 'Dancing some yo')
+
 
       assert_equal 'dancing-some-yo', post.slug
     end

@@ -26,10 +26,16 @@
   - open app on localhost:3000
   - profit
 
-* For Sidekiq
-  - install redis (`brew install redis` or similar)
-  - start redis server
-  - run sidekiq via `bundle exec sidekiq` command in root directory
+* For GoodJob (Postgresql backed queue adapter for background jobs)
+  - be sure to have run the database migrations (currently tethered to primary database)
+  -  good_job is configured to run async which utiilizes background thread pool as part of running `rails server`
+  - can run seperately locally via executing the `bundle exec good_job` command in root directory 
+  after changing `config.good_job.execution_mode` from `:async` to `:external` in `config/environments/development`
+
+* For Testing
+  - This currently uses rails/minitest spec style approach with factory bot and mocha
+  - You'll need to build the database for tests so `rails db:create RAILS_ENV=test && rails db:migrate RAILS_ENV=test`
+  - run all using `bundle exec rails test`
 
 When you've got everything running - you'll need to create a super admin user to actually create a group using the interface. You can use the seed method mentioned in the database creation section or create one by running `rails console` and creating a user with the `role` of `:super_admin`
 

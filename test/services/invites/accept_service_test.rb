@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sidekiq/testing'
-
 module Invites
   class AcceptServiceTest < ActiveSupport::TestCase
     describe '#call' do

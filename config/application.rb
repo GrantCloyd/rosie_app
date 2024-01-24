@@ -26,8 +26,8 @@ module RosieApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Use sidekiq for active jobs/mailer
-    config.active_job.queue_adapter = :sidekiq
+    # Use good_job for active job management - postgresql backed rather than redis backed
+    config.active_job.queue_adapter = :good_job
 
     # image processing should use minimagick
     Rails.application.config.active_storage.variant_processor

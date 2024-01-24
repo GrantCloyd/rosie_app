@@ -19,9 +19,6 @@ gem 'puma', '>= 5.0'
 # tailwind css
 gem 'tailwindcss-rails', '~> 2.0'
 
-# pry gem
-gem 'pry', '~> 0.14.2'
-
 # rubocop
 gem 'rubocop', require: false
 
@@ -40,8 +37,9 @@ gem 'stimulus-rails'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-# sidekiq gem
-gem 'sidekiq', '~> 7.1', '>= 7.1.2'
+
+# good_job for postgresql backed background jobs
+gem 'good_job'
 
 # aws for s3
 gem 'aws-sdk-s3', require: false
@@ -72,7 +70,9 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'dotenv-rails'
   # include in dev to cause generation of bot rather than fixture
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
+  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'\
+  # pry gem
+  gem 'pry', '~> 0.14.2'
 end
 
 group :development do

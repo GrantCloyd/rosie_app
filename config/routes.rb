@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -44,8 +42,10 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  #sidekiq
-  mount Sidekiq::Web => '/sidekiq'
+
+  #good_job view
+  mount GoodJob::Engine => 'good_job'
+
 
   # Defines the root path route ("/")
   root 'sessions#new'

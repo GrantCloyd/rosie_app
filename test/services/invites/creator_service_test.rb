@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sidekiq/testing'
-
 module Invites
   class CreatorServiceTest < ActiveSupport::TestCase
     let(:group) { create(:group) }

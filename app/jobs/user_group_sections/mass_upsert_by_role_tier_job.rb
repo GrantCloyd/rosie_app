@@ -12,11 +12,9 @@ module UserGroupSections
 
       user_group_section_attributes = build_user_group_section_attributes(user_groups, section, role_tier)
 
-      UserGroupSection
-        .upsert_all(
-          user_group_section_attributes,
-          unique_by: %i[user_group_id section_id]
-        )
+      return unless user_group_section_attributes
+
+      UserGroupSection.upsert_all(user_group_section_attributes, unique_by: %i[user_group_id section_id])
     end
 
     private
@@ -27,7 +25,7 @@ module UserGroupSections
       else
         permission_level = SectionRolePermission.find_by(section_id: section.id, role_tier:)&.permission_level
 
-        return unless permission_level
+        return unless permission_level.present?
 
         build_non_creator_group_section_attributes(user_groups, section, permission_level)
       end
