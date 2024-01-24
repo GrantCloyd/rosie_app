@@ -12,6 +12,7 @@ module UserGroupSections
 
       user_group_section_attributes = build_user_group_section_attributes(user_groups, section, role_tier)
 
+      # TODO: - add rollbar error logging
       return unless user_group_section_attributes
 
       UserGroupSection.upsert_all(user_group_section_attributes, unique_by: %i[user_group_id section_id])

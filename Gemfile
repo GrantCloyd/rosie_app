@@ -37,7 +37,6 @@ gem 'stimulus-rails'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-
 # good_job for postgresql backed background jobs
 gem 'good_job'
 
@@ -70,7 +69,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'dotenv-rails'
   # include in dev to cause generation of bot rather than fixture
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'\
+  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
   # pry gem
   gem 'pry', '~> 0.14.2'
 end
