@@ -10,8 +10,7 @@ module Invites
       group_creator = User.joins(:user_groups)
                           .find_by(user_groups: { group_id:, role: :creator })
 
-      # TODO: - add some kind of error log
-      return unless new_user && group_title && group_creator
+      return Rollbar.error("#{group_id} or #{new_user_id} had an error on sign up") unless new_user && group_title && group_creator
 
       GroupInviteMailer
         .with(

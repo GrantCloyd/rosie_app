@@ -12,8 +12,9 @@ module UserGroupSections
 
       user_group_section_attributes = build_user_group_section_attributes(user_groups, section, role_tier)
 
-      # TODO: - add rollbar error logging
-      return unless user_group_section_attributes
+      unless user_group_section_attributes
+        return Rollbar.error("Setion id: #{section.id}, title: #{section.title} is missing one or more permissions")
+      end
 
       UserGroupSection.upsert_all(user_group_section_attributes, unique_by: %i[user_group_id section_id])
     end
