@@ -27,15 +27,16 @@ module Groups
 
     def mass_add
       # to do - make async
-      mass_add_service = Invites::MassAddService.new(params: mass_add_params, group: @group, sender: current_user)
-      mass_add_service.call
+      mass_add_service = Invites::MassAddService.new(params: mass_add_params, group: @group, sender_name: current_user.full_name)
+      mass_add_service.create_invites
 
       if mass_add_service.results[:errors].any?
         respond_to do |format|
-          render_turbo_flash_alert(format, mass_add_service.display_error_messages.to_s)
+          render_turbo_flash_alert(format, mass_add_service.display_error_messages)
           format.html { render :new }
         end
       else
+        # TODO, use successes and append via turbo stream
         redirect_to new_group_invite_path(@group.id), notice: 'Invites sent!'
       end
     end

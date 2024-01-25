@@ -4,26 +4,26 @@ module Invites
   class MassAddService
     attr_reader :results
 
-    def initialize(params:, group:, sender:)
-      @params = params
+    def initialize(params:, group:, sender_name:)
       @target_emails = params[:target_emails].split
+      @params = params.except(:target_emails)
       @group = group
-      @sender = sender
-      @results = { success: [], errors: [] }
+      @sender_name = sender_name
+      @results = { successes: [], errors: [] }
     end
 
-    def call
+    def create_invites
       @target_emails.each do |email|
         invite = Invites::CreatorService.new(
-          params: @params.except(:target_emails).merge({ target_email: email }),
+          params: @params.merge({ target_email: email }),
           group: @group,
-          sender_name: @sender.full_name
+          sender_name: @sender_name
         ).call
 
         if invite.errors.present?
           @results[:errors] << invite
         else
-          @results[:success] << invite
+          @results[:successes] << invite
         end
       end
     end

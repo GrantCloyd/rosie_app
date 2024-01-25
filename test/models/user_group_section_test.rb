@@ -93,7 +93,7 @@ class UserGroupSectionTest < ActiveSupport::TestCase
     if select_array.present?
       UserGroupSection.permission_levels.select do |k, _v|
         select_array.include?(k)
-      end.keys.map { |permission_level| build_stubbed(:user_group_section, permission_level:) }
+      end.keys.map { |permission_level| build_stubbed(:user_group_section, permission_level:) } # rubocop:disable Style/MultilineBlockChain
     else
       UserGroupSection.permission_levels.except(*except_array).keys.map { |permission_level| build_stubbed(:user_group_section, permission_level:) }
     end

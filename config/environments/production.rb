@@ -73,6 +73,7 @@ Rails.application.configure do
    config.active_job.queue_adapter = :good_job
    config.good_job.execution_mode = :external
    config.active_job.queue_name_prefix = "rosie_app_production"
+   config.good_job.on_thread_error = -> (exception) { Rollbar.error(exception) }
 
   config.action_mailer.perform_caching = false
 
