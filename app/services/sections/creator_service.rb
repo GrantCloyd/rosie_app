@@ -2,8 +2,6 @@
 
 module Sections
   class CreatorService
-    SECTION_ROLE_PERMISSION_CREATION_TIERS = SectionRolePermission.role_tiers.except(:creator).keys
-
     def initialize(params:, user:, user_group:)
       @section = Section.new(params)
       @user = user
@@ -31,6 +29,7 @@ module Sections
       )
     end
 
+    # currently a creator srp is not defined/created as users with creator roles are given all permissions
     def create_default_section_role_permissions
       SectionRolePermission::DEFAULT_TIER_TO_PERMISSION_MAP.each do |role_tier, permission_level|
         SectionRolePermission.create(section: @section, role_tier:, permission_level:)

@@ -15,10 +15,10 @@ class GroupInviteMailer < ApplicationMailer
   end
 
   def notify_group_creator
-    @group_creator = params[:group_creator]
+    @group_creator_email = params[:group_creator_email]
     @group_title = params[:group_title]
-    @new_user = params[:new_user]
-    mail(to: @group_creator.email, subject: 'A new member has joined your group')
+    @new_user_full_name = params[:new_user_full_name]
+    mail(to: @group_creator_email, subject: 'A new member has joined your group')
   end
 
   private
