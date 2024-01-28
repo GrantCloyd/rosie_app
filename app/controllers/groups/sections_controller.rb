@@ -3,6 +3,7 @@
 module Groups
   class SectionsController < Groups::BaseGroupsController # rubocop:disable Metrics/ClassLength
     before_action :set_section, only: %i[show destroy update]
+    # fewer eager loads
     before_action :set_section_for_custom_actions, only: %i[pin unpin publish unpublish]
     before_action :set_user_group_section, only: %i[show pin unpin edit update publish unpublish]
 
@@ -36,7 +37,7 @@ module Groups
     end
 
     def edit
-      @section = Section.includes(:section_role_permissions).find_by(id:params[:id])
+      @section = Section.includes(:section_role_permissions).find(params[:id])
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/edit' }
         format.html { render :edit }

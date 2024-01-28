@@ -58,7 +58,7 @@ module Invites
           subject.create_invites
           assert_equal 2, subject.errors.count
           assert_empty subject.successes
-          assert_equal "** Invite for oopsididntdoitright could not be sent: Target email is invalid\n\n** Invite for sosowrongemail could not be sent: Target email is invalid",
+          assert_equal "** Invite for oopsididntdoitright could not be sent: Target email is invalid\n\n** Invite for sosowrongemail could not be sent: Target email is invalid", # rubocop:disable Layout/LineLength
                        subject.display_error_messages
         end
       end

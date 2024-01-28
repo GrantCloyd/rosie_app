@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: %i[create destroy new]
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create ]
+  resources :recovery, only: %i[new forgot_password reset_password]
 
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
