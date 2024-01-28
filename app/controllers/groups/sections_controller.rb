@@ -2,7 +2,8 @@
 
 module Groups
   class SectionsController < Groups::BaseGroupsController # rubocop:disable Metrics/ClassLength
-    before_action :set_section, only: %i[show pin unpin edit update publish unpublish destroy]
+    before_action :set_section, only: %i[show destroy update]
+    before_action :set_section_for_custom_actions, only: %i[pin unpin publish unpublish]
     before_action :set_user_group_section, only: %i[show pin unpin edit update publish unpublish]
 
     def new; end
@@ -35,6 +36,7 @@ module Groups
     end
 
     def edit
+      @section = Section.includes(:section_role_permissions).find_by(id:params[:id])
       respond_to do |format|
         format.turbo_stream { render 'groups/sections/streams/edit' }
         format.html { render :edit }
@@ -111,11 +113,8 @@ module Groups
       end
     end
 
-    def pin_shift # rubocop:disable Metrics/MethodLength
-      pin_index = params[:pin_index].to_i
-      shift_direction = params[:shift_direction].to_sym
-
-      pin_indices = shift_direction == :up ? [pin_index, pin_index - 1] : [pin_index, pin_index + 1]
+    def pin_shift
+      pin_indices = pin_shift_direction == :up ? [pin_shift_index, pin_shift_index - 1] : [pin_shift_index, pin_shift_index + 1]
       sections = Section.where(pin_index: pin_indices).order(:pin_index)
 
       if sections.size == 2
@@ -172,8 +171,24 @@ module Groups
       @section = Section.includes(:posts, :section_role_permissions).find(params[:id])
     end
 
+    def set_section_for_custom_actions
+      @section = Section.find(params[:id])
+    end
+
     def set_user_group_section
       @user_group_section ||= UserGroupSection.current_user_group_section(user_group: @user_group, section: @section)
+    end
+
+    def pin_shift_index
+      @pin_shift_index ||= pin_shift_params[:pin_index].to_i
+    end
+
+    def pin_shift_direction
+      @pin_shift_direction ||= pin_shift_params[:shift_direction].to_sym
+    end
+
+    def pin_shift_params
+      params.permit(:pin_index, :shift_direction)
     end
   end
 end
