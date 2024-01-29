@@ -11,7 +11,7 @@ module Invites
                                 .where(user_groups: { group_id:, role: :creator })
                                 .order(:created_at).limit(1).first&.email
 
-      return Rollbar.error("#{group_id} or #{new_user_id} had an error on sign up") unless new_user && group_title && group_creator
+      return Rollbar.error("#{group_id} or #{new_user_id} had an error on sign up") unless new_user_full_name && group_title && group_creator_email
 
       GroupInviteMailer
         .with(
