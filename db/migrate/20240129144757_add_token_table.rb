@@ -9,6 +9,6 @@ class AddTokenTable < ActiveRecord::Migration[7.1]
 
     add_index :tokens, [:kind, :user_id], unique: true
     add_index :tokens, :expires_at
-    add_index :tokens, :code, using: 'hash'
+    add_index :tokens, :code, unique: true
   end
 end

@@ -213,7 +213,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_144757) do
     t.bigint "user_id", null: false
     t.string "code", null: false
     t.datetime "expires_at", null: false
-    t.index ["code"], name: "index_tokens_on_code", using: :hash
+    t.index ["code"], name: "index_tokens_on_code", unique: true
     t.index ["expires_at"], name: "index_tokens_on_expires_at"
     t.index ["kind", "user_id"], name: "index_tokens_on_kind_and_user_id", unique: true
     t.index ["user_id"], name: "index_tokens_on_user_id"

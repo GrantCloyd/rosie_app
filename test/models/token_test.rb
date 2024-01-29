@@ -12,7 +12,7 @@
 #
 # Indexes
 #
-#  index_tokens_on_code              (code) USING hash
+#  index_tokens_on_code              (code) UNIQUE
 #  index_tokens_on_expires_at        (expires_at)
 #  index_tokens_on_kind_and_user_id  (kind,user_id) UNIQUE
 #  index_tokens_on_user_id           (user_id)
