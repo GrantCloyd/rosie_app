@@ -23,7 +23,6 @@
 #
 class Token < ApplicationRecord
   belongs_to :user
-  validates :code, length: { is: 36 }
 
   enum kind: {
     authentication: 0,

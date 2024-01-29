@@ -24,7 +24,7 @@
 FactoryBot.define do
   factory :token do
     user
-    code  { SecureRandom.hex(36) }
+    code  { SecureRandom.urlsafe_base64 }
 
     trait :recovery do
       kind { :recovery }
