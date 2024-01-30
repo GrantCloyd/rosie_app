@@ -22,7 +22,7 @@ class UnpinService
   end
 
   def reindex_belongs_to_assoc_pin_indices
-    # all pinned items higher than current
+    # all pinned items higher than current in order
     pluralized_association = @pinnable.class.name.downcase.pluralize.to_sym
     pinnables = @belongs_to_assoc.send(pluralized_association).where(pin_index: @current_pin_index..).order(:pin_index)
 
