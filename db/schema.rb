@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_152300) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_29_144757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -208,6 +208,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_152300) do
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
+  create_table "tokens", force: :cascade do |t|
+    t.integer "kind", null: false
+    t.bigint "user_id", null: false
+    t.string "code", null: false
+    t.datetime "expires_at", null: false
+    t.index ["code"], name: "index_tokens_on_code", unique: true
+    t.index ["expires_at"], name: "index_tokens_on_expires_at"
+    t.index ["kind", "user_id"], name: "index_tokens_on_kind_and_user_id", unique: true
+    t.index ["user_id"], name: "index_tokens_on_user_id"
+  end
+
   create_table "user_group_sections", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.bigint "user_group_id", null: false
@@ -271,6 +282,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_152300) do
   add_foreign_key "section_role_permissions", "sections"
   add_foreign_key "sections", "groups"
   add_foreign_key "sections", "users"
+  add_foreign_key "tokens", "users"
   add_foreign_key "user_group_sections", "sections"
   add_foreign_key "user_group_sections", "user_groups"
   add_foreign_key "user_groups", "groups"
