@@ -27,15 +27,93 @@ module UserGroupSections
       end
 
       describe 'when user_group_section does not exist' do
-        let(:user_group) { create(:user_group, role: :subscriber) }
-        let(:section) { create(:section, group: user_group.group) }
-        let(:section_role_permission) { create(:section_role_permission, :default_subscriber, section:) }
+        describe 'when section is open and user does not have private access' do
+          let(:user_group) { create(:user_group, role: :subscriber, privacy_tier: :no_private_access) }
+          let(:section) { create(:section, privacy_tier: :open_tier, group: user_group.group) }
+          let(:section_role_permission) { create(:section_role_permission, :default_subscriber, section:) }
 
-        before { section_role_permission }
+          before { section_role_permission }
 
-        it 'creates a new one' do
-          assert_difference 'UserGroupSection.count' do
-            subject.call
+          it 'creates a new user_group_section' do
+            assert_difference 'UserGroupSection.count' do
+              subject.call
+            end
+          end
+
+          it 'returns the user_group_section, sets permissions to the expected level, and attaches the correct associations' do
+            user_group_section = subject.call
+
+            assert_equal 'commenter_level', user_group_section.permission_level
+            assert_equal section, user_group_section.section
+            assert_equal user_group, user_group_section.user_group
+          end
+
+          it 'subsequent calls return the same object' do
+            newly_created_user_group_section = subject.call
+            subsequent_call_user_group_section = subject.call
+
+            assert_equal newly_created_user_group_section,
+                         subsequent_call_user_group_section
+          end
+        end
+
+        describe 'when section is closed and user does not have private access' do
+          let(:user_group) { create(:user_group, role: :subscriber, privacy_tier: :no_private_access) }
+          let(:section) { create(:section, privacy_tier: :private_tier, group: user_group.group) }
+          let(:section_role_permission) { create(:section_role_permission, :default_subscriber, section:) }
+
+          it 'creates a new user_group_section' do
+            assert_difference 'UserGroupSection.count' do
+              subject.call
+            end
+          end
+
+          it 'creates a blocked user_group_section' do
+            user_group_section = subject.call
+
+            assert_equal 'blocked_level', user_group_section.permission_level
+          end
+        end
+
+        describe 'when user_group is creator level and no creator permission level exists' do
+          let(:user_group) { create(:user_group, role: :creator, privacy_tier: :all_access) }
+          let(:section) { create(:section, privacy_tier: :private_tier, group: user_group.group) }
+
+          it 'creates a new user_group_section' do
+            assert_difference 'UserGroupSection.count' do
+              subject.call
+            end
+          end
+
+          it 'creates a creator level user_group_section' do
+            user_group_section = subject.call
+
+            assert_equal 'creator_level', user_group_section.permission_level
+          end
+        end
+
+        describe 'when section is private and user has private access' do
+          let(:user_group) { create(:user_group, role: :subscriber, privacy_tier: :private_access) }
+          let(:section) { create(:section, privacy_tier: :private_tier, group: user_group.group) }
+          let(:section_role_permission) { create(:section_role_permission, :default_subscriber, section:) }
+
+          before { section_role_permission }
+
+          it 'creates a the expected permission level user_group_section' do
+            user_group_section = subject.call
+
+            assert_equal 'commenter_level', user_group_section.permission_level
+          end
+        end
+
+        describe 'when section is private and user has private access but no section role permission exists' do
+          let(:user_group) { create(:user_group, role: :subscriber, privacy_tier: :private_access) }
+          let(:section) { create(:section, privacy_tier: :private_tier, group: user_group.group) }
+
+          it 'creates a default reader permission level user_group_section' do
+            user_group_section = subject.call
+
+            assert_equal 'reader_level', user_group_section.permission_level
           end
         end
       end
