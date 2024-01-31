@@ -23,7 +23,15 @@
 FactoryBot.define do
   factory :section_role_permission do
     section
-    permission_level { :creator_level }
-    role_tier { :creator }
+
+    trait :default_subscriber do
+      permission_level { :commenter_level }
+      role_tier { :subscriber }
+    end
+
+    trait :default_moderator do
+      permission_level { :moderator_level }
+      role_tier { :moderator }
+    end
   end
 end

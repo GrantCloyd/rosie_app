@@ -24,8 +24,8 @@
 #
 FactoryBot.define do
   factory :user_group_section do
-    association :user_group, strategy: :build
-    association :section, strategy: :build
+    user_group
+    section
     permission_level { :creator_level }
   end
 end

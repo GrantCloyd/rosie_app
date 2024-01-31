@@ -25,7 +25,7 @@ require 'test_helper'
 class SectionRolePermissionTest < ActiveSupport::TestCase
   describe 'status change callback' do
     it 'does not trigger a callback when status is not updated' do
-      srp = create(:section_role_permission, role_tier: :creator)
+      srp = create(:section_role_permission, role_tier: :creator, permission_level: :creator_level)
       UserGroupSections::MassUpsertByRoleTierJob.expects(:perform_later).never
       srp.update(role_tier: :subscriber)
     end
