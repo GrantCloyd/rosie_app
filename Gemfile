@@ -38,13 +38,13 @@ gem 'stimulus-rails'
 # gem "redis", ">= 4.0.1"
 
 # good_job for postgresql backed background jobs
-gem 'good_job'
+gem 'good_job', '~> 3.23.0'
 
 # aws for s3
 gem 'aws-sdk-s3', require: false
 
 # error logging in heroku
-gem 'rollbar'
+gem 'rollbar', '~> 3.5.1'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -67,7 +67,7 @@ gem 'active_storage_validations'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', '~> 2.8.1'
   # include in dev to cause generation of bot rather than fixture
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
   # pry gem
@@ -79,7 +79,7 @@ group :development do
   gem 'web-console'
 
   # annotate gem for clearer classes
-  gem 'annotate'
+  gem 'annotate', '~> 3.2.0'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -91,7 +91,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
-  gem 'minitest-rails'
-  gem 'mocha'
+  gem 'minitest-rails', '~> 7.1.0'
+  gem 'mocha', '~> 2.1.0'
   gem 'selenium-webdriver'
 end

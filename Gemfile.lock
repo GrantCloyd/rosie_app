@@ -332,24 +332,24 @@ PLATFORMS
 
 DEPENDENCIES
   active_storage_validations
-  annotate
+  annotate (~> 3.2.0)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap
   capybara
   debug
-  dotenv-rails
+  dotenv-rails (~> 2.8.1)
   factory_bot_rails (~> 6.4, >= 6.4.2)
-  good_job
+  good_job (~> 3.23.0)
   image_processing (~> 1.2)
   importmap-rails
-  minitest-rails
-  mocha
+  minitest-rails (~> 7.1.0)
+  mocha (~> 2.1.0)
   pg (~> 1.1)
   pry (~> 0.14.2)
   puma (>= 5.0)
   rails (~> 7.1.3)
-  rollbar
+  rollbar (~> 3.5.1)
   rubocop
   selenium-webdriver
   spring
