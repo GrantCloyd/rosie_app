@@ -25,9 +25,31 @@
 #
 FactoryBot.define do
   factory :user_group do
-    association :user, strategy: :build
-    association :group, strategy: :build
-    privacy_tier { :all_access }
-    role { :creator }
+    association :user
+    association :group
+
+    trait :creator do
+      role { :creator }
+    end
+
+    trait :subscriber do
+      role { :subscriber }
+    end
+
+    trait :moderator do
+      role { :moderator }
+    end
+
+    trait :no_private_access do
+      privacy_tier { :no_private_access }
+    end
+
+    trait :all_access do
+      privacy_tier { :all_access }
+    end
+
+    trait :private_access do
+      privacy_tier { :private_access }
+    end
   end
 end
