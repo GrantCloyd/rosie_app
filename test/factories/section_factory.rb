@@ -30,11 +30,22 @@
 #
 FactoryBot.define do
   factory :section do
-    association :user, strategy: :build
-    association :group, strategy: :build
+    association :user
+    association :group
     title { 'Cool section' }
-    status { :published }
     description { 'cool words yo' }
     slug { 'cool-section' }
+
+    trait :published do
+      status { :published }
+    end
+
+    trait :unpublished do
+      status { :unpublished }
+    end
+
+    trait :private_tier do
+      privacy_tier { :private_tier }
+    end
   end
 end

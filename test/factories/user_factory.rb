@@ -17,6 +17,9 @@ FactoryBot.define do
     full_name { 'Cool Person' }
     password_digest { 'sosecret' }
     sequence(:email) { |n| "yo#{n}@me.com" }
-    role { :super_admin }
+
+    trait :super_admin do
+      role { :super_admin }
+    end
   end
 end

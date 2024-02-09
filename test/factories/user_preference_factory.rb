@@ -21,6 +21,6 @@
 #
 FactoryBot.define do
   factory :user_preference do
-    association :user, strategy: :build
+    association :user
   end
 end

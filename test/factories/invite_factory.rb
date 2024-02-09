@@ -29,8 +29,8 @@
 #
 FactoryBot.define do
   factory :invite do
-    association :user, strategy: :build
-    association :group, strategy: :build
+    association :user
+    association :group
     target_email { 'notyo@me.com' }
     note { 'Join this cool group notyo' }
   end

@@ -26,6 +26,17 @@ FactoryBot.define do
   factory :user_group_section do
     user_group
     section
-    permission_level { :creator_level }
+
+    trait :creator_level do
+      permission_level { :creator_level }
+    end
+
+    trait :commenter_level do
+      permission_level { :commenter_level }
+    end
+
+    trait :blocked_level do
+      permission_level { :blocked }
+    end
   end
 end

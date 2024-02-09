@@ -24,7 +24,7 @@
 #
 FactoryBot.define do
   factory :user_reaction do
-    association :user, strategy: :build
+    association :user
     reactionable_type { 'Post' }
     reactionable factory: :post
     status { :like }

@@ -14,7 +14,10 @@
 FactoryBot.define do
   factory :group do
     title { 'Cool group' }
-    status { :closed }
     slug { 'cool-group' }
+
+    trait :open do
+      status { :open }
+    end
   end
 end
