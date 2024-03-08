@@ -24,7 +24,7 @@
 #
 class UserReaction < ActiveRecord::Base
   belongs_to :user
-  belongs_to :reactionable
+  belongs_to :reactionable, polymorphic: true
 
   enum status: {
     like: 0,
